@@ -1,0 +1,22 @@
+@forward './includeMedia.scss';
+
+$break-xs: "<376px";
+$break-sm: "<768px";
+$break-md: ">=768px";
+$break-lg: ">1024px";
+
+$color-white: white;
+
+$typeface-primary: sans-serif;
+
+$border-radius: 5px;
+
+$box-shadow: 2px 2px 8px 2px rgba(25, 25, 25, 0.3);
+$text-shadow: 2px 2px 4px rgba(25, 25, 25, 0.2);
+
+@mixin flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}

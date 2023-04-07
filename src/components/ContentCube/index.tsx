@@ -1,10 +1,10 @@
 import { useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import { Material, Mesh } from "three"
+import { GLTF } from "three-stdlib"
+import { DoubleSide, Mesh, MeshPhysicalMaterial } from "three"
 
 import lampModel from '../../assets/Iridescence.glb'
-import { GLTF } from "three-stdlib"
 
 function useGLTFExtended(path: string): GLTFWithMaterials {
   const effects = useGLTF(path)
@@ -18,23 +18,34 @@ function ContentCube() {
   const rotationRef = useRef<number>(0)
   const { materials } = useGLTFExtended(lampModel)
 
+  const iridescentMaterial = materials.IridescenceLampIridescence
+  console.log(iridescentMaterial)
+  iridescentMaterial.side = DoubleSide
+  iridescentMaterial.transparent = true
+  iridescentMaterial.opacity = 0.8
+
+  console.log(iridescentMaterial)
+
+  // @ts-ignore
+  // iridescentMaterial.envMap = envMap
+
   useFrame((_, delta) => {
-    rotationRef.current += delta / 5
-    positionYRef.current += 1.5 * delta
+    rotationRef.current += delta / 7.5
+    positionYRef.current += 1 * delta
 
     ref.current.rotation.set(rotationRef.current, rotationRef.current, rotationRef.current)
     ref.current.position.y = 2 * Math.sin(positionYRef.current)
   })
 
   return (
-    <mesh material={materials.IridescenceLampIridescence} ref={ref}>
-      <boxGeometry args={[20, 20, 20]} />
+    <mesh material={iridescentMaterial} ref={ref}>
+      <boxGeometry args={[30, 30, 30]} />
     </mesh>
   )
 }
 
 interface Materials {
-  [key: string]: Material
+  [key: string]: MeshPhysicalMaterial
 }
 
 interface GLTFWithMaterials extends GLTF {

@@ -23,7 +23,7 @@ function Ocean() {
     waterNormals: waterNormal,
     sunDirection: new THREE.Vector3(),
     sunColor: 0x000000,
-    waterColor: 0x929bb0,
+    waterColor: 0x7b8bb0,
     distortionScale: 3.7,
     fog: false,
     format: gl.outputEncoding,
@@ -39,8 +39,8 @@ function Ocean() {
     <water
       ref={ref}
       args={[geometry, config]}
-      rotation-x={-Math.PI / 1.86}
-      position-y={-13}
+      rotation-x={-Math.PI / 1.71}
+      position-y={-25}
     />
   )
 }

@@ -1,13 +1,22 @@
 import { BackSide } from 'three'
-import { Stars } from '@react-three/drei'
+import { Stars, useTexture } from '@react-three/drei'
+
+import skyTex from '../../assets/sky-tex.jpg'
+
+function useTextureExtended(path: string) {
+  return useTexture(path)
+}
 
 function NightSky() {
+  const tex = useTextureExtended(skyTex)
+  // tex.flipY = false
+
   return (
     <group>
-      <Stars radius={200} depth={50} count={4000} factor={4} saturation={0.1} speed={2} />
+      <Stars radius={73} depth={50} count={2000} factor={4} saturation={1} speed={2} />
       <mesh>
-        <sphereGeometry args={[10000, 10000]} />
-        <meshStandardMaterial color="#03062b" side={BackSide} />
+        <sphereGeometry args={[200, 200]} />
+        <meshStandardMaterial map={tex} side={BackSide} />
       </mesh>
     </group>
   )

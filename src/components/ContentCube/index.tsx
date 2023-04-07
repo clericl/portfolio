@@ -22,12 +22,7 @@ function ContentCube() {
   console.log(iridescentMaterial)
   iridescentMaterial.side = DoubleSide
   iridescentMaterial.transparent = true
-  iridescentMaterial.opacity = 0.8
-
-  console.log(iridescentMaterial)
-
-  // @ts-ignore
-  // iridescentMaterial.envMap = envMap
+  iridescentMaterial.opacity = 0.85
 
   useFrame((_, delta) => {
     rotationRef.current += delta / 7.5

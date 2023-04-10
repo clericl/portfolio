@@ -1,5 +1,7 @@
 import NavigationLink from "../NavigationLink"
 
+import './index.scss'
+
 function Navigation() {
   return (
     <div className="navigation">

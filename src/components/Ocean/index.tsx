@@ -16,7 +16,7 @@ function Ocean() {
   // @ts-ignore
   waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping
 
-  const geometry = useMemo(() => new THREE.PlaneGeometry(10000, 10000), [])
+  const geometry = useMemo(() => new THREE.PlaneGeometry(20000, 20000), [])
   const config = useMemo(() => ({
     textureWidth: 512,
     textureHeight: 512,
@@ -39,7 +39,7 @@ function Ocean() {
     <water
       ref={ref}
       args={[geometry, config]}
-      rotation-x={-Math.PI / 1.71}
+      rotation-x={-Math.PI / 1.72}
       position-y={-25}
     />
   )

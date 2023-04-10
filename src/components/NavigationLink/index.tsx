@@ -1,7 +1,9 @@
+import './index.scss'
+
 function NavigationLink({ title }: NavigationLinkProps) {
   return (
     <div className="navigation-link">
-      <a href={`#${title}`}>{title}</a>
+      <a href={`/${title.toLowerCase()}`}>{title}</a>
     </div>
   )
 }

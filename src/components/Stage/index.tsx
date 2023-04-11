@@ -1,12 +1,14 @@
 import * as React from 'react'
 import {
-  ContactShadowsProps,
-  ContactShadows, 
-  AccumulativeShadowsProps,
-  RandomizedLightProps,
   AccumulativeShadows,
+  AccumulativeShadowsProps,
+  ContactShadows, 
+  ContactShadowsProps,
+  MeshReflectorMaterial,
   RandomizedLight,
+  RandomizedLightProps,
 } from '@react-three/drei'
+import Ground from '../Ground'
 
 const presets = {
   rembrandt: {
@@ -116,6 +118,23 @@ export function Stage({
           </AccumulativeShadows>
         )}
       </group>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.1, 0]}>
+        <planeGeometry args={[200, 200]} />
+        <MeshReflectorMaterial
+          resolution={2048}
+          blur={[800, 50]}
+          mirror={1}
+          mixBlur={0.1}
+          mixStrength={2.5}
+          depthScale={0.2}
+          minDepthThreshold={0.9}
+          maxDepthThreshold={0.6}
+          roughness={0.1}
+          metalness={0}
+          opacity={0.9}
+        />
+      </mesh>
+      {/* <Ground /> */}
     </>
   )
 }

@@ -21,7 +21,7 @@ function Scene() {
         <Environment preset="dawn" />
         <Effects />
         <Suspense fallback={null}>
-          <Sky azimuth={1.16} turbidity={0.5} rayleigh={0.5} mieDirectionalG={0.6} inclination={0.52} />
+          <Sky azimuth={1.15} turbidity={1} rayleigh={0.5} mieDirectionalG={0.6} inclination={0.52} />
           <Staircase />
         </Suspense>
       </Canvas>

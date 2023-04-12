@@ -1,36 +1,14 @@
 import { Vector3 } from "@react-three/fiber"
 import { useMemo } from "react"
-import { useTexture } from "@react-three/drei"
-import { Color, MeshPhysicalMaterial } from "three"
 import { NUMBER_OF_ROTATIONS, STAIRS_PER_ROTATION } from "../Staircase"
-
-import IridescenceMaterial from '../../assets/IridescenceMaterial.json'
-import iridescenceThicknessMap from '../../assets/iridescence_thickness_map.jpg'
-import iridescenceORMMap from '../../assets/iridescence_orm.png'
+import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 export const DEGREE_IN_RADIANS = 0.0174533
 export const SPACE_BETWEEN_STAIRS = 1
 export const STAIR_HEIGHT = 0.1
 
 function Stair({ rotationY, positionY }: StairProps) {
-  const [
-    iridescenceThickness,
-    iridescenceORM,
-  ] = useTexture([
-    iridescenceThicknessMap,
-    iridescenceORMMap,
-  ])
-
-  const iridescentMaterial = useMemo(() => {
-    const newMaterial = new MeshPhysicalMaterial()
-    // @ts-ignore
-    newMaterial.setValues(IridescenceMaterial)
-    newMaterial.iridescenceThicknessMap = iridescenceThickness
-    newMaterial.aoMap = iridescenceORM
-    newMaterial.color = new Color('#a7ccd4')
-
-    return newMaterial
-  }, [iridescenceThickness, iridescenceORM])
+  const iridescentMaterial = useIridescentMaterial('#a7ccd4')
 
   return (
     <group position-y={positionY} rotation-y={rotationY}>

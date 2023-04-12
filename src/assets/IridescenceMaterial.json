@@ -14,7 +14,7 @@
   "blendSrcAlpha": null,
   "blendDstAlpha": null,
   "blendEquationAlpha": null,
-  "depthFunc": 3,
+  "depthFunc": 2,
   "depthTest": true,
   "depthWrite": true,
   "stencilWriteMask": 255,

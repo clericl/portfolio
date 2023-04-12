@@ -28,7 +28,7 @@ function Staircase() {
   ), [platformHeightBase, staircaseHeight])
 
   return (
-    <group position={[0, -staircaseHeight - 2.5, 0]}>
+    <group position={[0, -staircaseHeight - 5, 0]}>
       <Stairs height={staircaseHeight} position={[0, 0, 0]} />
       {platformsRendered}
     </group>

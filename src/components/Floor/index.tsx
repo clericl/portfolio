@@ -31,7 +31,7 @@ function Floor({ isHome = false }: FloorProps) {
             metalness={0.8}
             mirror={1}
             transparent={true}
-            opacity={0.5}
+            opacity={0.8}
           />
       </mesh>
     </group>

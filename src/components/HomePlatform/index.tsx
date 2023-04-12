@@ -1,9 +1,12 @@
-import { Caustics, Center, MeshTransmissionMaterial, Text3D } from "@react-three/drei"
+import { Center, MeshTransmissionMaterial, Text3D } from "@react-three/drei"
 import { PlatformProps } from "../Platform"
 import Floor from "../Floor"
 import Cat from "../Cat"
+import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
+  const iridescentMaterial = useIridescentMaterial('#737e99')
+
   return (
     <group position={position} position-x={0}>
       <Center disableY>
@@ -12,18 +15,20 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           position={[0, 8, 0]}
           scale={[1, 1, 2]}
           size={3}
-          castShadow={true}
+          material={iridescentMaterial}
         >
           ERIC LIANG
-          <MeshTransmissionMaterial
+          {/* <MeshTransmissionMaterial
             anisotropy={1}
-            color="#62749e"
+            color="#475473"
             distortionScale={0.5}
             chromaticAberration={0.1}
             resolution={768}
             temporalDistortion={0}
             thickness={0.3}
-          />
+            transparent
+            opacity={0.8}
+          /> */}
         </Text3D>
       </Center>
       <Center disableY>
@@ -32,19 +37,21 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           position={[0, 6, 0]}
           scale={[1, 1, 2]}
           size={1.2}
-          castShadow={true}
           letterSpacing={-0.1}
+          material={iridescentMaterial}
         >
           web developer
-          <MeshTransmissionMaterial
+          {/* <MeshTransmissionMaterial
             anisotropy={1}
-            color="#62749e"
+            color="#475473"
             distortionScale={0.5}
             chromaticAberration={0.1}
             resolution={768}
             temporalDistortion={0}
             thickness={0.3}
-          />
+            transparent
+            opacity={0.8}
+          /> */}
         </Text3D>
       </Center>
       <Cat

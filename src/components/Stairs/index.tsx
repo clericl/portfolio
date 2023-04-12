@@ -2,12 +2,15 @@ import { Vector3 } from "@react-three/fiber"
 import { useMemo } from "react"
 import { useTexture } from "@react-three/drei"
 import { Color, MeshPhysicalMaterial } from "three"
+import { NUMBER_OF_ROTATIONS, STAIRS_PER_ROTATION } from "../Staircase"
 
 import IridescenceMaterial from '../../assets/IridescenceMaterial.json'
-import iridescenceThicknessMap from '../../assets/iridescence-thickness-map.jpg'
-import iridescenceORMMap from '../../assets/iridescence-orm.png'
+import iridescenceThicknessMap from '../../assets/iridescence_thickness_map.jpg'
+import iridescenceORMMap from '../../assets/iridescence_orm.png'
 
-const DEGREE_IN_RADIANS = 0.0174533
+export const DEGREE_IN_RADIANS = 0.0174533
+export const SPACE_BETWEEN_STAIRS = 1
+export const STAIR_HEIGHT = 0.1
 
 function Stair({ rotationY, positionY }: StairProps) {
   const [
@@ -31,35 +34,34 @@ function Stair({ rotationY, positionY }: StairProps) {
 
   return (
     <group position-y={positionY} rotation-y={rotationY}>
-      <mesh position-x={-10} rotation-x={Math.PI / 2} material={iridescentMaterial}>
-        <boxGeometry args={[10, 2, 0.5,]} />
+      <mesh position-x={3} rotation-x={Math.PI / 2} material={iridescentMaterial} receiveShadow castShadow>
+        <boxGeometry args={[5, 1, STAIR_HEIGHT]} />
       </mesh>
       <mesh material={iridescentMaterial}>
-        <sphereGeometry />
+        <sphereGeometry args={[0.2, 16, 16]} />
       </mesh>
     </group>
   )
 }
 
 function Stairs({
-  count = 80,
   position = [0, 0, 0],
-  spaceBetween = 2.5
 }: StairsProps) {
   const rendered = useMemo(() => {
     const stairs = []
+    const count = STAIRS_PER_ROTATION * NUMBER_OF_ROTATIONS
 
     for (let i = 0; i < count; i++) {
-      const positionY = i * spaceBetween
-      const rotationY = i * DEGREE_IN_RADIANS * -10
+      const positionY = i * SPACE_BETWEEN_STAIRS
+      const rotationY = i * (2 * Math.PI / STAIRS_PER_ROTATION)
 
       stairs.push(
-        <Stair positionY={positionY} rotationY={rotationY} />
+        <Stair key={i} positionY={positionY} rotationY={rotationY} />
       )
     }
 
     return stairs
-  }, [count, spaceBetween])
+  }, [])
 
   return (
     <group position={position}>
@@ -74,9 +76,8 @@ interface StairProps {
 }
 
 interface StairsProps {
-  count?: number
+  height?: number
   position?: Vector3
-  spaceBetween?: number
 }
 
 export default Stairs

@@ -139,10 +139,5 @@
   "_sheen": 0,
   "_clearcoat": 0,
   "_iridescence": 1,
-  "_transmission": 0,
-  "_listeners": {
-    "dispose": [
-      null
-    ]
-  }
+  "_transmission": 0
 }

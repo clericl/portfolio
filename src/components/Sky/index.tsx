@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Sky as SkyImpl } from 'three-stdlib'
 import { Vector3 } from 'three'
+import { Vector3 as Vector3Type } from '@react-three/fiber'
 
 export function calcPosFromAngles(inclination: number, azimuth: number, vector: Vector3 = new Vector3()) {
   const theta = Math.PI * (inclination - 0.5)
@@ -23,8 +24,8 @@ function Sky({
   sunPosition = calcPosFromAngles(inclination, azimuth),
   turbidity = 10,
 }: SkyProps) {
-  const scale = useMemo(() => new Vector3().setScalar(distance), [distance])
   const [sky] = useState(() => new SkyImpl())
+  const scale = useMemo(() => new Vector3().setScalar(distance), [distance])
 
   return (
     <primitive
@@ -41,7 +42,7 @@ function Sky({
 
 type SkyProps = {
   distance?: number
-  sunPosition?: Vector3
+  sunPosition?: Vector3Type
   inclination?: number
   azimuth?: number
   mieCoefficient?: number

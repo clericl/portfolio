@@ -1,11 +1,12 @@
-import { MeshTransmissionMaterial, Reflector, Sphere, MeshReflectorMaterial } from "@react-three/drei"
+import { MeshTransmissionMaterial, MeshReflectorMaterial } from "@react-three/drei"
 import { STAIR_HEIGHT } from "../Stairs"
+import Neon from "../Neon"
 
 function Floor({ isHome = false }: FloorProps) {
   return (
     <group>
       <mesh rotation-x={-Math.PI / 2} receiveShadow castShadow>
-        <boxGeometry args={[15 * (isHome ? 8 : 1), 15 * (isHome ? 8 : 1), STAIR_HEIGHT]} />
+        <boxGeometry args={[15 * (isHome ? 4 : 1), 10 * (isHome ? 4 : 1), STAIR_HEIGHT]} />
         <MeshTransmissionMaterial
           anisotropy={1}
           color="#62749e"
@@ -17,7 +18,7 @@ function Floor({ isHome = false }: FloorProps) {
         />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.1, 0]} receiveShadow>
-        <planeGeometry args={[15 * (isHome ? 8 : 1), 15 * (isHome ? 8 : 1)]} />
+        <planeGeometry args={[15 * (isHome ? 4 : 1), 10 * (isHome ? 4 : 1)]} />
           <MeshReflectorMaterial
             blur={[800, 30]}
             resolution={2048}
@@ -27,13 +28,16 @@ function Floor({ isHome = false }: FloorProps) {
             depthScale={0.2}
             minDepthThreshold={0.8}
             maxDepthThreshold={1.4}
-            color="#202020"
+            color="#1a1a1a"
             metalness={0.8}
             mirror={1}
             transparent={true}
             opacity={0.8}
           />
       </mesh>
+      {isHome && (
+        <Neon />
+      )}
     </group>
   )
 }

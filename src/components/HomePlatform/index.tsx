@@ -18,17 +18,6 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           material={iridescentMaterial}
         >
           ERIC LIANG
-          {/* <MeshTransmissionMaterial
-            anisotropy={1}
-            color="#475473"
-            distortionScale={0.5}
-            chromaticAberration={0.1}
-            resolution={768}
-            temporalDistortion={0}
-            thickness={0.3}
-            transparent
-            opacity={0.8}
-          /> */}
         </Text3D>
       </Center>
       <Center disableY>
@@ -41,17 +30,6 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           material={iridescentMaterial}
         >
           web developer
-          {/* <MeshTransmissionMaterial
-            anisotropy={1}
-            color="#475473"
-            distortionScale={0.5}
-            chromaticAberration={0.1}
-            resolution={768}
-            temporalDistortion={0}
-            thickness={0.3}
-            transparent
-            opacity={0.8}
-          /> */}
         </Text3D>
       </Center>
       <Cat

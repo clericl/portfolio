@@ -1,16 +1,20 @@
 import { useMemo } from 'react'
-import { MeshPhysicalMaterial } from 'three'
+import { Color, ColorRepresentation, MeshPhysicalMaterial } from 'three'
 
 import NeonMaterial from '../assets/NeonMaterial.json'
 
-function useNeonMaterial() {
+function useNeonMaterial(color?: ColorRepresentation) {
   const neonMaterial = useMemo(() => {
     const newMaterial = new MeshPhysicalMaterial()
     // @ts-ignore
     newMaterial.setValues(NeonMaterial)
 
+    if (color) {
+      newMaterial.emissive = new Color(color)
+    }
+
     return newMaterial
-  }, [])
+  }, [color])
 
   return neonMaterial
 }

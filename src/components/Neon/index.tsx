@@ -21,25 +21,23 @@ function Neon() {
       if (obj.isMesh) {
         // @ts-ignore
         obj.material.emissive = nextColor
-        // @ts-ignore
-        console.log(obj.material.emissive)
       }
     })
   })
 
   return (
     <group ref={groupRef} rotation-x={-Math.PI / 2}>
-      <mesh material={neonMaterial} position={[0, -21, 0]} receiveShadow castShadow>
-        <boxGeometry args={[64.5, 2, STAIR_HEIGHT]} />
+      <mesh material={neonMaterial} position={[0, -5.5, 0]} receiveShadow castShadow>
+        <boxGeometry args={[31, 1, STAIR_HEIGHT]} />
       </mesh>
-      <mesh material={neonMaterial} position={[0, 21, 0]} receiveShadow castShadow>
-        <boxGeometry args={[64.5, 2, STAIR_HEIGHT]} />
+      <mesh material={neonMaterial} position={[0, 5.5, 0]} receiveShadow castShadow>
+        <boxGeometry args={[31, 1, STAIR_HEIGHT]} />
       </mesh>
-      <mesh material={neonMaterial} position={[-31, 0, 0]} receiveShadow castShadow>
-        <boxGeometry args={[2, 42.5, STAIR_HEIGHT]} />
+      <mesh material={neonMaterial} position={[-15.5, 0, 0]} receiveShadow castShadow>
+        <boxGeometry args={[1, 12, STAIR_HEIGHT]} />
       </mesh>
-      <mesh material={neonMaterial} position={[31, 0, 0]} receiveShadow castShadow>
-        <boxGeometry args={[2, 42.5, STAIR_HEIGHT]} />
+      <mesh material={neonMaterial} position={[15.5, 0, 0]} receiveShadow castShadow>
+        <boxGeometry args={[1, 12, STAIR_HEIGHT]} />
       </mesh>
     </group>
   )

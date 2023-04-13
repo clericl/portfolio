@@ -6,9 +6,9 @@ function Navigation() {
   return (
     <div className="navigation">
       <nav>
-        <NavigationLink title="Home" />
-        <NavigationLink title="About" />
-        <NavigationLink title="Projects" />
+        <NavigationLink to="/">Home</NavigationLink>
+        <NavigationLink to="/about">About</NavigationLink>
+        <NavigationLink to="/personal-projects">Projects</NavigationLink>
       </nav>
     </div>
   )

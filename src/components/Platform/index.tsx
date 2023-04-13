@@ -1,15 +1,26 @@
+import { useMemo } from "react"
 import { Vector3 } from "@react-three/fiber"
-import Floor from "../Floor"
+import AboutPlatform from "../AboutPlatform"
 import HomePlatform from "../HomePlatform"
+import Floor from "../Floor"
 
 function Platform({ title, ...props }: PlatformProps) {
-  return title === 'home' ? (
-    <HomePlatform {...props} />
-  ) : (
-    <group {...props}>
-      <Floor isHome={title === 'home'} />
-    </group>
-  )
+  const PlatformComponent = useMemo(() => {
+    switch (title) {
+      case '/':
+        return HomePlatform
+      case '/about':
+        return AboutPlatform
+      default:
+        return (props: Partial<PlatformProps>) => (
+          <group {...props}>
+            <Floor />
+          </group>
+        )
+    }
+  }, [title])
+
+  return <PlatformComponent {...props} />
 }
 
 export interface PlatformProps {

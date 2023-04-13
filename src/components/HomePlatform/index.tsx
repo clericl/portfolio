@@ -1,11 +1,11 @@
-import { Center, MeshTransmissionMaterial, Text3D } from "@react-three/drei"
+import { Center, Text3D } from "@react-three/drei"
 import { PlatformProps } from "../Platform"
 import Floor from "../Floor"
 import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
-  const iridescentMaterial = useIridescentMaterial('#737e99')
+  const iridescentMaterial = useIridescentMaterial('#729ab0')
 
   return (
     <group position={position} position-x={0}>

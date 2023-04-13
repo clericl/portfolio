@@ -6,7 +6,7 @@ function Floor({ isHome = false }: FloorProps) {
   return (
     <group>
       <mesh rotation-x={-Math.PI / 2} receiveShadow castShadow>
-        <boxGeometry args={[15 * (isHome ? 4 : 1), 10 * (isHome ? 4 : 1), STAIR_HEIGHT]} />
+        <boxGeometry args={[15 * (isHome ? 2 : 1.5), 5 * (isHome ? 2 : 1.5), STAIR_HEIGHT]} />
         <MeshTransmissionMaterial
           anisotropy={1}
           color="#62749e"
@@ -18,7 +18,7 @@ function Floor({ isHome = false }: FloorProps) {
         />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.1, 0]} receiveShadow>
-        <planeGeometry args={[15 * (isHome ? 4 : 1), 10 * (isHome ? 4 : 1)]} />
+        <planeGeometry args={[15 * (isHome ? 2 : 1.5), 5 * (isHome ? 2 : 1.5)]} />
           <MeshReflectorMaterial
             blur={[800, 30]}
             resolution={2048}

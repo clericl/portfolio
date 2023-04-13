@@ -7,17 +7,19 @@ export const DEGREE_IN_RADIANS = 0.0174533
 export const SPACE_BETWEEN_STAIRS = 1
 export const STAIR_HEIGHT = 0.1
 
-function Stair({ rotationY, positionY }: StairProps) {
+function Stair({ hasSphere, rotationY, positionY }: StairProps) {
   const iridescentMaterial = useIridescentMaterial('#a7ccd4')
 
   return (
     <group position-y={positionY} rotation-y={rotationY}>
-      <mesh position-x={3} rotation-x={Math.PI / 2} material={iridescentMaterial} receiveShadow castShadow>
-        <boxGeometry args={[5, 1, STAIR_HEIGHT]} />
+      <mesh position-x={12} rotation-x={Math.PI / 2} material={iridescentMaterial} receiveShadow castShadow>
+        <boxGeometry args={[6, 1.5, STAIR_HEIGHT]} />
       </mesh>
-      <mesh material={iridescentMaterial}>
-        <sphereGeometry args={[0.2, 16, 16]} />
-      </mesh>
+      {hasSphere && (
+        <mesh material={iridescentMaterial}>
+          <sphereGeometry args={[0.2, 16, 16]} />
+        </mesh>
+      )}
     </group>
   )
 }
@@ -34,7 +36,12 @@ function Stairs({
       const rotationY = i * (2 * Math.PI / STAIRS_PER_ROTATION)
 
       stairs.push(
-        <Stair key={i} positionY={positionY} rotationY={rotationY} />
+        <Stair
+          key={i}
+          hasSphere={(i % (STAIRS_PER_ROTATION / 2)) > (STAIRS_PER_ROTATION / 4)}
+          positionY={positionY}
+          rotationY={rotationY}
+        />
       )
     }
 
@@ -49,6 +56,7 @@ function Stairs({
 }
 
 interface StairProps {
+  hasSphere: boolean
   positionY: number
   rotationY: number
 }

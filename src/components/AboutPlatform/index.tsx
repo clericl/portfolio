@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import { Group } from "three"
+import { Sparkles } from "@react-three/drei"
 
 const MESSAGE = "I'm Eric, a full stack\nweb developer specializing\nin 3D and augmented reality\nexperiences."
 

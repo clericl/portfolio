@@ -83,8 +83,8 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
       })
       paneApi.start({
         to: async (next) => {
-          await next({ x: 0 })
           await next({ y: 0, z: 0 })
+          await next({ x: 0 })
         }
       })
     }

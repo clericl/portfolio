@@ -1,55 +1,98 @@
-import { useMemo, useRef } from "react"
-import { useTexture } from "@react-three/drei"
-import { Color, Points, Vector3 } from "three"
-
-import flower1 from '../../assets/flower1.png'
-import flower2 from '../../assets/flower2.png'
+import { useEffect, useMemo, useRef } from "react"
+import { Color, Group } from "three"
+import { Instances, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
+import { useSpring, animated } from "@react-spring/three"
+import BlossomInstance from './BlossomInstance'
 
-function CherryBlossoms({ count = 1000, factor = 4 }: CherryBlossomsProps) {
-  const [sprite1, sprite2] = useTexture([flower1, flower2])
-  const pointsRef = useRef<Points>(null!)
+import petal1 from '../../assets/petal1.glb'
+import petal2 from '../../assets/petal2.glb'
 
-  const [position, color, size] = useMemo(() => {
-    const positions: any[] = []
-    const colors: any[] = []
-    const sizes = Array.from({ length: count }, () => (20 + 20 * Math.random()) * factor)
-    const color = new Color()
+const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
+const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
-    for (let i = 0; i < count; i++) {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      const z = Math.random() * 200 - 100;
+const DELAY = 1100
+const RADIUS = 26
 
-      positions.push(x, y, z)
+function CherryBlossoms({ count = 200, vanish }: CherryBlossomsProps) {
+  const [petalGltf1, petalGltf2] = useGLTF([petal1, petal2])
+  const groupRef = useRef<Group>(null!)
 
-      color.setHSL(0, 1, 0.9)
-      colors.push(color.r, color.g, color.b)
+  const data1 = useMemo(() => Array.from(
+    { length: count / 2 },
+    (r:number = RADIUS) => ({
+      random: Math.random(),
+      position: randomVector(r),
+      rotation: randomEuler(),
+      scale: 0.25,
+    })),
+  [count])
+
+  const data2 = useMemo(() => Array.from(
+    { length: count / 2 },
+    (r:number = RADIUS) => ({
+      random: Math.random(),
+      position: randomVector(r),
+      rotation: randomEuler(),
+      scale: 0.25,
+    })),
+  [count])
+
+  const [material1, material2] = useMemo(() => {
+    // @ts-ignore
+    const mat1 = petalGltf1.materials['Material.002']
+    mat1.color = new Color('pink')
+
+    // @ts-ignore
+    const mat2 = petalGltf2.materials['petal01']
+    mat2.color = new Color('pink')
+
+    return [mat1, mat2]
+  }, [petalGltf1, petalGltf2])
+
+  const [springs, api] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
+
+  useFrame((state) => {
+    groupRef.current.rotation.y = state.clock.getElapsedTime() / 6
+  })
+
+  useEffect(() => {
+    if (vanish) {
+      api.start({ x: 0, y: 0, z: 0, delay: DELAY })
+    } else {
+      api.start({ x: 1, y: 1, z: 1, delay: DELAY })
     }
-    return [new Float32Array(positions), new Float32Array(colors), new Float32Array(sizes)]
-  }, [count, factor])
-
-  useFrame((_, delta) => {
-    pointsRef.current.rotation.y -= delta
   })
 
   return (
-    <points ref={pointsRef} rotation={[Math.random() * 6, Math.random() * 6, Math.random() * 6]}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[position, 3]} />
-        <bufferAttribute attach="attributes-color" args={[color, 3]} />
-        <bufferAttribute attach="attributes-size" args={[size, 1]} />
-      </bufferGeometry>
-      <pointsMaterial map={sprite1} depthTest={false} transparent />
-    </points>
+    <animated.group
+      ref={groupRef}
+      position-y={RADIUS / 4}
+      scale-x={springs.x}
+      scale-y={springs.y}
+      scale-z={springs.z}
+    >
+      {/* 
+      // @ts-ignore */}
+      <Instances castShadow material={material1} geometry={petalGltf1.nodes['Object_86'].geometry}>
+        {data1.map((props, i) => (
+          <BlossomInstance key={i} {...props} />
+        ))}
+      </Instances>
+      {/* 
+      // @ts-ignore */}
+      <Instances castShadow material={material2} geometry={petalGltf2.nodes['02011_petal01_0'].geometry}>
+        {data2.map((props, i) => (
+          <BlossomInstance key={i} {...props} />
+        ))}
+      </Instances>
+    </animated.group>
   )
 }
 
 interface CherryBlossomsProps {
   count?: number
-  factor?: number
-  radius?: number
-  depth?: number
+  vanish?: boolean
 }
 
 export default CherryBlossoms

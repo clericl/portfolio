@@ -11,7 +11,7 @@ import fontFile from '../../assets/SourceCodePro-Regular.ttf'
 const SPHERE_RADIUS = 0.2
 const WIDTH = 19
 const HEIGHT = 8
-const DELAY = 500
+export const DELAY = 500
 
 function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
   const groupRef = useRef<Group>(null!)

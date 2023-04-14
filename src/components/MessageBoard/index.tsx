@@ -2,7 +2,7 @@
 
 import { useSpring, animated } from "@react-spring/three"
 import { MeshTransmissionMaterial, Text } from "@react-three/drei"
-import { ReactNode, useEffect, useRef } from "react"
+import { ReactNode, useEffect, useMemo, useRef } from "react"
 import { Color, Group } from "three"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 
@@ -16,7 +16,16 @@ export const DELAY = 500
 function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial('#021040')
-  neonMaterial.color = new Color(1, 1.5, 1.5)
+
+  const [bulbMaterial, textMaterial] = useMemo(() => {
+    const bulb = neonMaterial.clone()
+    bulb.color = new Color(2, 2, 2)
+
+    const text = neonMaterial.clone()
+    text.color = new Color(1, 1.25, 1.25)
+
+    return [bulb, text]
+  }, [neonMaterial])
   
   const [topLeftSpring, topLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
   const [topRightSpring, topRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
@@ -105,7 +114,7 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={topLeftSpring.x}
           position-y={topLeftSpring.y}
           position-z={topLeftSpring.z}
-          material={neonMaterial}
+          material={bulbMaterial}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -114,7 +123,7 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={topRightSpring.x}
           position-y={topRightSpring.y}
           position-z={topRightSpring.z}
-          material={neonMaterial}
+          material={bulbMaterial}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -123,7 +132,7 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={bottomLeftSpring.x}
           position-y={bottomLeftSpring.y}
           position-z={bottomLeftSpring.z}
-          material={neonMaterial}
+          material={bulbMaterial}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -132,7 +141,7 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={bottomRightSpring.x}
           position-y={bottomRightSpring.y}
           position-z={bottomRightSpring.z}
-          material={neonMaterial}
+          material={bulbMaterial}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -144,7 +153,7 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
             samples={16}
             resolution={1028}
             anisotropy={1}
-            thickness={0.8}
+            thickness={3}
             roughness={0.6}
             toneMapped={true}
             color="#bfdedd"
@@ -154,10 +163,10 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           <Text
             anchorX="center"
             anchorY="middle"
-            color="#0d196b"
             font={fontFile}
             maxWidth={WIDTH - 2}
             textAlign="center"
+            material={textMaterial}
           >
             {children}
           </Text>

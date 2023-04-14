@@ -24,7 +24,7 @@ function CherryBlossoms({ count = 200, vanish }: CherryBlossomsProps) {
       random: Math.random(),
       position: randomVector(r),
       rotation: randomEuler(),
-      scale: 0.25,
+      scale: Math.random() * 0.05 + 0.15,
     })),
   [count])
 

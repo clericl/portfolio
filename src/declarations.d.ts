@@ -4,3 +4,6 @@ declare module '*.hdr'
 
 declare module '*.gltf'
 declare module '*.glb'
+
+
+declare module 'lodash.sample'

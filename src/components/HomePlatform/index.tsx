@@ -5,27 +5,27 @@ import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
-  const iridescentMaterial = useIridescentMaterial('#729ab0')
+  const iridescentMaterial = useIridescentMaterial('#8fb5c9')
 
   return (
     <group position={position} position-x={0}>
-      <Center disableY>
+      <Center disableY disableZ>
         <Text3D
           font="/hubballi.json"
-          position={[0, 8, 0]}
+          position={[0, 8, -1]}
           scale={[1, 1, 2]}
-          size={3}
+          size={4}
           material={iridescentMaterial}
         >
           ERIC LIANG
         </Text3D>
       </Center>
-      <Center disableY>
+      <Center disableY disableZ>
         <Text3D
           font="/hubballi.json"
-          position={[0, 6, 0]}
+          position={[0, 5, -1]}
           scale={[1, 1, 2]}
-          size={1.2}
+          size={1.8}
           letterSpacing={-0.1}
           material={iridescentMaterial}
         >
@@ -33,9 +33,9 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
         </Text3D>
       </Center>
       <Cat
-        position={[10, 0.1, 0]}
-        scale={[0.18, 0.18, 0.18]}
-        rotation-y={-Math.PI / 8 * 7}
+        position={[7.6, 0.1, 2.5]}
+        scale={[2.1, 2.1, 2.1]}
+        rotation-y={-Math.PI / 8 * 6.5}
         castShadow
       />
       <Floor isHome />

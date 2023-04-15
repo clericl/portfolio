@@ -1,11 +1,13 @@
 import { Center, Text3D } from "@react-three/drei"
 import { PlatformProps } from "../Platform"
+import { useLocation } from "react-router-dom"
 import Floor from "../Floor"
 import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
   const iridescentMaterial = useIridescentMaterial('#8fb5c9')
+  const { pathname } = useLocation()
 
   return (
     <group position={position} position-x={0}>
@@ -32,13 +34,15 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           web developer
         </Text3D>
       </Center>
-      <Cat
-        position={[7.6, 0.1, 2.5]}
-        scale={[2.1, 2.1, 2.1]}
-        rotation-y={-Math.PI / 8 * 6.5}
-        castShadow
-      />
-      <Floor isHome />
+      {pathname === '/' && (
+        <Cat
+          position={[7.6, 0.1, 2.5]}
+          scale={[2.1, 2.1, 2.1]}
+          rotation-y={-Math.PI / 8 * 6.5}
+          castShadow
+        />
+      )}
+      <Floor />
     </group>
   )
 }

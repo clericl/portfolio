@@ -1,8 +1,13 @@
 import { MeshTransmissionMaterial, MeshReflectorMaterial } from "@react-three/drei"
 import { STAIR_HEIGHT } from "../Stairs"
 import Neon from "../Neon"
+import { useLocation } from "react-router-dom"
+import { useMemo } from "react"
 
-function Floor({ isHome = false }: FloorProps) {
+function Floor() {
+  const { pathname } = useLocation()
+  const isHome = useMemo(() => pathname === '/', [pathname])
+
   return (
     <group>
       <mesh rotation-x={-Math.PI / 2} receiveShadow castShadow>
@@ -40,10 +45,6 @@ function Floor({ isHome = false }: FloorProps) {
       )}
     </group>
   )
-}
-
-interface FloorProps {
-  isHome?: boolean
 }
 
 export default Floor

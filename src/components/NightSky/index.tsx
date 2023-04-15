@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { BackSide, Group } from 'three'
 import { Stars } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'

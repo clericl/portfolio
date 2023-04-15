@@ -3,7 +3,7 @@ import { Color, Group } from "three"
 import { Instances, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
-import BlossomInstance from './BlossomInstance'
+import ParticleInstance from "../ParticleInstance"
 
 import petal1 from '../../assets/petal1.glb'
 import petal2 from '../../assets/petal2.glb'
@@ -34,7 +34,7 @@ function CherryBlossoms({ count = 200, vanish }: CherryBlossomsProps) {
       random: Math.random(),
       position: randomVector(r),
       rotation: randomEuler(),
-      scale: 0.25,
+      scale: Math.random() * 0.05 + 0.15,
     })),
   [count])
 
@@ -76,14 +76,14 @@ function CherryBlossoms({ count = 200, vanish }: CherryBlossomsProps) {
       // @ts-ignore */}
       <Instances castShadow material={material1} geometry={petalGltf1.nodes['Object_86'].geometry}>
         {data1.map((props, i) => (
-          <BlossomInstance key={i} {...props} />
+          <ParticleInstance key={i} {...props} />
         ))}
       </Instances>
       {/* 
       // @ts-ignore */}
       <Instances castShadow material={material2} geometry={petalGltf2.nodes['02011_petal01_0'].geometry}>
         {data2.map((props, i) => (
-          <BlossomInstance key={i} {...props} />
+          <ParticleInstance key={i} {...props} />
         ))}
       </Instances>
     </animated.group>

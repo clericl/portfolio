@@ -1,7 +1,7 @@
 import { PlatformProps } from "../Platform"
 import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
-import { useCallback, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Group } from "three"
 import Cat from "../Cat"
 import Floor from "../Floor"
@@ -72,8 +72,10 @@ const SKILLS = {
   },
 }
 
+const DEFAULT_MESSAGE = 'Pick a box!'
+
 function SkillsPlatform({ position }: Partial<PlatformProps>) {
-  const [messageText, setMessageText] = useState('Pick a box!')
+  const [messageText, setMessageText] = useState(DEFAULT_MESSAGE)
   const { pathname } = useLocation()
   const catRef = useRef<Group>(null!)
 
@@ -87,13 +89,17 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
       name={name}
       imagePath={imagePath}
       index={index}
-      onClick={() => setBoxText(title)}
+      onPointerEnter={() => setBoxText(title)}
     />
   )), [setBoxText])
 
   useFrame((_, delta) => {
     catRef.current.rotation.y -= delta / 2
   })
+
+  useEffect(() => {
+    setMessageText(DEFAULT_MESSAGE)
+  }, [pathname])
 
   return (
     <group position={position}>
@@ -105,6 +111,7 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
         position-x={6}
         width={8}
         height={5}
+        open
       >
         {messageText}
       </MessageBoard>
@@ -116,6 +123,7 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
             rotation-x={Math.PI / 8}
             rotation-y={Math.PI / 16}
             rotation-z={0}
+            onPointerEnter={() => setBoxText('Cat')}
             castShadow
           />
         )}

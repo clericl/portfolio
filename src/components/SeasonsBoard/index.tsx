@@ -4,6 +4,7 @@ import { useMemo } from "react"
 import { Color } from "three"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 import MessageBoard from "../MessageBoard"
+import { useSpring } from "@react-spring/three"
 
 const MESSAGE = "I'm Eric, a full stack\nweb developer specializing\nin 3D and augmented reality\nexperiences."
 
@@ -26,20 +27,49 @@ function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProp
     return [spring, summer, autumn, winter, text]
   }, [neonMaterial])
 
+  const [topLeftSpring, topLeftApi] = useSpring(() => ({ scale: 1 }))
+  const [topRightSpring, topRightApi] = useSpring(() => ({ scale: 1 }))
+  const [bottomLeftSpring, bottomLeftApi] = useSpring(() => ({ scale: 1 }))
+  const [bottomRightSpring, bottomRightApi] = useSpring(() => ({ scale: 1 }))
+
   return (
     <MessageBoard
       bulbProps={{
         topLeft: {
           material: springMat,
+          'scale-x': topLeftSpring.scale,
+          'scale-y': topLeftSpring.scale,
+          'scale-z': topLeftSpring.scale,
+          onPointerEnter: () => topLeftApi.start({ scale: 2.5 }),
+          onPointerLeave: () => topLeftApi.start({ scale: 1 }),
+          onClick: () => switchSeasons('spring'),
         },
         topRight: {
           material: summerMat,
+          'scale-x': topRightSpring.scale,
+          'scale-y': topRightSpring.scale,
+          'scale-z': topRightSpring.scale,
+          onPointerEnter: () => topRightApi.start({ scale: 2.5 }),
+          onPointerLeave: () => topRightApi.start({ scale: 1 }),
+          onClick: () => switchSeasons('summer'),
         },
         bottomLeft: {
           material: autumnMat,
+          'scale-x': bottomLeftSpring.scale,
+          'scale-y': bottomLeftSpring.scale,
+          'scale-z': bottomLeftSpring.scale,
+          onPointerEnter: () => bottomLeftApi.start({ scale: 2.5 }),
+          onPointerLeave: () => bottomLeftApi.start({ scale: 1 }),
+          onClick: () => switchSeasons('autumn'),
         },
         bottomRight: {
           material: winterMat,
+          'scale-x': bottomRightSpring.scale,
+          'scale-y': bottomRightSpring.scale,
+          'scale-z': bottomRightSpring.scale,
+          onPointerEnter: () => bottomRightApi.start({ scale: 2.5 }),
+          onPointerLeave: () => bottomRightApi.start({ scale: 1 }),
+          onClick: () => switchSeasons('winter'),
         },
       }}
       open={open}

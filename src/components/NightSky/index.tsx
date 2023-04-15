@@ -1,24 +1,20 @@
-import { useRef } from 'react'
-import { BackSide, Group } from 'three'
-import { Stars } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useEffect } from 'react'
+import { useLoader, useThree } from '@react-three/fiber'
+import { RGBELoader } from 'three-stdlib'
+
+import puresky from '../../assets/puresky.hdr'
 
 function NightSky() {
-  const ref = useRef<Group>(null!)
+  const tex = useLoader(RGBELoader, puresky)
+  const scene = useThree((state) => state.scene)
 
-  useFrame((_, delta) => {
-    ref.current.rotation.y -= delta / 50
-  })
+  useEffect(() => {
+    // @ts-ignore
+    scene.background = tex
+    scene.backgroundIntensity = 0.08
+  }, [scene, tex])
 
-  return (
-    <group ref={ref}>
-      <Stars radius={20} depth={400} count={1000} factor={4} saturation={1} speed={1} />
-      <mesh>
-        <sphereGeometry args={[750, 512, 512]} />
-        <meshStandardMaterial side={BackSide} color="#01020f" />
-      </mesh>
-    </group>
-  )
+  return null
 }
 
 export default NightSky

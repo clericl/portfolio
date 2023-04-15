@@ -1,13 +1,12 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Environment, OrbitControls } from '@react-three/drei'
+import { Environment, useTexture } from '@react-three/drei'
 import Effects from '../Effects'
 import Staircase from '../Staircase'
-import Ocean from '../Ocean'
-import NightSky from '../NightSky'
 
-import clearskyhdr from '../../assets/puresky.hdr'
+import puresky from '../../assets/puresky.hdr'
 import './index.scss'
+import NightSky from '../NightSky'
 
 function Scene() {
   return (
@@ -17,13 +16,11 @@ function Scene() {
         <fog attach="fog" args={['#343542', 50, 3000]} />
         <ambientLight intensity={1} />
         <pointLight position={[-50, 50, -50]} intensity={1} castShadow shadow-mapSize={2048} />        
-        <Environment files={clearskyhdr} />
-        <OrbitControls />
+        <Environment files={puresky} />
         <Effects />
         <Suspense fallback={null}>
           <NightSky />
           <Staircase />
-          <Ocean />
         </Suspense>
       </Canvas>
     </div>

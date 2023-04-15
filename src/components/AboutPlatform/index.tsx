@@ -3,16 +3,14 @@ import { useFrame } from "@react-three/fiber"
 import { useCallback, useRef, useState } from "react"
 import { useSpring, animated } from "@react-spring/three"
 import { PlatformProps } from "../Platform"
-import { Group, Mesh } from "three"
+import { Group } from "three"
 import AutumnLeaves from "../AutumnLeaves"
 import Cat from "../Cat"
 import CherryBlossoms from "../CherryBlossoms"
 import Floor from "../Floor"
-import MessageBoard from "../MessageBoard"
+import SeasonsBoard from "../SeasonsBoard"
 import SummerLights from "../SummerLights"
 import WinterSnowflakes from "../WinterSnowflakes"
-
-const MESSAGE = "I'm Eric, a full stack\nweb developer specializing\nin 3D and augmented reality\nexperiences."
 
 function AboutPlatform({ position }: Partial<PlatformProps>) {
   const [season, setSeason] = useState('spring')
@@ -21,11 +19,6 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
   const { pathname } = useLocation()
 
   const [springs, api] = useSpring(() => ({ x: 1, y: 1, z: 1 }))
-
-  const springRef = useRef<Mesh>(null!)
-  const summerRef = useRef<Mesh>(null!)
-  const autumnRef = useRef<Mesh>(null!)
-  const winterRef = useRef<Mesh>(null!)
 
   const renderParticles = useCallback(() => {
     let Component
@@ -71,9 +64,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
   return (
     <group position={position} rotation-y={Math.PI}>
       <group ref={boardRef}>
-        <MessageBoard open={pathname === '/about'} position-y={2.2} switchSeasons={switchSeasons}>
-          {MESSAGE}
-        </MessageBoard>
+        <SeasonsBoard open={pathname === '/about'} position-y={2.2} switchSeasons={switchSeasons} />
       </group>
       <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
         {renderParticles()}

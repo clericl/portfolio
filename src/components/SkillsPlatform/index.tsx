@@ -39,8 +39,8 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
   const { pathname } = useLocation()
   const catRef = useRef<Group>(null!)
 
-  const boxRenders = useMemo(() => Object.entries(SKILLS).map(([name, image], index) => (
-    <SkillBox key={name} name={name} image={image} position={[0, 0, 0]} />
+  const boxRenders = useMemo(() => Object.entries(SKILLS).map(([name, imagePath], index) => (
+    <SkillBox key={name} name={name} imagePath={imagePath} index={index} />
   )), [])
 
   useFrame((_, delta) => {

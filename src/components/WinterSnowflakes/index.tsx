@@ -14,7 +14,7 @@ const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Mat
 const DELAY = 1100
 const RADIUS = 26
 
-function Snowflakes({ count = 200, vanish }: SnowflakesProps) {
+function WinterSnowflakes({ count = 200, vanish }: WinterSnowflakesProps) {
   const [snowflakeGltf1, snowflakeGltf2] = useGLTF([snowflake1, snowflake2])
   const groupRef = useRef<Group>(null!)
 
@@ -90,9 +90,9 @@ function Snowflakes({ count = 200, vanish }: SnowflakesProps) {
   )
 }
 
-interface SnowflakesProps {
+interface WinterSnowflakesProps {
   count?: number
   vanish?: boolean
 }
 
-export default Snowflakes
+export default WinterSnowflakes

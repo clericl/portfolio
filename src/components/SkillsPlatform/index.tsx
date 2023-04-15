@@ -117,15 +117,20 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
       </MessageBoard>
       <group ref={catRef} position-y={1} rotation-x={-Math.PI / 8}>
         {pathname === '/skills' && (
-          <Cat
-            position={[20, 0, 0]}
-            scale={[2.1, 2.1, 2.1]}
-            rotation-x={Math.PI / 8}
-            rotation-y={Math.PI / 16}
-            rotation-z={0}
-            onPointerEnter={() => setBoxText('Cat')}
-            castShadow
-          />
+          <group>
+            <mesh position={[20, 1, 0]} onPointerEnter={() => setBoxText('Cat')}>
+              <boxGeometry args={[4, 4, 8]} />
+              <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+            </mesh>
+            <Cat
+              position={[20, 0, 0]}
+              scale={[2.1, 2.1, 2.1]}
+              rotation-x={Math.PI / 8}
+              rotation-y={Math.PI / 15}
+              rotation-z={0}
+              castShadow
+            />
+          </group>
         )}
       </group>
       <Floor />

@@ -10,6 +10,7 @@ import Cat from "../Cat"
 import WinterSnowflakes from "../WinterSnowflakes"
 import AutumnLeaves from "../AutumnLeaves"
 import SummerLights from "../SummerLights"
+import { useSpring, animated } from "@react-spring/three"
 
 const MESSAGE = "I'm Eric, a full stack\nweb developer specializing\nin 3D and augmented reality\nexperiences."
 
@@ -19,15 +20,12 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
   const yPositionRef = useRef<number>(0)
   const { pathname } = useLocation()
 
+  const [springs, api] = useSpring(() => ({ x: 1, y: 1, z: 1 }))
+
   const springRef = useRef<Mesh>(null!)
   const summerRef = useRef<Mesh>(null!)
   const autumnRef = useRef<Mesh>(null!)
   const winterRef = useRef<Mesh>(null!)
-
-  useFrame((_, delta) => {
-    yPositionRef.current += delta * 4
-    boardRef.current.position.y = Math.sin(yPositionRef.current) / 8
-  })
 
   const renderParticles = useCallback(() => {
     let Component
@@ -51,6 +49,23 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
     return <Component vanish={pathname !== '/about'} />
   }, [pathname, season])
 
+  const switchSeasons = useCallback((newSeason: string) => {
+    api.start({
+      x: 0,
+      y: 0,
+      z: 0,
+      onRest() {
+        api.start({ x: 1, y: 1, z: 1, delay: 300 })
+        setSeason(newSeason)
+      }
+    })
+  }, [api])
+
+  useFrame((_, delta) => {
+    yPositionRef.current += delta * 4
+    boardRef.current.position.y = Math.sin(yPositionRef.current) / 8
+  })
+
   return (
     <group position={position} rotation-y={Math.PI}>
       <group ref={boardRef}>
@@ -58,7 +73,9 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
           {MESSAGE}
         </MessageBoard>
       </group>
-      {renderParticles()}
+      <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
+        {renderParticles()}
+      </animated.group>
       {pathname === '/about' && (
         <Cat
           position={[7.2, 0, 1.5]}
@@ -72,7 +89,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
           ref={springRef}
           receiveShadow
           position={[-9, 1.1, 2]}
-          onClick={() => setSeason('spring')}
+          onClick={() => switchSeasons('spring')}
         >
           <sphereGeometry args={[0.75, 64]} />
           <meshPhysicalMaterial clearcoat={1} color="pink" />
@@ -81,7 +98,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
           ref={summerRef}
           receiveShadow
           position={[-6, 1.1, 2]}
-          onClick={() => setSeason('summer')}
+          onClick={() => switchSeasons('summer')}
         >
           <sphereGeometry args={[0.75, 64]} />
           <meshPhysicalMaterial clearcoat={1} color="#0f610f" />
@@ -90,7 +107,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
           ref={autumnRef}
           receiveShadow
           position={[-3, 1.1, 2]}
-          onClick={() => setSeason('autumn')}
+          onClick={() => switchSeasons('autumn')}
         >
           <sphereGeometry args={[0.75, 64]} />
           <meshPhysicalMaterial clearcoat={1} color="#61270f" />
@@ -99,7 +116,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
           ref={winterRef}
           receiveShadow
           position={[0, 1.1, 2]}
-          onClick={() => setSeason('winter')}
+          onClick={() => switchSeasons('winter')}
         >  
           <sphereGeometry args={[0.75, 64]} />
           <meshPhysicalMaterial clearcoat={1} color="aqua" />

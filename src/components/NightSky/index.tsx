@@ -12,7 +12,7 @@ function NightSky() {
 
   return (
     <group ref={ref}>
-      <Stars radius={73} depth={200} count={1000} factor={4} saturation={1} speed={1} />
+      <Stars radius={20} depth={400} count={1000} factor={4} saturation={1} speed={1} />
       <mesh>
         <sphereGeometry args={[750, 512, 512]} />
         <meshStandardMaterial side={BackSide} color="#01020f" />

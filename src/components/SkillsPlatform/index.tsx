@@ -1,10 +1,12 @@
-import { PlatformProps } from "../Platform"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { PlatformProps } from "../Platform"
 import { Group } from "three"
 import Cat from "../Cat"
 import Floor from "../Floor"
+import SkillBox from "../SkillBox"
+import MessageBoard from "../MessageBoard"
 
 import html from '../../assets/html.png'
 import css from '../../assets/css.png'
@@ -18,8 +20,6 @@ import eighth from '../../assets/8thwall.png'
 import d3 from '../../assets/d3.png'
 import aws from '../../assets/aws.png'
 import gcp from '../../assets/gcp.png'
-import SkillBox from "../SkillBox"
-import MessageBoard from "../MessageBoard"
 
 const SKILLS = {
   d3: {

@@ -6,7 +6,7 @@ import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
-  const iridescentMaterial = useIridescentMaterial('#8fb5c9')
+  const iridescentMaterial = useIridescentMaterial('#a0c6db')
   const { pathname } = useLocation()
 
   return (

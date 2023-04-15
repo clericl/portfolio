@@ -2,16 +2,16 @@ import { useEffect } from 'react'
 import { useLoader, useThree } from '@react-three/fiber'
 import { RGBELoader } from 'three-stdlib'
 
-import puresky from '../../assets/puresky.hdr'
+import starry from '../../assets/starry.hdr'
 
 function NightSky() {
-  const tex = useLoader(RGBELoader, puresky)
+  const tex = useLoader(RGBELoader, starry)
   const scene = useThree((state) => state.scene)
 
   useEffect(() => {
     // @ts-ignore
     scene.background = tex
-    scene.backgroundIntensity = 0.08
+    scene.backgroundIntensity = 2
   }, [scene, tex])
 
   return null

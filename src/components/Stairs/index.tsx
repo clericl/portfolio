@@ -8,7 +8,7 @@ export const SPACE_BETWEEN_STAIRS = 1
 export const STAIR_HEIGHT = 0.1
 
 function Stair({ hasSphere, rotationY, positionY }: StairProps) {
-  const iridescentMaterial = useIridescentMaterial('#a7ccd4')
+  const iridescentMaterial = useIridescentMaterial('#a0c6db')
 
   return (
     <group position-y={positionY} rotation-y={rotationY}>

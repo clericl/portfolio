@@ -1,17 +1,17 @@
 import { MeshTransmissionMaterial, MeshReflectorMaterial } from "@react-three/drei"
 import { STAIR_HEIGHT } from "../Stairs"
 import Neon from "../Neon"
-import { useLocation } from "react-router-dom"
-import { useMemo } from "react"
 
-function Floor() {
-  const { pathname } = useLocation()
-  const isHome = useMemo(() => pathname === '/', [pathname])
+export enum FloorType {
+  Primary,
+  Secondary
+}
 
+function Floor({ type = FloorType.Secondary }: FloorProps) {
   return (
     <group>
       <mesh rotation-x={-Math.PI / 2} receiveShadow castShadow>
-        <boxGeometry args={[15 * (isHome ? 2 : 1.5), 5 * (isHome ? 2 : 1.5), STAIR_HEIGHT]} />
+        <boxGeometry args={[15 * (type === FloorType.Primary ? 2 : 1.5), 5 * (type === FloorType.Primary ? 2 : 1.5), STAIR_HEIGHT]} />
         <MeshTransmissionMaterial
           anisotropy={1}
           color="#62749e"
@@ -23,7 +23,7 @@ function Floor() {
         />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.1, 0]} receiveShadow>
-        <planeGeometry args={[15 * (isHome ? 2 : 1.5), 5 * (isHome ? 2 : 1.5)]} />
+        <planeGeometry args={[15 * (type === FloorType.Primary ? 2 : 1.5), 5 * (type === FloorType.Primary ? 2 : 1.5)]} />
           <MeshReflectorMaterial
             blur={[800, 30]}
             resolution={2048}
@@ -40,11 +40,15 @@ function Floor() {
             opacity={0.8}
           />
       </mesh>
-      {isHome && (
+      {type === FloorType.Primary && (
         <Neon />
       )}
     </group>
   )
+}
+
+interface FloorProps {
+  type?: FloorType
 }
 
 export default Floor

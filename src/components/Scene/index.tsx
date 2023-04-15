@@ -11,7 +11,7 @@ import './index.scss'
 function Scene() {
   return (
     <div className="three-scene">
-      <Canvas dpr={[1, 2]} shadows camera={{ fov: 65, position: [0, 1, 30] }}>
+      <Canvas dpr={[1, 2]} shadows camera={{ fov: 60, position: [0, 1, 30] }}>
         <fog attach="fog" args={['#343542', 50, 3000]} />
         <ambientLight intensity={1} />
         <pointLight position={[-50, 50, -50]} intensity={1} castShadow shadow-mapSize={2048} />        

@@ -111,7 +111,7 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
         position-x={6}
         width={8}
         height={5}
-        open
+        open={pathname === '/skills'}
       >
         {messageText}
       </MessageBoard>

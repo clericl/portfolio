@@ -13,24 +13,30 @@ const WIDTH = 19
 const HEIGHT = 8
 export const DELAY = 500
 
-function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
+function MessageBoard({ children, open = true, switchSeasons, ...props }: MessageBoardProps) {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial('#021040')
 
-  const [bulbMaterial, textMaterial] = useMemo(() => {
-    const bulb = neonMaterial.clone()
-    bulb.color = new Color(2, 2, 2)
+  const [springMat, summerMat, autumnMat, winterMat, textMaterial] = useMemo(() => {
+    const spring = neonMaterial.clone()
+    const summer = neonMaterial.clone()
+    const autumn = neonMaterial.clone()
+    const winter = neonMaterial.clone()
+    spring.emissive = new Color(2, 1, 1)
+    summer.emissive = new Color(0, 2, 0)
+    autumn.emissive = new Color(2, 1, 0)
+    winter.emissive = new Color(0, 0, 2)
 
     const text = neonMaterial.clone()
     text.color = new Color(1, 1.25, 1.25)
 
-    return [bulb, text]
+    return [spring, summer, autumn, winter, text]
   }, [neonMaterial])
   
-  const [topLeftSpring, topLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
-  const [topRightSpring, topRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
-  const [bottomLeftSpring, bottomLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
-  const [bottomRightSpring, bottomRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
+  const [topLeftSpring, topLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0, scale: 1 }))
+  const [topRightSpring, topRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0, scale: 1 }))
+  const [bottomLeftSpring, bottomLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0, scale: 1 }))
+  const [bottomRightSpring, bottomRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0, scale: 1 }))
   const [paneSpring, paneApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
 
   useEffect(() => {
@@ -114,7 +120,13 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={topLeftSpring.x}
           position-y={topLeftSpring.y}
           position-z={topLeftSpring.z}
-          material={bulbMaterial}
+          scale-x={topLeftSpring.scale}
+          scale-y={topLeftSpring.scale}
+          scale-z={topLeftSpring.scale}
+          material={springMat}
+          onPointerEnter={() => topLeftApi.start({ scale: 2.5 })}
+          onPointerLeave={() => topLeftApi.start({ scale: 1 })}
+          onClick={() => switchSeasons('spring')}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -123,7 +135,13 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={topRightSpring.x}
           position-y={topRightSpring.y}
           position-z={topRightSpring.z}
-          material={bulbMaterial}
+          scale-x={topRightSpring.scale}
+          scale-y={topRightSpring.scale}
+          scale-z={topRightSpring.scale}
+          material={summerMat}
+          onPointerEnter={() => topRightApi.start({ scale: 2.5 })}
+          onPointerLeave={() => topRightApi.start({ scale: 1 })}
+          onClick={() => switchSeasons('summer')}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -132,7 +150,13 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={bottomLeftSpring.x}
           position-y={bottomLeftSpring.y}
           position-z={bottomLeftSpring.z}
-          material={bulbMaterial}
+          scale-x={bottomLeftSpring.scale}
+          scale-y={bottomLeftSpring.scale}
+          scale-z={bottomLeftSpring.scale}
+          material={autumnMat}
+          onPointerEnter={() => bottomLeftApi.start({ scale: 2.5 })}
+          onPointerLeave={() => bottomLeftApi.start({ scale: 1 })}
+          onClick={() => switchSeasons('autumn')}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -141,7 +165,13 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
           position-x={bottomRightSpring.x}
           position-y={bottomRightSpring.y}
           position-z={bottomRightSpring.z}
-          material={bulbMaterial}
+          scale-x={bottomRightSpring.scale}
+          scale-y={bottomRightSpring.scale}
+          scale-z={bottomRightSpring.scale}
+          material={winterMat}
+          onPointerEnter={() => bottomRightApi.start({ scale: 2.5 })}
+          onPointerLeave={() => bottomRightApi.start({ scale: 1 })}
+          onClick={() => switchSeasons('winter')}
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
@@ -179,6 +209,7 @@ function MessageBoard({ children, open = true, ...props }: MessageBoardProps) {
 interface MessageBoardProps {
   children?: ReactNode
   open?: boolean
+  switchSeasons: Function
 }
 
 export default MessageBoard

@@ -92,6 +92,9 @@ export default function Cat(props) {
         }
         idleCount.current = dieRoll === 2 ? 0 : idleCount.current + 1
       }
+    } else if (pathname === '/skills') {
+      nextAction = actions['Arm_Cat|Swim_Idle']
+      timeScale = TIME_SCALE / 1.5
     }
 
     nextAction.clampWhenFinished = true

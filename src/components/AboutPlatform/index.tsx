@@ -1,16 +1,16 @@
-import { PlatformProps } from "../Platform"
-import Floor from "../Floor"
-import MessageBoard from "../MessageBoard"
 import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
 import { useCallback, useRef, useState } from "react"
-import { Group, Mesh } from "three"
-import CherryBlossoms from "../CherryBlossoms"
-import Cat from "../Cat"
-import WinterSnowflakes from "../WinterSnowflakes"
-import AutumnLeaves from "../AutumnLeaves"
-import SummerLights from "../SummerLights"
 import { useSpring, animated } from "@react-spring/three"
+import { PlatformProps } from "../Platform"
+import { Group, Mesh } from "three"
+import AutumnLeaves from "../AutumnLeaves"
+import Cat from "../Cat"
+import CherryBlossoms from "../CherryBlossoms"
+import Floor from "../Floor"
+import MessageBoard from "../MessageBoard"
+import SummerLights from "../SummerLights"
+import WinterSnowflakes from "../WinterSnowflakes"
 
 const MESSAGE = "I'm Eric, a full stack\nweb developer specializing\nin 3D and augmented reality\nexperiences."
 
@@ -50,16 +50,18 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
   }, [pathname, season])
 
   const switchSeasons = useCallback((newSeason: string) => {
-    api.start({
-      x: 0,
-      y: 0,
-      z: 0,
-      onRest() {
-        api.start({ x: 1, y: 1, z: 1, delay: 300 })
-        setSeason(newSeason)
-      }
-    })
-  }, [api])
+    if (newSeason !== season) {
+      api.start({
+        x: 0,
+        y: 0,
+        z: 0,
+        onRest() {
+          api.start({ x: 1, y: 1, z: 1, delay: 300 })
+          setSeason(newSeason)
+        }
+      })
+    }
+  }, [api, season])
 
   useFrame((_, delta) => {
     yPositionRef.current += delta * 4
@@ -69,7 +71,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
   return (
     <group position={position} rotation-y={Math.PI}>
       <group ref={boardRef}>
-        <MessageBoard open={pathname === '/about'} position-y={2.2}>
+        <MessageBoard open={pathname === '/about'} position-y={2.2} switchSeasons={switchSeasons}>
           {MESSAGE}
         </MessageBoard>
       </group>
@@ -84,44 +86,6 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
           castShadow
         />
       )}
-      <group>
-        <mesh
-          ref={springRef}
-          receiveShadow
-          position={[-9, 1.1, 2]}
-          onClick={() => switchSeasons('spring')}
-        >
-          <sphereGeometry args={[0.75, 64]} />
-          <meshPhysicalMaterial clearcoat={1} color="pink" />
-        </mesh>
-        <mesh
-          ref={summerRef}
-          receiveShadow
-          position={[-6, 1.1, 2]}
-          onClick={() => switchSeasons('summer')}
-        >
-          <sphereGeometry args={[0.75, 64]} />
-          <meshPhysicalMaterial clearcoat={1} color="#0f610f" />
-        </mesh>
-        <mesh
-          ref={autumnRef}
-          receiveShadow
-          position={[-3, 1.1, 2]}
-          onClick={() => switchSeasons('autumn')}
-        >
-          <sphereGeometry args={[0.75, 64]} />
-          <meshPhysicalMaterial clearcoat={1} color="#61270f" />
-        </mesh>
-        <mesh
-          ref={winterRef}
-          receiveShadow
-          position={[0, 1.1, 2]}
-          onClick={() => switchSeasons('winter')}
-        >  
-          <sphereGeometry args={[0.75, 64]} />
-          <meshPhysicalMaterial clearcoat={1} color="aqua" />
-        </mesh>
-      </group>
       <Floor />
     </group>
   )

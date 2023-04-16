@@ -1,13 +1,13 @@
-import { Plane, TextureLoader, BoxGeometry, RepeatWrapping, Vector3 } from 'three'
-import { useEffect, useMemo, useRef } from 'react'
-import { extend, MeshProps, Object3DNode, useFrame, useLoader, useThree } from '@react-three/fiber'
+import { TextureLoader, BoxGeometry, RepeatWrapping, Vector3 } from 'three'
+import { useMemo, useRef } from 'react'
+import { extend, Object3DNode, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Water } from 'three-stdlib'
 
 import waterNormalsTex from '../../assets/water-normals.jpg'
 
 extend({ Water })
 
-function Ocean({ clippingPlanes }: OceanProps) {
+function Ocean() {
   const ref = useRef<Water>(null!)
   const gl = useThree((state) => state.gl)
   const waterNormals = useLoader(TextureLoader, waterNormalsTex)
@@ -29,14 +29,6 @@ function Ocean({ clippingPlanes }: OceanProps) {
     format: gl.outputEncoding,
   }), [gl.outputEncoding, waterNormal])
 
-  useEffect(() => {
-    // @ts-ignore
-    ref.current.clipping = true
-    // @ts-ignore
-    ref.current.clippingPlanes = clippingPlanes
-    console.log(ref.current.material)
-  }, [clippingPlanes])
-
   useFrame((_, delta) => {
     if (ref.current) {
       ref.current.material.uniforms.time.value -= (delta)
@@ -50,10 +42,6 @@ function Ocean({ clippingPlanes }: OceanProps) {
       rotation-x={-Math.PI / 2}      
     />
   )
-}
-
-interface OceanProps extends MeshProps {
-  clippingPlanes: Plane[]
 }
 
 declare module '@react-three/fiber' {

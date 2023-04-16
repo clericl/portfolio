@@ -1,21 +1,11 @@
 import { PlatformProps } from "../Platform";
-import Cat from "../Cat";
-import Floor from "../Floor";
 import { useLocation } from "react-router-dom";
+import Cat from "../Cat";
 import Ocean from "../Ocean";
-import { useMemo } from "react";
-import { Plane, Vector3 } from "three"
 
 function WorkPlatform({ position }: Partial<PlatformProps>) {
   const { pathname } = useLocation()
 
-  const clippingPlanes = useMemo(() => {
-    return [
-      new Plane( new Vector3( 1, 0, 0 ), 0 ),
-      new Plane( new Vector3( 0, - 1, 0 ), 0 ),
-      new Plane( new Vector3( 0, 0, - 1 ), 0 )
-    ];
-  }, [])
   return (
     <group position={position} rotation-y={Math.PI}>
       {pathname === '/work' && (
@@ -26,10 +16,9 @@ function WorkPlatform({ position }: Partial<PlatformProps>) {
           castShadow
         />
       )}
-      {/* <Floor /> */}
       <group>
         <mesh>
-          <Ocean clippingPlanes={clippingPlanes} />
+          <Ocean />
         </mesh>
       </group>
     </group>

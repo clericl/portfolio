@@ -95,6 +95,13 @@ export default function Cat(props) {
     } else if (pathname === '/skills') {
       nextAction = actions['Arm_Cat|Swim_Idle']
       timeScale = TIME_SCALE / 1.5
+    } else if (pathname === '/work') {
+      if (!e) {
+        nextAction = actions['Arm_Cat|EatDrink_start']
+        timeScale = TIME_SCALE / 1.5        
+      } else {
+        nextAction = actions['Arm_Cat|Drinking']
+      }
     }
 
     nextAction.clampWhenFinished = true

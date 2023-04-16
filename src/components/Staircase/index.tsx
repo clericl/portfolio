@@ -14,8 +14,8 @@ export const PLATFORM_TITLES = [
   '/',
   '/about',
   '/skills',
-  '/personal-projects',
-  '/professional-projects',
+  '/work',
+  '/projects',
 ]
 
 function Staircase() {

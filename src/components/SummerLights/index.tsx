@@ -11,7 +11,7 @@ const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Mat
 
 const RADIUS = 22
 
-function SummerLights({ count = 99, vanish }: SummerLightsProps) {
+function SummerLights({ count = 200, vanish }: SummerLightsProps) {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
 

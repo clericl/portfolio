@@ -6,7 +6,6 @@ import snowflake2 from '../../assets/snowflake2.glb'
 function WinterSnowflakes({ vanish }: WinterSnowflakesProps) {
   return (
     <ParticleInstances
-      count={100}
       vanish={vanish}
       modelData={[
         {

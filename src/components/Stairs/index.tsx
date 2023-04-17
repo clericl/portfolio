@@ -4,7 +4,7 @@ import { NUMBER_OF_ROTATIONS, STAIRS_PER_ROTATION } from "../Staircase"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 export const DEGREE_IN_RADIANS = 0.0174533
-export const SPACE_BETWEEN_STAIRS = 1
+export const SPACE_BETWEEN_STAIRS = 1.5
 export const STAIR_HEIGHT = 0.1
 
 function Stair({ hasSphere, rotationY, positionY }: StairProps) {

@@ -6,7 +6,6 @@ import petal2 from '../../assets/petal2.glb'
 function CherryBlossoms({ vanish }: CherryBlossomsProps) {
   return (
     <ParticleInstances
-      count={100}
       vanish={vanish}
       modelData={[
         {

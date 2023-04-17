@@ -8,7 +8,7 @@ import ParticleInstance from "../ParticleInstance"
 const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
-const RADIUS = 22
+const RADIUS = 24
 
 function ParticleInstances({
   count = 200,

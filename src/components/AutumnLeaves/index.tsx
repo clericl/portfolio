@@ -6,7 +6,7 @@ import leaf2 from '../../assets/leaf2.glb'
 function AutumnLeaves({ vanish }: AutumnLeavesProps) {
   return (
     <ParticleInstances
-      count={200}
+      count={100}
       vanish={vanish}
       modelData={[
         {

@@ -1,6 +1,6 @@
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
-import { useCallback, useRef, useState } from "react"
 import { useSpring, animated } from "@react-spring/three"
 import { PlatformProps } from "../Platform"
 import { Group } from "three"
@@ -12,49 +12,52 @@ import SeasonsBoard from "../SeasonsBoard"
 import SummerLights from "../SummerLights"
 import WinterSnowflakes from "../WinterSnowflakes"
 
+export enum Season {
+  Spring,
+  Summer,
+  Autumn,
+  Winter,
+}
+
 function AboutPlatform({ position }: Partial<PlatformProps>) {
-  const [season, setSeason] = useState('spring')
+  const [season, setSeason] = useState(Season.Spring)
   const boardRef = useRef<Group>(null!)
   const yPositionRef = useRef<number>(0)
   const { pathname } = useLocation()
 
   const [springs, api] = useSpring(() => ({ x: 1, y: 1, z: 1 }))
 
-  const renderParticles = useCallback(() => {
-    let Component
-
-    switch (season) {
-      case 'winter':
-        Component = WinterSnowflakes
-        break;
-      case 'autumn':
-        Component = AutumnLeaves
-        break;
-      case 'summer':
-        Component = SummerLights
-        break;
-      case 'spring':
-      default:
-        Component = CherryBlossoms
-        break;
+  const switchSeasons = useCallback((newSeason: Season | undefined) => {
+    let nextSeason = -1
+    if (typeof newSeason !== 'undefined') {
+      if (newSeason !== season) {
+        nextSeason = newSeason
+      }
+    } else {
+      nextSeason = (season + 1) % 4
     }
 
-    return <Component vanish={pathname !== '/about'} />
-  }, [pathname, season])
+    if (nextSeason >= 0) {
+      setSeason(nextSeason)
+    }
+  }, [season])
 
-  const switchSeasons = useCallback((newSeason: string) => {
-    if (newSeason !== season) {
+  useEffect(() => {
+    if (pathname !== '/about') {
       api.start({
         x: 0,
         y: 0,
         z: 0,
-        onRest() {
-          api.start({ x: 1, y: 1, z: 1, delay: 300 })
-          setSeason(newSeason)
-        }
+      })
+    } else {
+      api.start({
+        x: 1,
+        y: 1,
+        z: 1,
+        delay: 1100,
       })
     }
-  }, [api, season])
+  }, [api, pathname])
 
   useFrame((_, delta) => {
     yPositionRef.current += delta * 4
@@ -67,7 +70,10 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
         <SeasonsBoard open={pathname === '/about'} position-y={2.2} switchSeasons={switchSeasons} />
       </group>
       <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
-        {renderParticles()}
+        <CherryBlossoms vanish={season !== Season.Spring} />
+        <SummerLights vanish={season !== Season.Summer} />
+        <AutumnLeaves vanish={season !== Season.Autumn} />
+        <WinterSnowflakes vanish={season !== Season.Winter} />
       </animated.group>
       {pathname === '/about' && (
         <Cat

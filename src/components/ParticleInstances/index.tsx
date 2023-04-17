@@ -8,13 +8,12 @@ import ParticleInstance from "../ParticleInstance"
 const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
-const DELAY = 1100
-const RADIUS = 26
+const RADIUS = 24
 
 function ParticleInstances({
   count = 200,
   modelData,
-  vanish
+  vanish,
 }: ParticleInstancesProps) {
   const gltfs = useGLTF(modelData.map(({ modelPath }) => modelPath))
   const groupRef = useRef<Group>(null!)
@@ -53,9 +52,9 @@ function ParticleInstances({
 
   useEffect(() => {
     if (vanish) {
-      api.start({ x: 0, y: 0, z: 0, delay: DELAY })
+      api.start({ x: 0, y: 0, z: 0 })
     } else {
-      api.start({ x: 1, y: 1, z: 1, delay: DELAY })
+      api.start({ x: 1, y: 1, z: 1 })
     }
   })
 

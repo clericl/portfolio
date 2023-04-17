@@ -1,6 +1,6 @@
-import { useMemo, } from 'react'
+import { useMemo } from 'react'
 import { useVideoTexture } from '@react-three/drei'
-import { Color, ColorRepresentation } from 'three'
+import { Color } from 'three'
 import { GOLDEN_RATIO } from '../Frames'
 import useNeonMaterial from '../../utils/useNeonMaterial'
 
@@ -24,7 +24,10 @@ function Frame({
       position-x={(index * 4) - 9}
       rotation-y={Math.PI / (index + 3)}
     >
-      <mesh material={blueNeon} position={[0, (GOLDEN_RATIO / 2) + 0.05, 0]}>
+      <mesh
+        material={blueNeon}
+        position={[0, (GOLDEN_RATIO / 2) + 0.05, 0]}
+      >
         <boxGeometry args={[1.05, GOLDEN_RATIO + 0.05, 0.025]} />
         <mesh position-z={0.026}>
           <planeGeometry args={[1, GOLDEN_RATIO]} />

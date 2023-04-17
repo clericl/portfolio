@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Environment, OrbitControls } from '@react-three/drei'
+import { Environment } from '@react-three/drei'
 import Effects from '../Effects'
 import Staircase from '../Staircase'
 import NightSky from '../NightSky'
@@ -17,7 +17,6 @@ function Scene() {
         <pointLight position={[-50, 50, -50]} intensity={1} castShadow shadow-mapSize={2048} />        
         <Environment files={puresky} />
         <Effects />
-        {/* <OrbitControls /> */}
         <Suspense fallback={null}>
           <NightSky />
           <Staircase />

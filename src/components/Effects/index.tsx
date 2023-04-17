@@ -8,7 +8,7 @@ function Effects() {
   const bloomRef = useRef()
   
   useFrame(({ clock }) => {
-    bloomRef.current.intensity = (Math.sin(clock.elapsedTime / 2) + 2) / 6
+    bloomRef.current.intensty = (Math.sin(clock.elapsedTime / 2) + 2) / 6
   })
 
   return (

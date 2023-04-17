@@ -12,7 +12,7 @@ const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Mat
 const DELAY = 1100
 const RADIUS = 26
 
-function SummerLights({ count = 200, vanish }: SummerLightsProps) {
+function SummerLights({ count = 99, vanish }: SummerLightsProps) {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
 
@@ -76,9 +76,9 @@ function SummerLights({ count = 200, vanish }: SummerLightsProps) {
 
   useEffect(() => {
     if (vanish) {
-      api.start({ x: 0, y: 0, z: 0, delay: DELAY })
+      api.start({ x: 0, y: 0, z: 0 })
     } else {
-      api.start({ x: 1, y: 1, z: 1, delay: DELAY })
+      api.start({ x: 1, y: 1, z: 1 })
     }
   })
 

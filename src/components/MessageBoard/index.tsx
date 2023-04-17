@@ -18,6 +18,7 @@ function MessageBoard({
   children,
   open = true,
   bulbProps = {},
+  paneProps = {},
   width = WIDTH,
   height = HEIGHT,
   ...props
@@ -160,33 +161,35 @@ function MessageBoard({
         >
           <sphereGeometry args={[SPHERE_RADIUS, 16, 16]} />
         </animated.mesh>
-        <animated.mesh
-          castShadow
-          scale-x={paneSpring.x} scale-y={paneSpring.y} scale-z={paneSpring.z}>
-          <boxGeometry args={[(width - (SPHERE_RADIUS / 2)), (height - (SPHERE_RADIUS / 2)), SPHERE_RADIUS]} />
-          <MeshTransmissionMaterial
-            samples={16}
-            resolution={1028}
-            anisotropy={1}
-            thickness={0.8}
-            roughness={0.6}
-            toneMapped={true}
-            color="#96b5b4"
-          />
-        </animated.mesh>
-        <animated.group position-z={0.5} scale-x={paneSpring.x} scale-y={paneSpring.y} scale-z={paneSpring.z}>
-          <Text
-            anchorX="center"
-            anchorY="middle"
-            color="#0d196b"
-            font={fontFile}
-            maxWidth={width - 2}
-            textAlign="center"
-            material={textMat}
-          >
-            {children}
-          </Text>
-        </animated.group>
+        <group {...paneProps}>
+          <animated.mesh
+            castShadow
+            scale-x={paneSpring.x} scale-y={paneSpring.y} scale-z={paneSpring.z}>
+            <boxGeometry args={[(width - (SPHERE_RADIUS / 2)), (height - (SPHERE_RADIUS / 2)), SPHERE_RADIUS]} />
+            <MeshTransmissionMaterial
+              samples={16}
+              resolution={1028}
+              anisotropy={1}
+              thickness={0.8}
+              roughness={0.6}
+              toneMapped={true}
+              color="#96b5b4"
+            />
+          </animated.mesh>
+          <animated.group position-z={0.5} scale-x={paneSpring.x} scale-y={paneSpring.y} scale-z={paneSpring.z}>
+            <Text
+              anchorX="center"
+              anchorY="middle"
+              color="#0d196b"
+              font={fontFile}
+              maxWidth={width - 2}
+              textAlign="center"
+              material={textMat}
+            >
+              {children}
+            </Text>
+          </animated.group>
+        </group>
       </group>
     </group>
   )

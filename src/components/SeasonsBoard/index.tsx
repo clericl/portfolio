@@ -1,15 +1,19 @@
 // @ts-nocheck
 
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
+import { useSpring } from "@react-spring/three"
+import { useCursor } from "@react-three/drei"
 import { Color } from "three"
+import { Season } from "../AboutPlatform"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 import MessageBoard from "../MessageBoard"
-import { useSpring } from "@react-spring/three"
 
 const MESSAGE = "I'm Eric, a full stack\nweb developer specializing\nin 3D and augmented reality\nexperiences."
 
 function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProps) {
+  const [hovered, set] = useState(false)
   const neonMaterial = useNeonMaterial('#021040')
+  useCursor(hovered)
 
   const [springMat, summerMat, autumnMat, winterMat] = useMemo(() => {
     const spring = neonMaterial.clone()
@@ -42,7 +46,7 @@ function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProp
           'scale-z': topLeftSpring.scale,
           onPointerEnter: () => topLeftApi.start({ scale: 2.5 }),
           onPointerLeave: () => topLeftApi.start({ scale: 1 }),
-          onClick: () => switchSeasons('spring'),
+          onClick: () => switchSeasons(Season.Spring),
         },
         topRight: {
           material: summerMat,
@@ -51,7 +55,7 @@ function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProp
           'scale-z': topRightSpring.scale,
           onPointerEnter: () => topRightApi.start({ scale: 2.5 }),
           onPointerLeave: () => topRightApi.start({ scale: 1 }),
-          onClick: () => switchSeasons('summer'),
+          onClick: () => switchSeasons(Season.Summer),
         },
         bottomLeft: {
           material: autumnMat,
@@ -60,7 +64,7 @@ function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProp
           'scale-z': bottomLeftSpring.scale,
           onPointerEnter: () => bottomLeftApi.start({ scale: 2.5 }),
           onPointerLeave: () => bottomLeftApi.start({ scale: 1 }),
-          onClick: () => switchSeasons('autumn'),
+          onClick: () => switchSeasons(Season.Autumn),
         },
         bottomRight: {
           material: winterMat,
@@ -69,10 +73,15 @@ function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProp
           'scale-z': bottomRightSpring.scale,
           onPointerEnter: () => bottomRightApi.start({ scale: 2.5 }),
           onPointerLeave: () => bottomRightApi.start({ scale: 1 }),
-          onClick: () => switchSeasons('winter'),
+          onClick: () => switchSeasons(Season.Winter),
         },
       }}
+      paneProps={{
+        onClick: () => switchSeasons(),
+      }}
       open={open}
+      onPointerOver={() => set(true)}
+      onPointerOut={() => set(false)}
       {...props}
     >
       {MESSAGE}

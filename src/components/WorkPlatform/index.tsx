@@ -10,11 +10,11 @@ function WorkPlatform({ position }: Partial<PlatformProps>) {
   return (
     <group position={position} rotation-y={Math.PI}>
       <group>
-        {/* <Frames /> */}
+        <Frames />
       </group>
       {pathname === '/work' && (
         <Cat
-          position={[7.2, 0, 1.5]}
+          position-x={9}
           scale={[2.1, 2.1, 2.1]}
           rotation-y={-Math.PI / 8 * 2.75}
           castShadow

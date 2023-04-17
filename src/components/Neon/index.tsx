@@ -7,14 +7,11 @@ import useNeonMaterial from "../../utils/useNeonMaterial"
 const RADIAN_IN_DEGREES = 57.2958
 
 function Neon() {
-  const deltaRef = useRef<number>(0)
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
 
-  useFrame((_, delta) => {
-    deltaRef.current += (delta * RADIAN_IN_DEGREES * 4)
-
-    const nextColor = new Color(`hsl(${deltaRef.current}, 100%, 50%)`)
+  useFrame(({ clock }) => {
+    const nextColor = new Color(`hsl(${(clock.elapsedTime / 2) * RADIAN_IN_DEGREES}, 100%, 50%)`)
 
     groupRef.current.traverse((obj) => {
       // @ts-ignore

@@ -1,53 +1,36 @@
-import { useRef, useState, } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { Image, Text } from '@react-three/drei'
-import { Color, ColorRepresentation, Mesh, Texture } from 'three'
-import { easing } from 'maath'
+import { useMemo, } from 'react'
+import { useVideoTexture } from '@react-three/drei'
+import { Color, ColorRepresentation } from 'three'
 import { GOLDEN_RATIO } from '../Frames'
+import useNeonMaterial from '../../utils/useNeonMaterial'
 
 function Frame({
-  isActive,
   url,
-  texture,
-  c = new Color(),
-  ...props
+  index,
 }: FrameProps) {
-  const image = useRef<Mesh>(null!)
-  const frame = useRef<Mesh>(null!)
-  const [hovered, hover] = useState(false)
-  const [rnd] = useState(() => Math.random())
-  
-  useFrame((state, dt) => {
-    // @ts-ignore
-    image.current.material.zoom = 2 + Math.sin(rnd * 10000 + state.clock.elapsedTime / 3) / 2
-    easing.damp3(image.current.scale, [0.85 * (!isActive && hovered ? 0.85 : 1), 0.9 * (!isActive && hovered ? 0.905 : 1), 1], 0.1, dt)
-    // @ts-ignore
-    easing.dampC(frame.current.material.color, hovered ? 'orange' : 'white', 0.1, dt)
-  })
+  const texture = useVideoTexture(url)
+  const neonMaterial = useNeonMaterial()
+
+  const blueNeon = useMemo(() => {
+    const mat = neonMaterial.clone()
+    mat.color = new Color('#534ecf')
+    mat.emissive = new Color(0.2, 0.2, 2)
+    return mat
+  }, [neonMaterial])
+
   return (
-    <group {...props}>
-      <mesh
-        onPointerOver={(e) => (e.stopPropagation(), hover(true))}
-        onPointerOut={() => hover(false)}
-        scale={[1, GOLDEN_RATIO, 0.05]}
-        position={[0, GOLDEN_RATIO / 2, 0]}
-      >
-        <boxGeometry />
-        <meshStandardMaterial color="#151515" metalness={0.5} roughness={0.5} envMapIntensity={2} />
-        <mesh ref={frame} raycast={() => null} scale={[0.9, 0.93, 0.9]} position={[0, 0, 0.2]}>
-          <boxGeometry />
-          <meshBasicMaterial toneMapped={false} fog={false} />
+    <group
+      scale={5}
+      position-x={(index * 4) - 9}
+      rotation-y={Math.PI / (index + 3)}
+    >
+      <mesh material={blueNeon} position={[0, (GOLDEN_RATIO / 2) + 0.05, 0]}>
+        <boxGeometry args={[1.1, GOLDEN_RATIO + 0.1, 0.05]} />
+        <mesh position-z={0.026}>
+          <planeGeometry args={[1, GOLDEN_RATIO]} />
+          <meshBasicMaterial map={texture} />
         </mesh>
-        {url && (
-          <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={url} />
-        )}
-        {texture && (
-          <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} texture={texture} />
-        )}
       </mesh>
-      {/* <Text maxWidth={0.1} anchorX="left" anchorY="top" position={[0.55, GOLDEN_RATIO, 0]} fontSize={0.025}>
-        {name.split('-').join(' ')}
-      </Text> */}
     </group>
   )
 }
@@ -55,6 +38,6 @@ function Frame({
 export default Frame
 
 type FrameProps = {
-  isActive: boolean
-  c?: ColorRepresentation
-} & ({ texture: Texture; url?: never } | { texture?: never; url: string })
+  url: string
+  index: number
+}

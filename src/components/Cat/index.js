@@ -62,36 +62,34 @@ export default function Cat(props) {
           break;
         }
       }
+      nextAction.clampWhenFinished = false
     } else if (pathname === '/about') {
       if (!e) {
         nextAction = actions['Arm_Cat|Lie_belly_start']
         timeScale = TIME_SCALE / 1.5        
       } else {
-        const dieRoll = Math.floor(Math.random() * idleCount.current)
+        const dieRoll = Math.floor(Math.random() * 6)
 
         switch (dieRoll) {
           case 1:
           case 2:
           default: {
             nextAction = actions['Arm_Cat|Lie_belly_loop_2']
-            idleCount.current += 1
             break;
           }
           case 3:
           case 4: {
             nextAction = actions['Arm_Cat|Lie_belly_loop_1']
-            idleCount.current += 1
             break;
           }
           case 5:
           case 6: {
             nextAction = actions['Arm_Cat|Lie_belly_loop_3']
-            idleCount.current = 0
             break;
           }
         }
-        idleCount.current = dieRoll === 2 ? 0 : idleCount.current + 1
       }
+      nextAction.clampWhenFinished = true
     } else if (pathname === '/skills') {
       nextAction = actions['Arm_Cat|Swim_Idle']
       timeScale = TIME_SCALE / 1.5
@@ -102,9 +100,9 @@ export default function Cat(props) {
       } else {
         nextAction = actions['Arm_Cat|Drinking']
       }
+      nextAction.clampWhenFinished = true
     }
 
-    nextAction.clampWhenFinished = true
     nextAction.reset()
       .setEffectiveTimeScale(timeScale)
       .setLoop(LoopOnce, 1)

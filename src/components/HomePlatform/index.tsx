@@ -1,7 +1,8 @@
+import { useLocation } from "react-router-dom"
 import { Center, Text3D } from "@react-three/drei"
 import { PlatformProps } from "../Platform"
-import { useLocation } from "react-router-dom"
-import Floor, { FloorType } from "../Floor"
+import { FloorType } from "../../utils/constants"
+import Floor from "../Floor"
 import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 

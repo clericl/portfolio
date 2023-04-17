@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
 import { PlatformProps } from "../Platform"
 import { Group } from "three"
+import { Season } from "../../utils/constants"
 import AutumnLeaves from "../AutumnLeaves"
 import Cat from "../Cat"
 import CherryBlossoms from "../CherryBlossoms"
@@ -11,13 +12,6 @@ import Floor from "../Floor"
 import SeasonsBoard from "../SeasonsBoard"
 import SummerLights from "../SummerLights"
 import WinterSnowflakes from "../WinterSnowflakes"
-
-export enum Season {
-  Spring,
-  Summer,
-  Autumn,
-  Winter,
-}
 
 function AboutPlatform({ position }: Partial<PlatformProps>) {
   const [season, setSeason] = useState(Season.Spring)

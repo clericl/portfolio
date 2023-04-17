@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Event, Group, Quaternion, Vector3, Object3D } from "three";
+import { useRef, useState } from "react";
+import { Group } from "three";
 import Frame from "../Frame";
 
 import moethennessy from '../../assets/projects/moethennessy.mp4'
@@ -14,8 +14,6 @@ const IMAGES = [
   rosewrapped,
   arbor,
 ]
-
-export const GOLDEN_RATIO = 1.61803398875
 
 function Frames() {
   const [hovered, set] = useState(false)

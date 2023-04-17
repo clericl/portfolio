@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react"
 import { CylinderGeometry, Color, Group } from "three"
+import { PARTICLE_CLOUD_RADIUS } from "../../utils/constants"
 import { Instances } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
@@ -9,15 +10,13 @@ import useNeonMaterial from "../../utils/useNeonMaterial"
 const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
-const RADIUS = 22
-
 function SummerLights({ count = 200, vanish }: SummerLightsProps) {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
 
   const data1 = useMemo(() => Array.from(
     { length: count / 3 },
-    (r:number = RADIUS) => ({
+    (r:number = PARTICLE_CLOUD_RADIUS) => ({
       random: Math.random(),
       position: randomVector(r),
       rotation: randomEuler(),
@@ -27,7 +26,7 @@ function SummerLights({ count = 200, vanish }: SummerLightsProps) {
 
   const data2 = useMemo(() => Array.from(
     { length: count / 3 },
-    (r:number = RADIUS) => ({
+    (r:number = PARTICLE_CLOUD_RADIUS) => ({
       random: Math.random(),
       position: randomVector(r),
       rotation: randomEuler(),
@@ -37,7 +36,7 @@ function SummerLights({ count = 200, vanish }: SummerLightsProps) {
 
   const data3 = useMemo(() => Array.from(
     { length: count / 3 },
-    (r:number = RADIUS) => ({
+    (r:number = PARTICLE_CLOUD_RADIUS) => ({
       random: Math.random(),
       position: randomVector(r),
       rotation: randomEuler(),
@@ -84,7 +83,7 @@ function SummerLights({ count = 200, vanish }: SummerLightsProps) {
   return (
     <animated.group
       ref={groupRef}
-      position-y={RADIUS / 4}
+      position-y={PARTICLE_CLOUD_RADIUS / 4}
       scale-x={springs.x}
       scale-y={springs.y}
       scale-z={springs.z}

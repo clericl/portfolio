@@ -1,14 +1,13 @@
 import { useEffect, useMemo, useRef } from "react"
 import { Color, ColorRepresentation, Group } from "three"
 import { Instances, useGLTF } from "@react-three/drei"
+import { PARTICLE_CLOUD_RADIUS } from "../../utils/constants"
 import { useFrame } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
 import ParticleInstance from "../ParticleInstance"
 
 const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
-
-const RADIUS = 24
 
 function ParticleInstances({
   count = 200,
@@ -20,7 +19,7 @@ function ParticleInstances({
 
   const instanceData = useMemo(() => modelData.map(({ scale }) => Array.from(
     { length: count / 2 },
-    (r:number = RADIUS) => ({
+    (r:number = PARTICLE_CLOUD_RADIUS) => ({
       random: Math.random(),
       position: randomVector(r),
       rotation: randomEuler(),
@@ -61,7 +60,7 @@ function ParticleInstances({
   return (
     <animated.group
       ref={groupRef}
-      position-y={RADIUS / 4}
+      position-y={PARTICLE_CLOUD_RADIUS / 4}
       scale-x={springs.x}
       scale-y={springs.y}
       scale-z={springs.z}

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { useSpring } from "@react-spring/three"
 import { useCursor } from "@react-three/drei"
 import { Color } from "three"
-import { Season } from "../AboutPlatform"
+import { Season } from "../../utils/constants"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 import MessageBoard from "../MessageBoard"
 

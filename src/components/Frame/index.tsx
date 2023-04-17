@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useVideoTexture } from '@react-three/drei'
 import { Color } from 'three'
-import { GOLDEN_RATIO } from '../Frames'
+import { GOLDEN_RATIO } from '../../utils/constants'
 import useNeonMaterial from '../../utils/useNeonMaterial'
 
 function Frame({

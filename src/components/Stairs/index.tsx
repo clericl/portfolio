@@ -1,11 +1,12 @@
 import { Vector3 } from "@react-three/fiber"
 import { useMemo } from "react"
-import { NUMBER_OF_ROTATIONS, STAIRS_PER_ROTATION } from "../Staircase"
+import {
+  NUMBER_OF_ROTATIONS,
+  STAIRS_PER_ROTATION,
+  STAIR_HEIGHT,
+  SPACE_BETWEEN_STAIRS,
+} from "../../utils/constants"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
-
-export const DEGREE_IN_RADIANS = 0.0174533
-export const SPACE_BETWEEN_STAIRS = 1.5
-export const STAIR_HEIGHT = 0.1
 
 function Stair({ hasSphere, rotationY, positionY }: StairProps) {
   const iridescentMaterial = useIridescentMaterial('#a0c6db')

@@ -1,13 +1,13 @@
 // @ts-nocheck
 
-import { useSpring, animated } from "@react-spring/three"
-import { MeshTransmissionMaterial, Text } from "@react-three/drei"
 import { ReactNode, useEffect, useMemo, useRef } from "react"
+import { useSpring, animated } from "@react-spring/three"
 import { Color, Group } from "three"
+import { MeshProps } from "@react-three/fiber"
+import { MeshTransmissionMaterial, Text } from "@react-three/drei"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 
 import fontFile from '../../assets/SourceCodePro-Regular.ttf'
-import { MeshProps } from "@react-three/fiber"
 
 const SPHERE_RADIUS = 0.2
 const WIDTH = 19

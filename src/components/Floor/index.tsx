@@ -1,11 +1,6 @@
 import { MeshTransmissionMaterial, MeshReflectorMaterial } from "@react-three/drei"
-import { STAIR_HEIGHT } from "../Stairs"
-import Neon from "../Neon"
-
-export enum FloorType {
-  Primary,
-  Secondary
-}
+import { FloorType, STAIR_HEIGHT } from "../../utils/constants"
+import NeonFrame from "../NeonFrame"
 
 function Floor({ type = FloorType.Secondary }: FloorProps) {
   return (
@@ -41,7 +36,7 @@ function Floor({ type = FloorType.Secondary }: FloorProps) {
           />
       </mesh>
       {type === FloorType.Primary && (
-        <Neon />
+        <NeonFrame />
       )}
     </group>
   )

@@ -1,11 +1,13 @@
 import { useEffect, useMemo } from "react"
 import { useSpring, animated, config } from "@react-spring/three"
-import Platform from "../Platform"
-import Stairs, { SPACE_BETWEEN_STAIRS } from "../Stairs"
 import { useLocation } from "react-router-dom"
-
-export const NUMBER_OF_ROTATIONS = 2
-export const STAIRS_PER_ROTATION = 36
+import {
+  NUMBER_OF_ROTATIONS,
+  STAIRS_PER_ROTATION,
+  SPACE_BETWEEN_STAIRS,
+} from "../../utils/constants"
+import Platform from "../Platform"
+import Stairs from "../Stairs"
 
 const platformHeightBase = (SPACE_BETWEEN_STAIRS * STAIRS_PER_ROTATION) / NUMBER_OF_ROTATIONS
 const staircaseHeight = SPACE_BETWEEN_STAIRS * NUMBER_OF_ROTATIONS * STAIRS_PER_ROTATION

@@ -1,12 +1,10 @@
 import { useRef } from "react"
-import { Color, Group } from "three"
-import { STAIR_HEIGHT } from "../Stairs"
 import { useFrame } from "@react-three/fiber"
+import { Color, Group } from "three"
+import { RADIAN_IN_DEGREES, STAIR_HEIGHT } from "../../utils/constants"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 
-const RADIAN_IN_DEGREES = 57.2958
-
-function Neon() {
+function NeonFrame() {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
 
@@ -41,4 +39,4 @@ function Neon() {
   )
 }
 
-export default Neon
+export default NeonFrame

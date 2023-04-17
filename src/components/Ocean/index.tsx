@@ -16,7 +16,7 @@ function Ocean() {
   // @ts-ignore
   waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping
 
-  const geometry = useMemo(() => new BoxGeometry(22.5, 7.5, 1), [])
+  const geometry = useMemo(() => new BoxGeometry(22.5, 7.5, 0.9), [])
   const config = useMemo(() => ({
     textureWidth: 512,
     textureHeight: 512,

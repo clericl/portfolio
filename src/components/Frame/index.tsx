@@ -1,14 +1,14 @@
 import { useRef, useState, } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Image, Text } from '@react-three/drei'
-import { Color, ColorRepresentation, Mesh } from 'three'
+import { Color, ColorRepresentation, Mesh, Texture } from 'three'
 import { easing } from 'maath'
-
-const GOLDEN_RATIO = 1.61803398875
+import { GOLDEN_RATIO } from '../Frames'
 
 function Frame({
   isActive,
   url,
+  texture,
   c = new Color(),
   ...props
 }: FrameProps) {
@@ -38,7 +38,12 @@ function Frame({
           <boxGeometry />
           <meshBasicMaterial toneMapped={false} fog={false} />
         </mesh>
-        <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={url} />
+        {url && (
+          <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={url} />
+        )}
+        {texture && (
+          <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} texture={texture} />
+        )}
       </mesh>
       {/* <Text maxWidth={0.1} anchorX="left" anchorY="top" position={[0.55, GOLDEN_RATIO, 0]} fontSize={0.025}>
         {name.split('-').join(' ')}
@@ -49,8 +54,7 @@ function Frame({
 
 export default Frame
 
-interface FrameProps {
+type FrameProps = {
   isActive: boolean
-  url: string
-  c: ColorRepresentation
-}
+  c?: ColorRepresentation
+} & ({ texture: Texture; url?: never } | { texture?: never; url: string })

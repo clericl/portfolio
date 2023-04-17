@@ -72,7 +72,7 @@ const SKILLS = {
   },
 }
 
-const DEFAULT_MESSAGE = 'Pick a box!'
+const DEFAULT_MESSAGE = 'Hover over a box!'
 
 function SkillsPlatform({ position }: Partial<PlatformProps>) {
   const [messageText, setMessageText] = useState(DEFAULT_MESSAGE)

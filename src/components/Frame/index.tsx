@@ -14,7 +14,7 @@ function Frame({
   const blueNeon = useMemo(() => {
     const mat = neonMaterial.clone()
     mat.color = new Color('#534ecf')
-    mat.emissive = new Color(0.2, 0.2, 2)
+    mat.emissive = new Color(0.21, 0.21, 2)
     return mat
   }, [neonMaterial])
 
@@ -25,7 +25,7 @@ function Frame({
       rotation-y={Math.PI / (index + 3)}
     >
       <mesh material={blueNeon} position={[0, (GOLDEN_RATIO / 2) + 0.05, 0]}>
-        <boxGeometry args={[1.1, GOLDEN_RATIO + 0.1, 0.05]} />
+        <boxGeometry args={[1.05, GOLDEN_RATIO + 0.05, 0.025]} />
         <mesh position-z={0.026}>
           <planeGeometry args={[1, GOLDEN_RATIO]} />
           <meshBasicMaterial map={texture} />

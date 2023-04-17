@@ -14,7 +14,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
       <Center disableY disableZ>
         <Text3D
           font="/hubballi.json"
-          position={[0, 8, -1]}
+          position={[0, 7, -1]}
           scale={[1, 1, 2]}
           size={4}
           material={iridescentMaterial}
@@ -25,7 +25,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
       <Center disableY disableZ>
         <Text3D
           font="/hubballi.json"
-          position={[0, 5, -1]}
+          position={[0, 4.5, -1]}
           scale={[1, 1, 2]}
           size={1.8}
           letterSpacing={-0.1}

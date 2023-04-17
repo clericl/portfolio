@@ -16,9 +16,9 @@ function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProp
     const summer = neonMaterial.clone()
     const autumn = neonMaterial.clone()
     const winter = neonMaterial.clone()
-    spring.emissive = new Color(2, 1, 1)
+    spring.emissive = new Color(2, 1.5, 1.5)
     summer.emissive = new Color(0, 2, 0)
-    autumn.emissive = new Color(2, 1, 0)
+    autumn.emissive = new Color(2, 1.5, 0)
     winter.emissive = new Color(0, 0, 2)
 
     const text = neonMaterial.clone()

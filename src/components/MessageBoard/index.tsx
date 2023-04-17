@@ -171,7 +171,7 @@ function MessageBoard({
             thickness={0.8}
             roughness={0.6}
             toneMapped={true}
-            color="#bfdedd"
+            color="#96b5b4"
           />
         </animated.mesh>
         <animated.group position-z={0.5} scale-x={paneSpring.x} scale-y={paneSpring.y} scale-z={paneSpring.z}>

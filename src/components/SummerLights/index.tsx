@@ -9,8 +9,7 @@ import useNeonMaterial from "../../utils/useNeonMaterial"
 const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
-const DELAY = 1100
-const RADIUS = 26
+const RADIUS = 22
 
 function SummerLights({ count = 99, vanish }: SummerLightsProps) {
   const groupRef = useRef<Group>(null!)

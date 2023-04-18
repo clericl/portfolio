@@ -9,6 +9,7 @@ function Navigation() {
         <NavigationLink to="/">Home</NavigationLink>
         <NavigationLink to="/about">About</NavigationLink>
         <NavigationLink to="/work">Work</NavigationLink>
+        <NavigationLink to="/contact">Contact</NavigationLink>
       </nav>
     </div>
   )

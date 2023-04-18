@@ -1,15 +1,25 @@
+import { useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
-import { Center, Text3D } from "@react-three/drei"
-import { PlatformProps } from "../Platform"
+import { useFrame } from "@react-three/fiber"
+import { Box, Center, Text3D, useCursor } from "@react-three/drei"
+import { Mesh } from "three"
 import { FloorType } from "../../utils/constants"
+import { PlatformProps } from "../Platform"
 import Floor from "../Floor"
 import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
+  const boxRef = useRef<Mesh>(null!)
   const iridescentMaterial = useIridescentMaterial('#a0c6db')
   const { pathname } = useLocation()
-
+  
+  useFrame((_, delta) => {
+    boxRef.current.rotation.x += delta * 3
+    boxRef.current.rotation.y += delta * 3
+    boxRef.current.rotation.z += delta * 3
+  })
+  
   return (
     <group position={position} position-x={0}>
       <Center disableY disableZ>
@@ -20,9 +30,15 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           size={4}
           material={iridescentMaterial}
         >
-          ERIC LIANG
+          ERIC  LIANG
         </Text3D>
       </Center>
+      <Box
+        args={[0.5, 0.5, 0.5]}
+        position={[-1.8, 8.5, -1]}
+        ref={boxRef}
+        material={iridescentMaterial}
+      />
       <Center disableY disableZ>
         <Text3D
           font="/hubballi.json"

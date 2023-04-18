@@ -6,6 +6,7 @@ export const STAIR_HEIGHT = 0.1
 export const RADIAN_IN_DEGREES = 57.2958
 export const GOLDEN_RATIO = 1.61803398875
 export const PARTICLE_CLOUD_RADIUS = 24
+export const PORTAL_RADIUS = 4
 
 export enum Season {
   Spring,

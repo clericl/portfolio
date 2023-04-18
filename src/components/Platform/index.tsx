@@ -5,6 +5,7 @@ import HomePlatform from "../HomePlatform"
 import Floor from "../Floor"
 import SkillsPlatform from "../SkillsPlatform"
 import WorkPlatform from "../WorkPlatform"
+import ContactPlatform from "../ContactPlatform"
 
 function Platform({ title, ...props }: PlatformProps) {
   const PlatformComponent = useMemo(() => {
@@ -17,6 +18,8 @@ function Platform({ title, ...props }: PlatformProps) {
         return SkillsPlatform
       case '/work':
         return WorkPlatform
+      case '/contact':
+        return ContactPlatform
       default:
         return (props: Partial<PlatformProps>) => (
           <group {...props}>

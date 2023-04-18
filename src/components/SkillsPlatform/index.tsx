@@ -8,18 +8,18 @@ import Floor from "../Floor"
 import SkillBox from "../SkillBox"
 import MessageBoard from "../MessageBoard"
 
-import html from '../../assets/html.png'
-import css from '../../assets/css.png'
-import js from '../../assets/js.png'
-import react from '../../assets/react.png'
-import sql from '../../assets/sql.png'
-import ts from '../../assets/ts.png'
-import threejs from '../../assets/threejs.png'
-import aframe from '../../assets/aframe.png'
-import eighth from '../../assets/8thwall.png'
-import d3 from '../../assets/d3.png'
-import aws from '../../assets/aws.png'
-import gcp from '../../assets/gcp.png'
+import html from '../../assets/skills/html.png'
+import css from '../../assets/skills/css.png'
+import js from '../../assets/skills/js.png'
+import react from '../../assets/skills/react.png'
+import sql from '../../assets/skills/sql.png'
+import ts from '../../assets/skills/ts.png'
+import threejs from '../../assets/skills/threejs.png'
+import aframe from '../../assets/skills/aframe.png'
+import eighth from '../../assets/skills/8thwall.png'
+import d3 from '../../assets/skills/d3.png'
+import aws from '../../assets/skills/aws.png'
+import gcp from '../../assets/skills/gcp.png'
 
 const SKILLS = {
   d3: {

@@ -101,6 +101,10 @@ export default function Cat(props) {
         nextAction = actions['Arm_Cat|Drinking']
       }
       nextAction.clampWhenFinished = true
+    } else if (pathname === '/contact') {
+      nextAction = actions['Arm_Cat|JumpAir_up']
+    } else {
+      nextAction = actions['Arm_Cat|Idle_1']
     }
 
     nextAction.reset()

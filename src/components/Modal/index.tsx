@@ -163,6 +163,13 @@ function Modal() {
           {contentToDisplay.title}
         </h2>
         {contentToDisplay.text}
+        <div className="close-button" onClick={closeModal}>
+          <button>
+            <span className="material-symbols-outlined">
+              close
+            </span>
+          </button>
+        </div>
       </animated.div>
     </animated.div>
   )

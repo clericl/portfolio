@@ -5,9 +5,10 @@ import {
   useEffect,
   useMemo,
   useState,
+  MouseEvent,
   ReactNode,
 } from "react";
-import { useSpring, animated, config } from "@react-spring/web";
+import { useSpring, animated } from "@react-spring/web";
 
 import './index.scss'
 
@@ -129,6 +130,10 @@ function Modal() {
 
   const contentToDisplay = useMemo(() => MODALS[modalType], [modalType])
 
+  const handleClose = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) closeModal()
+  }, [closeModal])
+
   useEffect(() => {
     backgroundApi.start({
       opacity: modalOpen ? 1 : 0,
@@ -149,7 +154,7 @@ function Modal() {
   return contentToDisplay && (
     <animated.div
       className="modal"
-      onClick={closeModal}
+      onClick={handleClose}
       // @ts-ignore
       style={backgroundSprings}
     >

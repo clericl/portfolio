@@ -8,7 +8,7 @@ import {
   MouseEvent,
   ReactNode,
 } from "react";
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated, easings } from "@react-spring/web";
 
 import './index.scss'
 
@@ -140,14 +140,18 @@ function Modal() {
       pointerEvents: modalOpen ? 'all' : 'none',
       delay: modalOpen ? 0 : 200,
       config: {
-        tension: 240,
-        friction: 19,
+        duration: 200,
+        easing: easings.easeOutQuad,
       },
     })
 
     contentApi.start({
       opacity: modalOpen ? 1 : 0,
-      delay: modalOpen ? 200 : 0,
+      delay: modalOpen ? 300 : 0,
+      config: {
+        duration: 200,
+        easing: easings.easeOutQuad,
+      },
     })
   }, [backgroundApi, contentApi, modalOpen])
 

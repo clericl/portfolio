@@ -9,10 +9,22 @@ import arbor from '../../assets/projects/arbor.mp4'
 import { useCursor } from "@react-three/drei";
 
 const IMAGES = [
-  moethennessy,
-  kennethcole,
-  rosewrapped,
-  arbor,
+  {
+    image: moethennessy,
+    name: 'moethennessy',
+  },
+  {
+    image: kennethcole,
+    name: 'kennethcole',
+  },
+  {
+    image: rosewrapped,
+    name: 'rosewrapped',
+  },
+  {
+    image: arbor,
+    name: 'arbor',
+  },
 ]
 
 function Frames() {
@@ -27,8 +39,8 @@ function Frames() {
       onPointerOver={() => set(true)}
       onPointerOut={() => set(false)}
     >
-      {IMAGES.map((image, index) => (
-        <Frame key={image} url={image} index={index} />
+      {IMAGES.map(({ name, image }, index) => (
+        <Frame key={name} name={name} url={image} index={index} />
       ))}
     </group>
   )

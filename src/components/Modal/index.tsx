@@ -15,14 +15,50 @@ const MODALS: Modals = {
   moethennessy: {
     title: 'Moët-Hennessy Concierge Experience',
     text: [
-      <>
-        <span key={1}>
-          In a partnership with creative agency Admerasia, ROSE created an augmented reality experience as a part of Moët-Hennessy's Concierge campaign to highlight top-shelf bottles of both spirits and champagne under the Moët-Hennessy brand umbrella. This AR experience placed a virtual beverage expert in the user's environment, who then engaged the user with a series of questions to identify the bottle best suited to the user's personality type.
-        </span>
-        <span key={2}>
+      <div key={1}>
+        <p className="modal-text">
+          In a partnership with creative agency Admerasia, ROSE developed an augmented reality experience for Moët-Hennessy's Concierge, a campaign highlighting top-shelf spirits and champagne under the Moët-Hennessy umbrella. This AR experience placed a virtual beverage expert in the user's environment to engage the user with a series of questions, identifying the bottle best suited to the user's personality type.
+        </p>
+        <p className="modal-text">
           Try it <a href="https://www.8thwall.com/rosedigital/moethennessy-concierge" target="_blank" rel="noopener noreferrer">here</a>.
-        </span>
-      </>
+        </p>
+      </div>
+    ]
+  },
+  kennethcole: {
+    title: 'Kenneth Cole Instagram Filter',
+    text: [
+      <div key={1}>
+        <p className="modal-text">
+          As part of a multi-pronged augmented reality strategy, I led the AR engineering team at ROSE to develop both web and social media app-based experiences to support the opening of Kenneth Cole's newest real-world store in SoHo, New York City.
+        </p>
+      </div>
+    ]
+  },
+  rosewrapped: {
+    title: 'ROSE Wrapped 2022',
+    text: [
+      <div key={1}>
+        <p className="modal-text">
+          To cap off another successful year at ROSE, I worked with our creative team to put together a highlight reel that featured our work for Bloomingdale's, Selfridges, Miami Design District, Mastercard, BET+, and more.
+        </p>
+        <p className="modal-text">
+          Check it out <a href="https://wrapped.builtbyrose.co/" target="_blank" rel="noopener noreferrer">here</a>.
+        </p>
+      </div>
+    ]
+  },
+  arbor: {
+    title: 'Arbor',
+    text: [
+      <div key={1}>
+        <p className="modal-text">
+          Arbor is an etymology-finding tool that traces the ancestors of a given word and then recursively finds related words that stem from each ancestor. This personal project was inspired by my background in linguistics, my interest in data visualization, and the invaluable community-gathered resources collected in spaces like Wiktionary.
+        </p>
+        <p className="modal-text">
+          Try it <a href="https://clericl.github.io/arbor" target="_blank" rel="noopener noreferrer">here</a>.
+        </p>
+      </div>
     ]
   }
 }
@@ -52,7 +88,6 @@ export function ModalController({ children }: ModalControllerProps) {
 
   const closeModal = useCallback(() => {
     setModalOpen(false)
-    setModalType('')
   }, [])
 
   const value = useMemo(() => ({
@@ -92,7 +127,7 @@ function Modal() {
     opacity: 0,
   }))
 
-  const contentToDisplay = useMemo(() => MODALS[modalType] || MODALS['moethennessy'], [modalType])
+  const contentToDisplay = useMemo(() => MODALS[modalType], [modalType])
 
   useEffect(() => {
     backgroundApi.start({
@@ -111,7 +146,7 @@ function Modal() {
     })
   }, [backgroundApi, contentApi, modalOpen])
 
-  return (
+  return contentToDisplay && (
     <animated.div
       className="modal"
       onClick={closeModal}
@@ -122,9 +157,7 @@ function Modal() {
         <h2 className="modal-title">
           {contentToDisplay.title}
         </h2>
-        <p className="modal-text">
-          {contentToDisplay.text}
-        </p>
+        {contentToDisplay.text}
       </animated.div>
     </animated.div>
   )

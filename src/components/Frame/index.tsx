@@ -6,6 +6,7 @@ import useNeonMaterial from '../../utils/useNeonMaterial'
 import { ModalContext } from '../Modal'
 
 function Frame({
+  name,
   url,
   index,
 }: FrameProps) {
@@ -25,7 +26,7 @@ function Frame({
       scale={5}
       position-x={(index * 4) - 9}
       rotation-y={Math.PI / (index + 3)}
-      onClick={() => openModal('frame')}
+      onClick={() => openModal(name)}
     >
       <mesh
         material={blueNeon}
@@ -44,6 +45,7 @@ function Frame({
 export default Frame
 
 type FrameProps = {
+  name: string
   url: string
   index: number
 }

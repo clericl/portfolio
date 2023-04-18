@@ -1,13 +1,13 @@
 import { TextureLoader, BoxGeometry, RepeatWrapping, Vector3 } from 'three'
 import { useMemo, useRef } from 'react'
-import { extend, Object3DNode, useFrame, useLoader, useThree } from '@react-three/fiber'
+import { extend, GroupProps, Object3DNode, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Water } from 'three-stdlib'
 
 import waterNormalsTex from '../../assets/water-normals.jpg'
 
 extend({ Water })
 
-function Ocean() {
+function Ocean(props: GroupProps) {
   const ref = useRef<Water>(null!)
   const gl = useThree((state) => state.gl)
   const waterNormals = useLoader(TextureLoader, waterNormalsTex)
@@ -16,7 +16,7 @@ function Ocean() {
   // @ts-ignore
   waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping
 
-  const geometry = useMemo(() => new BoxGeometry(22.5, 7.5, 0.9), [])
+  const geometry = useMemo(() => new BoxGeometry(22.5, 7.5, 1), [])
   const config = useMemo(() => ({
     textureWidth: 512,
     textureHeight: 512,
@@ -36,11 +36,13 @@ function Ocean() {
   })
 
   return (
-    <water
-      ref={ref}
-      args={[geometry, config]}
-      rotation-x={-Math.PI / 2}      
-    />
+    <group {...props}>
+      <water
+        ref={ref}
+        args={[geometry, config]}
+        rotation-x={-Math.PI / 2}      
+      />
+    </group>
   )
 }
 

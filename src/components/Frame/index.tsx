@@ -1,13 +1,15 @@
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { useVideoTexture } from '@react-three/drei'
 import { Color } from 'three'
 import { GOLDEN_RATIO } from '../../utils/constants'
 import useNeonMaterial from '../../utils/useNeonMaterial'
+import { ModalContext } from '../Modal'
 
 function Frame({
   url,
   index,
 }: FrameProps) {
+  const { openModal } = useContext(ModalContext)
   const texture = useVideoTexture(url)
   const neonMaterial = useNeonMaterial()
 
@@ -23,6 +25,7 @@ function Frame({
       scale={5}
       position-x={(index * 4) - 9}
       rotation-y={Math.PI / (index + 3)}
+      onClick={() => openModal('frame')}
     >
       <mesh
         material={blueNeon}

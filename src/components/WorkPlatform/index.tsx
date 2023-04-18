@@ -21,9 +21,7 @@ function WorkPlatform({ position }: Partial<PlatformProps>) {
         />
       )}
       <group>
-        <mesh>
-          <Ocean />
-        </mesh>
+        <Ocean position-y={-0.2} />
       </group>
     </group>
   )

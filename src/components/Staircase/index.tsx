@@ -24,7 +24,7 @@ function Staircase() {
   const [springs, api] = useSpring(() => ({
     rotationY: 0,
     positionY: 0,
-    config: config.slow,
+    config: config.molasses,
   }))
 
   const location = useLocation()

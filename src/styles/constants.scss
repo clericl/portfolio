@@ -1,4 +1,9 @@
 @forward './includeMedia.scss';
+@import url('https://fonts.googleapis.com/css2?family=Hubballi&display=swap');
+@font-face {
+  font-family: 'Source Code Pro Regular';
+  src: url('../assets/SourceCodePro-Regular.ttf');
+}
 
 $break-xs: "<376px";
 $break-sm: "<768px";
@@ -7,7 +12,8 @@ $break-lg: ">1024px";
 
 $color-white: white;
 
-$typeface-primary: sans-serif;
+$typeface-primary: 'Hubballi', serif;
+$typeface-secondary: 'Source Code Pro Regular', sans-serif;
 
 $border-radius: 5px;
 

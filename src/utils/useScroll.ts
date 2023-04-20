@@ -34,7 +34,7 @@ function useScroll() {
     ref(document)
 
     const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > 100) {
+      if (Math.abs(e.deltaY) >= 100) {
         if (!timerRef.current) {
           if (e.deltaY > 0) {
             handleNext()

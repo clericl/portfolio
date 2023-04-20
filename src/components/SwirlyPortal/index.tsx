@@ -1,5 +1,13 @@
 import { useRef } from "react"
-import { AdditiveBlending, Color, ColorRepresentation, ShaderMaterial, DoubleSide } from "three"
+import {
+  AdditiveBlending,
+  Color,
+  ColorRepresentation,
+  DoubleSide,
+  Plane,
+  ShaderMaterial,
+  Vector3,
+} from "three"
 import { GroupProps, extend, useFrame } from "@react-three/fiber"
 import { shaderMaterial } from "@react-three/drei"
 import glsl from 'babel-plugin-glsl/macro'
@@ -57,9 +65,13 @@ function SwirlyPortal({ color = 'hotpink', ...props }: SwirlyPortalProps) {
           ref={portalMaterial}
           blending={AdditiveBlending}
           uColorStart={color}
-          uColorEnd="gray"
+          uColorEnd="black"
           transparent
+          alphaTest={0.1}
           side={DoubleSide}
+          clippingPlanes={[
+            new Plane(new Vector3(0, 1, 0), 0)
+          ]}
         />
       </mesh>
     </group>

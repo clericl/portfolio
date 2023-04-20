@@ -6,7 +6,7 @@ import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
 function Effects() {
   const bloomRef = useRef()
-  
+
   useFrame(({ clock }) => {
     bloomRef.current.intensty = (Math.sin(clock.elapsedTime / 2) + 2) / 6
   })

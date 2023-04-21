@@ -1,6 +1,8 @@
 import { useRef } from "react"
 import {
   AdditiveBlending,
+  MultiplyBlending,
+  Mesh,
   Color,
   ColorRepresentation,
   DoubleSide,
@@ -8,8 +10,8 @@ import {
   ShaderMaterial,
   Vector3,
 } from "three"
-import { GroupProps, extend, useFrame } from "@react-three/fiber"
-import { shaderMaterial } from "@react-three/drei"
+import { BoxGeometryProps, GroupProps, TextureProps, extend, useFrame } from "@react-three/fiber"
+import { Mask, Sphere, shaderMaterial } from "@react-three/drei"
 import glsl from 'babel-plugin-glsl/macro'
 import { PORTAL_RADIUS } from "../../utils/constants"
 
@@ -50,7 +52,30 @@ type PortalMaterialType = ShaderMaterial & {
 
 extend({ PortalMaterial })
 
-function SwirlyPortal({ color = 'hotpink', ...props }: SwirlyPortalProps) {
+export function PortalMask({
+  width = 1,
+  height = 1,
+  depth = 1,
+  index = 1,
+  ...props
+}: PortalMaskProps) {
+  const ref = useRef<Mesh>(null!)
+  
+  return (
+    <>
+      <Mask colorWrite ref={ref} id={index} {...props}>
+        <boxGeometry args={[width, height, depth]} />
+      </Mask>
+    </>
+  )
+}
+
+function SwirlyPortal({
+  color = 'hotpink',
+  texture,
+  index = 1,
+  ...props
+}: SwirlyPortalProps) {
   const portalMaterial = useRef<PortalMaterialType>(null!)
 
   useFrame((_, delta) => (portalMaterial.current.uTime += (delta * 8)))
@@ -73,13 +98,33 @@ function SwirlyPortal({ color = 'hotpink', ...props }: SwirlyPortalProps) {
             new Plane(new Vector3(0, 1, 0), 0)
           ]}
         />
+        {texture && (
+          <mesh position-z={-0.002}>
+            <planeGeometry args={[PORTAL_RADIUS * 2, PORTAL_RADIUS * 2]} />
+            <meshBasicMaterial
+              // @ts-ignore
+              map={texture}
+              side={DoubleSide}
+              blending={MultiplyBlending}
+            />
+          </mesh>
+        )}
       </mesh>
     </group>
   )
 }
 
+interface PortalMaskProps {
+  width?: number
+  height?: number
+  depth?: number
+  index?: number
+}
+
 type SwirlyPortalProps = GroupProps & {
   color?: ColorRepresentation
+  texture?: TextureProps
+  index?: number
 }
 
 export default SwirlyPortal

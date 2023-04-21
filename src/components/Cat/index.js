@@ -18,10 +18,11 @@ export default function Cat(props) {
 
   const material = useMemo(() => {
     const mat = materials.material
+    mat.setValues(props.stencil || {})
     mat.depthWrite = true
     
     return mat
-  }, [materials])
+  }, [materials, props.stencil])
 
   const handleNextClip = useCallback((e) => {
     let nextAction

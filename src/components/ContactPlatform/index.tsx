@@ -8,13 +8,18 @@ import SummonCircle from "../SummonCircle"
 import ContactIcons from "../ContactIcons"
 import { useSpring, animated, easings } from "@react-spring/three"
 import { useFrame } from "@react-three/fiber"
+import { useTexture } from "@react-three/drei"
+import TexturePortal from "../TexturePortal"
+
+import linkedinPortal from '../../assets/contact/linkedin-portal.jpg'
 
 function ContactPlatform({ position }: Partial<PlatformProps>) {
   const stateCheck = useRef<string | null>(null)
   const activeSummon = useRef('')
   const { pathname } = useLocation()
+  const [linkedinTex] = useTexture([linkedinPortal])
   const [swirlySpring, swirlyApi] = useSpring(() => ({
-    scale: 0,
+    scale: 1,
   }))
   const [catSpring, catApi] = useSpring(() => ({
     positionZ: -20,
@@ -50,7 +55,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
       } else {
         swirlyApi.stop()
         swirlyApi.start({
-          scale: 0,
+          scale: 1,
         })
         catApi.stop()
         catApi.set({
@@ -60,7 +65,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
       stateCheck.current = null
     }
   })
-  
+
   return (
     <group position={position}>
       {pathname === '/contact' && (
@@ -73,11 +78,13 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
                   colorWrite={false}
                 />
               </mesh>
-              <animated.group position-z={-10} scale={swirlySpring.scale}>
+              {/* <animated.group position-z={-10} scale={swirlySpring.scale}>
                 <SwirlyPortal
                   color="blue"
+                  texture={linkedinTex}
                 />
-              </animated.group>
+              </animated.group> */}
+              <TexturePortal position-z={-10} texture={linkedinTex} />
               <animated.group position-z={20} scale={swirlySpring.scale}>
                 <SwirlyPortal />
               </animated.group>

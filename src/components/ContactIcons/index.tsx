@@ -84,8 +84,6 @@ function IconBubble({ icon, index, setActiveSummon }: IconBubbleProps) {
 
   useCursor(hovered)
 
-  console.log(hovered)
-
   const handleClick = useCallback(() => {
     icon.invoke()
   }, [icon])

@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { DoubleSide, Group } from 'three'
 import { GOLD_COLOR, GOLD_EMISSIVE, SUMMON_CIRCLE_RADIUS } from '../../utils/constants'
-import { GroupProps } from '@react-three/fiber'
+import { GroupProps, useFrame } from '@react-three/fiber'
 import useNeonMaterial from '../../utils/useNeonMaterial'
 import { useSpring, animated, config, easings } from '@react-spring/three'
 
-function SummonCircle({ activeSummon, startPortal }: SummonCircleProps) {
+function SummonCircle({ getActiveSummon }: SummonCircleProps) {
+  const [activeSummon, setActiveSummon] = useState('')
   const squareRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
   const [fadeSprings, fadeApi] = useSpring(() => ({
@@ -28,6 +29,10 @@ function SummonCircle({ activeSummon, startPortal }: SummonCircleProps) {
 
   const magicSquareLength = useMemo(() => Math.sqrt(Math.pow(SUMMON_CIRCLE_RADIUS, 2) / 2), [])
 
+  useFrame(() => {
+    setActiveSummon(getActiveSummon())
+  })
+
   useEffect(() => {
     if (activeSummon) {
       fadeApi.start({
@@ -36,6 +41,7 @@ function SummonCircle({ activeSummon, startPortal }: SummonCircleProps) {
         delay: 2000,
         config: { duration: 2000 },
       })
+      spinApi.stop()
       spinApi.start({
         to: async (next) => {
           await next({
@@ -55,9 +61,6 @@ function SummonCircle({ activeSummon, startPortal }: SummonCircleProps) {
               duration: 1600,
               easing: easings.linear,
             },
-            onStart() {
-              startPortal()
-            },
           })
         },
       })
@@ -68,7 +71,7 @@ function SummonCircle({ activeSummon, startPortal }: SummonCircleProps) {
       })
       spinApi.stop()
     }
-  }, [activeSummon, fadeApi, spinApi, startPortal])
+  }, [activeSummon, fadeApi, spinApi])
 
   return (
     <animated.group
@@ -101,8 +104,7 @@ function SummonCircle({ activeSummon, startPortal }: SummonCircleProps) {
 }
 
 interface SummonCircleProps extends GroupProps {
-  activeSummon: string
-  startPortal: Function
+  getActiveSummon: Function
 }
 
 export default SummonCircle

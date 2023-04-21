@@ -1,15 +1,17 @@
 import { PlatformProps } from "../Platform"
 import { useLocation } from "react-router-dom"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useRef } from "react"
 import Cat from "../Cat"
 import Floor from "../Floor"
 import SwirlyPortal from "../SwirlyPortal"
 import SummonCircle from "../SummonCircle"
 import ContactIcons from "../ContactIcons"
 import { useSpring, animated, easings } from "@react-spring/three"
+import { useFrame } from "@react-three/fiber"
 
 function ContactPlatform({ position }: Partial<PlatformProps>) {
-  const [activeSummon, setActiveSummon] = useState('')
+  const stateCheck = useRef<string | null>(null)
+  const activeSummon = useRef('')
   const { pathname } = useLocation()
   const [swirlySpring, swirlyApi] = useSpring(() => ({
     scale: 0,
@@ -18,40 +20,47 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
     positionZ: -20,
   }))
 
-  console.log(activeSummon)
+  const getActiveSummon = useCallback(() => activeSummon.current, [])
 
-  const startPortal = useCallback(() => {
-    swirlyApi.start({
-      scale: 1,
-    })
-  }, [swirlyApi])
+  const setActiveSummon = useCallback((newSummon: string) => {
+    stateCheck.current = newSummon
+    activeSummon.current = newSummon
+  }, [])
 
-  useEffect(() => {
-    if (activeSummon) {
-      catApi.start({
-        from: { positionZ: -20 },
-        positionZ: 26,
-        delay: 6000,
-        config: {
-          duration: 8000,
-          easing: easings.linear,
-        },
-        onRest() {
-          setActiveSummon('')
-        }
-      })
-    } else {
-      swirlyApi.stop()
-      swirlyApi.start({
-        scale: 0,
-      })
-      catApi.stop()
-      catApi.set({
-        positionZ: -20
-      })
+  useFrame(() => {
+    if (stateCheck.current !== null) {
+      if (activeSummon.current) {
+        swirlyApi.start({
+          scale: 1,
+          delay: 4000,
+        })
+
+        catApi.start({
+          from: { positionZ: -20 },
+          positionZ: 26,
+          delay: 4500,
+          config: {
+            duration: 5000,
+            easing: easings.linear,
+          },
+          onRest() {
+            setActiveSummon('')
+          }
+        })
+      } else {
+        swirlyApi.stop()
+        swirlyApi.start({
+          scale: 0,
+        })
+        catApi.stop()
+        catApi.set({
+          positionZ: -20
+        })
+      }
+      stateCheck.current = null
     }
-  }, [activeSummon, catApi, swirlyApi])
-
+  })
+  
   return (
     <group position={position}>
       {pathname === '/contact' && (
@@ -91,7 +100,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
         </group>
       )}
       <ContactIcons position-y={4} setActiveSummon={setActiveSummon} />
-      <SummonCircle activeSummon={activeSummon} startPortal={startPortal} />
+      <SummonCircle getActiveSummon={getActiveSummon} />
       <Floor />
     </group>
   )

@@ -8,6 +8,7 @@ import ContactIcons from "../ContactIcons"
 import { useSpring, animated, easings } from "@react-spring/three"
 import { useFrame } from "@react-three/fiber"
 import TexturePortal from "../TexturePortal"
+import { PORTAL_RADIUS } from "../../utils/constants"
 
 function ContactPlatform({ position }: Partial<PlatformProps>) {
   const stateCheck = useRef<string | null>(null)
@@ -65,9 +66,9 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
     <group position={position}>
       {pathname === '/contact' && (
         <group position-x={-2} position-y={7} rotation-y={Math.PI / 2}>
-          {activeSummon && (
-            <>
-              <animated.group position-z={-10} scale={swirlySpring.scale}>
+          <group position-y={PORTAL_RADIUS}>
+            <group position-z={-10}>
+              <animated.group scale={swirlySpring.scale}>
                 <TexturePortal
                   scale-x={1.5}
                   scale-y={1.5}
@@ -75,14 +76,16 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
                   home
                 />
               </animated.group>
-              <mesh position-y={4} position-z={-16} rotation-x={Math.PI / 2}>
+              <mesh position-z={-6} rotation-x={Math.PI / 2}>
                 <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
                 <meshStandardMaterial
                   colorWrite={false}
                 />
               </mesh>
+            </group>
 
-              <animated.group position-z={20} scale={swirlySpring.scale}>
+            <group position-z={20}>
+              <animated.group scale={swirlySpring.scale}>
                 <TexturePortal
                   scale-x={1.5}
                   scale-y={1.5}
@@ -90,22 +93,24 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
                   getType={getActiveSummon}
                 />
               </animated.group>
-              <mesh position-y={4} position-z={25} rotation-x={Math.PI / 2}>
+
+              <mesh position-z={6} rotation-x={Math.PI / 2}>
                 <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
                 <meshStandardMaterial
                   colorWrite={false}
                 />
               </mesh>
-              <animated.group position-z={catSpring.positionZ}>
-                <Cat
-                  scale={[2.1, 2.1, 2.1]}
-                  rotation-x={Math.PI / 3.5}
-                  position-y={1.5}
-                  castShadow
-                />
-              </animated.group>
-            </>
-          )}
+            </group>
+          </group>
+
+          <animated.group position-z={catSpring.positionZ}>
+            <Cat
+              scale={[2.1, 2.1, 2.1]}
+              rotation-x={Math.PI / 3.5}
+              position-y={1}
+              castShadow
+            />
+          </animated.group>
         </group>
       )}
       <ContactIcons position-y={4} setActiveSummon={setActiveSummon} />

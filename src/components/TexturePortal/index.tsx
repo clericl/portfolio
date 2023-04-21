@@ -53,18 +53,18 @@ function TexturePortal({ home = false, getType, ...props }: TexturePortalProps) 
   })
   
   return (
-    <group position-y={PORTAL_RADIUS} {...props}>
-        {!home && (
-          <mesh position-z={0.02} ref={iconRef}>
-            <planeGeometry args={[2, 2]} />
-            <meshBasicMaterial
-              map={texture}
-              transparent
-              opacity={0.7}
-              alphaTest={0.1}
-            />
-          </mesh>
-        )}
+    <group {...props}>
+      {!home && (
+        <mesh position-z={0.02} ref={iconRef}>
+          <planeGeometry args={[2, 2]} />
+          <meshBasicMaterial
+            map={texture}
+            transparent
+            opacity={0.7}
+            alphaTest={0.1}
+          />
+        </mesh>
+      )}
       <mesh position-z={-0.03}>
         <circleGeometry args={[4, 32]} />
         <meshBasicMaterial

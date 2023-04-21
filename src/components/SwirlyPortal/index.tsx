@@ -1,19 +1,15 @@
 import { useRef } from "react"
 import {
-  AdditiveBlending,
-  MultiplyBlending,
-  Mesh,
   Color,
   ColorRepresentation,
-  DoubleSide,
-  Plane,
+  MultiplyBlending,
+  Mesh,
   ShaderMaterial,
-  Vector3,
 } from "three"
-import { BoxGeometryProps, GroupProps, TextureProps, extend, useFrame } from "@react-three/fiber"
-import { Mask, Sphere, shaderMaterial } from "@react-three/drei"
-import glsl from 'babel-plugin-glsl/macro'
+import { GroupProps, TextureProps, extend, useFrame } from "@react-three/fiber"
+import { Mask, shaderMaterial } from "@react-three/drei"
 import { PORTAL_RADIUS } from "../../utils/constants"
+import glsl from 'babel-plugin-glsl/macro'
 
 const PortalMaterial = shaderMaterial(
   { uTime: 0, uColorStart: new Color('hotpink'), uColorEnd: new Color('white') },

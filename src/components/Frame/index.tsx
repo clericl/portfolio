@@ -1,9 +1,9 @@
 import { useContext, useMemo } from 'react'
 import { useVideoTexture } from '@react-three/drei'
 import { Color } from 'three'
+import { ModalContext } from '../Modal'
 import { GOLDEN_RATIO } from '../../utils/constants'
 import useNeonMaterial from '../../utils/useNeonMaterial'
-import { ModalContext } from '../Modal'
 
 function Frame({
   name,

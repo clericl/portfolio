@@ -1,8 +1,8 @@
-import { useTexture } from "@react-three/drei"
-import { MeshProps, ThreeEvent, useFrame } from "@react-three/fiber"
 import { useCallback, useMemo, useRef } from "react"
-import { AdditiveBlending, Color, DoubleSide, Mesh } from "three"
 import { useSpring } from "@react-spring/three"
+import { useTexture } from "@react-three/drei"
+import { AdditiveBlending, Color, DoubleSide, Mesh } from "three"
+import { MeshProps, ThreeEvent, useFrame } from "@react-three/fiber"
 
 const WIDTH = 2.25
 const GAP = 0.65

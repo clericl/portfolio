@@ -1,9 +1,8 @@
 import { useMemo, useRef, useState } from 'react'
-import { AdditiveBlending, Mesh } from 'three'
-import SwirlyPortal from '../SwirlyPortal'
-import { useTexture, useVideoTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { PORTAL_RADIUS } from '../../utils/constants'
+import { useTexture, useVideoTexture } from '@react-three/drei'
+import { Mesh } from 'three'
+import SwirlyPortal from '../SwirlyPortal'
 
 import linkedinPortal from '../../assets/contact/linkedin.png'
 import emailPortal from '../../assets/contact/email.png'

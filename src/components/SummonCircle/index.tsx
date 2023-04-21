@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { DoubleSide, Group } from 'three'
-import { GOLD_COLOR, GOLD_EMISSIVE, SUMMON_CIRCLE_RADIUS } from '../../utils/constants'
-import { GroupProps, useFrame } from '@react-three/fiber'
-import useNeonMaterial from '../../utils/useNeonMaterial'
 import { useSpring, animated, config, easings } from '@react-spring/three'
+import { DoubleSide, Group } from 'three'
+import { GroupProps, useFrame } from '@react-three/fiber'
+import { GOLD_COLOR, GOLD_EMISSIVE, SUMMON_CIRCLE_RADIUS } from '../../utils/constants'
+import useNeonMaterial from '../../utils/useNeonMaterial'
 
 function SummonCircle({ getActiveSummon }: SummonCircleProps) {
   const [activeSummon, setActiveSummon] = useState('')

@@ -71,7 +71,7 @@ export function PortalMask({
 }
 
 function SwirlyPortal({
-  color = 'hotpink',
+  color = 'white',
   texture,
   index = 1,
   ...props
@@ -82,33 +82,18 @@ function SwirlyPortal({
 
   return (
     <group {...props}>
-      <mesh position-y={PORTAL_RADIUS}>
-        <circleGeometry args={[PORTAL_RADIUS, 32]} />
+      <mesh>
+        <circleGeometry args={[PORTAL_RADIUS * 1.02, 32]} />
         {/* 
         // @ts-ignore */}
         <portalMaterial
           ref={portalMaterial}
-          blending={AdditiveBlending}
+          blending={MultiplyBlending}
           uColorStart={color}
           uColorEnd="black"
           transparent
-          alphaTest={0.1}
-          side={DoubleSide}
-          clippingPlanes={[
-            new Plane(new Vector3(0, 1, 0), 0)
-          ]}
+          depthWrite={false}
         />
-        {texture && (
-          <mesh position-z={-0.002}>
-            <planeGeometry args={[PORTAL_RADIUS * 2, PORTAL_RADIUS * 2]} />
-            <meshBasicMaterial
-              // @ts-ignore
-              map={texture}
-              side={DoubleSide}
-              blending={MultiplyBlending}
-            />
-          </mesh>
-        )}
       </mesh>
     </group>
   )

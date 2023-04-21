@@ -3,23 +3,18 @@ import { useLocation } from "react-router-dom"
 import { useCallback, useRef } from "react"
 import Cat from "../Cat"
 import Floor from "../Floor"
-import SwirlyPortal from "../SwirlyPortal"
 import SummonCircle from "../SummonCircle"
 import ContactIcons from "../ContactIcons"
 import { useSpring, animated, easings } from "@react-spring/three"
 import { useFrame } from "@react-three/fiber"
-import { useTexture } from "@react-three/drei"
 import TexturePortal from "../TexturePortal"
-
-import linkedinPortal from '../../assets/contact/linkedin-portal.jpg'
 
 function ContactPlatform({ position }: Partial<PlatformProps>) {
   const stateCheck = useRef<string | null>(null)
   const activeSummon = useRef('')
   const { pathname } = useLocation()
-  const [linkedinTex] = useTexture([linkedinPortal])
   const [swirlySpring, swirlyApi] = useSpring(() => ({
-    scale: 1,
+    scale: 0,
   }))
   const [catSpring, catApi] = useSpring(() => ({
     positionZ: -20,
@@ -55,7 +50,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
       } else {
         swirlyApi.stop()
         swirlyApi.start({
-          scale: 1,
+          scale: 0,
         })
         catApi.stop()
         catApi.set({
@@ -72,24 +67,31 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
         <group position-x={-2} position-y={7} rotation-y={Math.PI / 2}>
           {activeSummon && (
             <>
-              <mesh position-y={4} position-z={-16.02}>
-                <boxGeometry args={[6, 6, 12]} />
+              <animated.group position-z={-10} scale={swirlySpring.scale}>
+                <TexturePortal
+                  scale-x={1.5}
+                  scale-y={1.5}
+                  getType={getActiveSummon}
+                  home
+                />
+              </animated.group>
+              <mesh position-y={4} position-z={-16} rotation-x={Math.PI / 2}>
+                <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
                 <meshStandardMaterial
                   colorWrite={false}
                 />
               </mesh>
-              {/* <animated.group position-z={-10} scale={swirlySpring.scale}>
-                <SwirlyPortal
-                  color="blue"
-                  texture={linkedinTex}
-                />
-              </animated.group> */}
-              <TexturePortal position-z={-10} texture={linkedinTex} />
+
               <animated.group position-z={20} scale={swirlySpring.scale}>
-                <SwirlyPortal />
+                <TexturePortal
+                  scale-x={1.5}
+                  scale-y={1.5}
+                  rotation-y={Math.PI}
+                  getType={getActiveSummon}
+                />
               </animated.group>
-              <mesh position-y={4} position-z={26.02}>
-                <boxGeometry args={[6, 6, 12]} />
+              <mesh position-y={4} position-z={25} rotation-x={Math.PI / 2}>
+                <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
                 <meshStandardMaterial
                   colorWrite={false}
                 />

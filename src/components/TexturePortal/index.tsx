@@ -54,7 +54,7 @@ function TexturePortal({ home = false, getType, ...props }: TexturePortalProps) 
   
   return (
     <group {...props}>
-      {!home && (
+      {!home && type && (
         <mesh position-z={0.02} ref={iconRef}>
           <planeGeometry args={[2, 2]} />
           <meshBasicMaterial

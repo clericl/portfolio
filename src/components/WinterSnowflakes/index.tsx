@@ -1,7 +1,7 @@
 import ParticleInstances from "../ParticleInstances"
 
-import snowflake1 from '../../assets/snowflake1.glb'
-import snowflake2 from '../../assets/snowflake2.glb'
+import snowflake1 from '../../assets/models/snowflake1.glb'
+import snowflake2 from '../../assets/models/snowflake2.glb'
 
 function WinterSnowflakes({ vanish }: WinterSnowflakesProps) {
   return (

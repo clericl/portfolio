@@ -1,7 +1,7 @@
 import ParticleInstances from "../ParticleInstances"
 
-import petal1 from '../../assets/petal1.glb'
-import petal2 from '../../assets/petal2.glb'
+import petal1 from '../../assets/models/petal1.glb'
+import petal2 from '../../assets/models/petal2.glb'
 
 function CherryBlossoms({ vanish }: CherryBlossomsProps) {
   return (

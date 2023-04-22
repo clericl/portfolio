@@ -1,7 +1,7 @@
 import ParticleInstances from "../ParticleInstances"
 
-import leaf1 from '../../assets/leaf1.glb'
-import leaf2 from '../../assets/leaf2.glb'
+import leaf1 from '../../assets/models/leaf1.glb'
+import leaf2 from '../../assets/models/leaf2.glb'
 
 function AutumnLeaves({ vanish }: AutumnLeavesProps) {
   return (

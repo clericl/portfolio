@@ -24,6 +24,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
     <group position={position} position-x={0}>
       <Center disableY disableZ>
         <Text3D
+          // @ts-ignore
           font="/hubballi.json"
           position={[0, 7, -1]}
           scale={[1, 1, 2]}
@@ -41,6 +42,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
       />
       <Center disableY disableZ>
         <Text3D
+          // @ts-ignore
           font="/hubballi.json"
           position={[0, 4.5, -1]}
           scale={[1, 1, 2]}

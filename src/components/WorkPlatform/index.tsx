@@ -25,6 +25,7 @@ function WorkPlatform({ position }: Partial<PlatformProps>) {
         <Frames />
       </group>
       <Text3D
+        // @ts-ignore
         font="/hubballi.json"
         position={[-8, 9, 1]}
         material={blueNeon}

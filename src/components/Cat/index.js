@@ -6,7 +6,7 @@ import { useAnimations, useGLTF } from '@react-three/drei'
 import { useLocation } from 'react-router-dom'
 import { LoopOnce } from 'three'
 
-import CatPath from '../../assets/cat.glb'
+import CatPath from '../../assets/models/cat.glb'
 
 const TIME_SCALE = 3
 

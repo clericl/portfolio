@@ -5,7 +5,7 @@ import Effects from '../Effects'
 import Staircase from '../Staircase'
 import NightSky from '../NightSky'
 
-import puresky from '../../assets/puresky.hdr'
+import puresky from '../../assets/env/puresky.hdr'
 import './index.scss'
 
 function Scene() {

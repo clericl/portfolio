@@ -8,6 +8,8 @@ declare module '*.mp4'
 declare module '*.gltf'
 declare module '*.glb'
 
+declare module '*.ttf'
+
 declare module 'lodash.sample'
 
 declare module 'babel-plugin-glsl/macro'

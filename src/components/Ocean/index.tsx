@@ -3,7 +3,7 @@ import { useMemo, useRef } from 'react'
 import { extend, GroupProps, Object3DNode, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Water } from 'three-stdlib'
 
-import waterNormalsTex from '../../assets/water-normals.jpg'
+import waterNormalsTex from '../../assets/materials/water-normals.jpg'
 
 extend({ Water })
 

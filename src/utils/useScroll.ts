@@ -17,6 +17,7 @@ function useScroll() {
   }, [navigate, pathname])
 
   const handleNext = useCallback(() => {
+    console.log(pathname)
     const pathIndex = PLATFORM_TITLES.findIndex((title) => title === pathname)
     if (pathIndex < (PLATFORM_TITLES.length - 1)) {
       navigate(PLATFORM_TITLES[pathIndex + 1])
@@ -34,7 +35,7 @@ function useScroll() {
     ref(document)
 
     const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) >= 100) {
+      if (Math.abs(e.deltaY) > 100) {
         if (!timerRef.current) {
           if (e.deltaY > 0) {
             handleNext()

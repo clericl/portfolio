@@ -17,7 +17,7 @@ function Loader() {
           </div>
           <div className="loading-text">
             <p>Loading...</p>
-            <p>{progressData.progress >= 99 ? '99' : progressData.progress}% done.</p>
+            <p>{progressData.progress >= 99 ? (Math.random() * 0.99 + 99).toFixed(2) : progressData.progress.toFixed(2)}% done.</p>
           </div>
         </div>
         <div className="simple">

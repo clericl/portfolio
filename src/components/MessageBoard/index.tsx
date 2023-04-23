@@ -7,7 +7,7 @@ import { MeshProps } from "@react-three/fiber"
 import { MeshTransmissionMaterial, Text } from "@react-three/drei"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 
-import fontFile from '../../assets/SourceCodePro-Regular.ttf'
+import fontFile from '../../assets/fonts/SourceCodePro-Regular.ttf'
 
 const SPHERE_RADIUS = 0.2
 const WIDTH = 19

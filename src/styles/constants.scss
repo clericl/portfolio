@@ -1,8 +1,11 @@
 @forward './includeMedia.scss';
-@import url('https://fonts.googleapis.com/css2?family=Hubballi&display=swap');
+@font-face {
+  font-family: 'Hubballi';
+  src: url('../assets/fonts/Hubballi-Regular.ttf');
+}
 @font-face {
   font-family: 'Source Code Pro Regular';
-  src: url('../assets/SourceCodePro-Regular.ttf');
+  src: url('../assets/fonts/SourceCodePro-Regular.ttf');
 }
 
 $break-xs: "<376px";

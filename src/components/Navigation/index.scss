@@ -9,6 +9,7 @@
   width: 50%;
   max-width: 750px;
   font-size: 2rem;
+  font-family: $typeface-secondary;
 
   nav {
     @include flex($justify: space-evenly);

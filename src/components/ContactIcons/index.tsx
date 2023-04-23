@@ -150,7 +150,12 @@ function IconBubble({ icon, index, setActiveSummon }: IconBubbleProps) {
         />
         <mesh>
           <planeGeometry args={[ICON_CIRCLE_RADIUS, ICON_CIRCLE_RADIUS, 32]} />
-          <meshPhysicalMaterial color="lightgray" map={tex} transparent alphaTest={0.1} />
+          <meshPhysicalMaterial
+            color="lightgray"
+            map={tex}
+            transparent
+            alphaTest={0.1}
+          />
         </mesh>
       </mesh>
     </group>

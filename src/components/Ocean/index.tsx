@@ -13,8 +13,7 @@ function Ocean(props: GroupProps) {
   const waterNormals = useLoader(TextureLoader, waterNormalsTex)
   const waterNormal = Array.isArray(waterNormals) ? waterNormals[0] : waterNormals
 
-  // @ts-ignore
-  waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping
+  waterNormal.wrapS = waterNormal.wrapT = RepeatWrapping
 
   const geometry = useMemo(() => new BoxGeometry(22.5, 7.5, 1), [])
   const config = useMemo(() => ({

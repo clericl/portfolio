@@ -1,21 +1,19 @@
 import { useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useTexture, useVideoTexture } from '@react-three/drei'
-import { Mesh } from 'three'
+import { useTexture } from '@react-three/drei'
+import { Mesh, Texture } from 'three'
+import { useLocation } from 'react-router-dom'
 import SwirlyPortal from '../SwirlyPortal'
 
 import linkedinPortal from '../../assets/contact/linkedin.png'
 import emailPortal from '../../assets/contact/email.png'
 import githubPortal from '../../assets/contact/github.png'
 import resumePortal from '../../assets/contact/resume.png'
-import catPortal from '../../assets/contact/cat-portal.mp4'
-import matrix from '../../assets/contact/matrixblue.mp4'
 
-function TexturePortal({ home = false, getType, ...props }: TexturePortalProps) {
+function TexturePortal({ home = false, getType, videoTex, ...props }: TexturePortalProps) {
   const [type, setType] = useState('')
   const iconRef = useRef<Mesh>(null!)
-  const matrixTex = useVideoTexture(matrix)
-  const catTex = useVideoTexture(catPortal)
+  const { pathname } = useLocation()
   const [
     linkedinTex,
     emailTex,
@@ -43,18 +41,24 @@ function TexturePortal({ home = false, getType, ...props }: TexturePortalProps) 
     }
   }, [type, linkedinTex, emailTex, githubTex, resumeTex])
 
-  useFrame(({ clock}) => {
+  useFrame(({ clock }) => {
     if (iconRef.current) iconRef.current.position.y = Math.sin(clock.elapsedTime * 2) / 5
-    const nextType = getType()
-    if (nextType !== type) {
-      setType(nextType)
+    
+    if (pathname === '/contact') {
+      const nextType = getType()
+      if (nextType !== type) {
+        setType(nextType)
+      }
     }
   })
   
   return (
     <group {...props}>
       {!home && type && (
-        <mesh position-z={0.02} ref={iconRef}>
+        <mesh
+          position-z={0.02}
+          ref={iconRef}
+        >
           <planeGeometry args={[2, 2]} />
           <meshBasicMaterial
             map={texture}
@@ -67,7 +71,7 @@ function TexturePortal({ home = false, getType, ...props }: TexturePortalProps) 
       <mesh position-z={-0.03}>
         <circleGeometry args={[4, 32]} />
         <meshBasicMaterial
-          map={home ? catTex : matrixTex}
+          map={videoTex}
           color="white"
           transparent
           opacity={0.7}
@@ -78,9 +82,10 @@ function TexturePortal({ home = false, getType, ...props }: TexturePortalProps) 
   )
 }
 
-interface TexturePortalProps {
+export interface TexturePortalProps {
   home?: boolean
   getType: Function
+  videoTex?: Texture
 }
 
 export default TexturePortal

@@ -39,7 +39,6 @@ function Staircase() {
   ), [])
 
   useEffect(() => {
-    console.log(location.pathname)
     const platformIndex = PLATFORM_TITLES.findIndex((title) => title === location.pathname)
     
     if (typeof platformIndex === 'number') {

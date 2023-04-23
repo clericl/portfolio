@@ -17,7 +17,6 @@ function useScroll() {
   }, [navigate, pathname])
 
   const handleNext = useCallback(() => {
-    console.log(pathname)
     const pathIndex = PLATFORM_TITLES.findIndex((title) => title === pathname)
     if (pathIndex < (PLATFORM_TITLES.length - 1)) {
       navigate(PLATFORM_TITLES[pathIndex + 1])

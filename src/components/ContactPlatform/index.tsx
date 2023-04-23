@@ -9,7 +9,8 @@ import Cat from "../Cat"
 import ContactIcons from "../ContactIcons"
 import Floor from "../Floor"
 import SummonCircle from "../SummonCircle"
-import TexturePortal from "../TexturePortal"
+import HomePortal from "../HomePortal"
+import AwayPortal from "../AwayPortal"
 
 function ContactPlatform({ position }: Partial<PlatformProps>) {
   const stateCheck = useRef<string | null>(null)
@@ -69,45 +70,41 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
 
   return (
     <group position={position}>
-      {pathname === '/contact' && (
-        <group position-x={-2} position-y={7} rotation-y={Math.PI / 2}>
-          <group position-y={PORTAL_RADIUS}>
-            <group position-z={-10}>
-              <animated.group scale={swirlySpring.scale}>
-                <TexturePortal
-                  scale-x={1.5}
-                  scale-y={1.5}
-                  getType={getActiveSummon}
-                  home
-                />
-              </animated.group>
-              <mesh position-z={-6} rotation-x={Math.PI / 2}>
-                <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
-                <meshStandardMaterial
-                  colorWrite={false}
-                />
-              </mesh>
-            </group>
-
-            <group position-z={20}>
-              <animated.group scale={swirlySpring.scale}>
-                <TexturePortal
-                  scale-x={1.5}
-                  scale-y={1.5}
-                  rotation-y={Math.PI}
-                  getType={getActiveSummon}
-                />
-              </animated.group>
-
-              <mesh position-z={6} rotation-x={Math.PI / 2}>
-                <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
-                <meshStandardMaterial
-                  colorWrite={false}
-                />
-              </mesh>
-            </group>
+      <group position-x={-2} position-y={7} rotation-y={Math.PI / 2}>
+        <group position-y={PORTAL_RADIUS}>
+          <group position-z={-10}>
+            <animated.group scale={swirlySpring.scale}>
+              <HomePortal
+                scale-x={1.5}
+                scale-y={1.5}
+                getType={getActiveSummon}
+              />
+            </animated.group>
+            <mesh position-z={-6} rotation-x={Math.PI / 2}>
+              <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
+              <meshStandardMaterial
+                colorWrite={false}
+              />
+            </mesh>
           </group>
-
+          <group position-z={20}>
+            <animated.group scale={swirlySpring.scale}>
+              <AwayPortal
+                scale-x={1.5}
+                scale-y={1.5}
+                rotation-y={Math.PI}
+                getType={getActiveSummon}
+              />
+            </animated.group>
+            <mesh position-z={6} rotation-x={Math.PI / 2}>
+              <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
+              <meshStandardMaterial
+                colorWrite={false}
+              />
+            </mesh>
+          </group>
+        </group>
+        {pathname === '/contact' && (
           <animated.group
             ref={catRef}
             position-z={catSpring.positionZ}
@@ -120,8 +117,8 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
               castShadow
             />
           </animated.group>
-        </group>
-      )}
+        )}
+      </group>
       <ContactIcons position-y={4} setActiveSummon={setActiveSummon} />
       <SummonCircle getActiveSummon={getActiveSummon} />
       <Floor />

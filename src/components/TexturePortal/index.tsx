@@ -1,48 +1,36 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useTexture } from '@react-three/drei'
-import { Mesh, Texture } from 'three'
+import { Mesh, Texture, TextureLoader } from 'three'
 import { useLocation } from 'react-router-dom'
 import SwirlyPortal from '../SwirlyPortal'
 
-import linkedinPortal from '../../assets/contact/linkedin.png'
-import emailPortal from '../../assets/contact/email.png'
-import githubPortal from '../../assets/contact/github.png'
-import resumePortal from '../../assets/contact/resume.png'
+import linkedin from '../../assets/contact/linkedin.png'
+import email from '../../assets/contact/email.png'
+import github from '../../assets/contact/github.png'
+import resume from '../../assets/contact/resume.png'
 
 function TexturePortal({ home = false, getType, videoTex, ...props }: TexturePortalProps) {
   const [type, setType] = useState('')
   const iconRef = useRef<Mesh>(null!)
   const { pathname } = useLocation()
-  const [
-    linkedinTex,
-    emailTex,
-    githubTex,
-    resumeTex,
-  ] = useTexture([
-    linkedinPortal,
-    emailPortal,
-    githubPortal,
-    resumePortal,
-  ])
 
-  const texture = useMemo(() => {
+  const texturePath = useMemo(() => {
     switch (type) {
       case 'linkedin':
-        return linkedinTex
+        return linkedin
       case 'email':
-        return emailTex
+        return email
       case 'github':
-        return githubTex
+        return github
       case 'resume':
-        return resumeTex
+        return resume
       default:
         return null
     }
-  }, [type, linkedinTex, emailTex, githubTex, resumeTex])
+  }, [type])
 
   useFrame(({ clock }) => {
-    if (iconRef.current) iconRef.current.position.y = Math.sin(clock.elapsedTime * 2) / 5
+    if (iconRef.current) iconRef.current.position.y = Math.sin(clock.elapsedTime * 1.5) / 5
     
     if (pathname === '/contact') {
       const nextType = getType()
@@ -51,6 +39,13 @@ function TexturePortal({ home = false, getType, videoTex, ...props }: TexturePor
       }
     }
   })
+
+  useEffect(() => {
+    new TextureLoader().load(texturePath, (loadedTex) => {
+      // @ts-ignore
+      if (iconRef.current) iconRef.current.material.map = loadedTex
+    })
+  }, [texturePath])
   
   return (
     <group {...props}>
@@ -61,7 +56,6 @@ function TexturePortal({ home = false, getType, videoTex, ...props }: TexturePor
         >
           <planeGeometry args={[2, 2]} />
           <meshBasicMaterial
-            map={texture}
             transparent
             opacity={0.7}
             alphaTest={0.1}

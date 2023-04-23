@@ -15,6 +15,7 @@ import AwayPortal from "../AwayPortal"
 function ContactPlatform({ position }: Partial<PlatformProps>) {
   const stateCheck = useRef<string | null>(null)
   const catRef = useRef<Group>(null!)
+  const portalsRef = useRef<Group>(null!)
   const activeSummon = useRef('')
   const { pathname } = useLocation()
   const [swirlySpring, swirlyApi] = useSpring(() => ({
@@ -34,6 +35,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
   useFrame(() => {
     if (stateCheck.current !== null) {
       if (activeSummon.current) {
+        portalsRef.current.visible = true
         swirlyApi.start({
           scale: 1,
           delay: 4000,
@@ -53,6 +55,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
           }
         })
       } else {
+        portalsRef.current.visible = false
         swirlyApi.stop()
         swirlyApi.start({
           scale: 0,
@@ -71,7 +74,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
   return (
     <group position={position}>
       <group position-x={-2} position-y={7} rotation-y={Math.PI / 2}>
-        <group position-y={PORTAL_RADIUS}>
+        <group ref={portalsRef} position-y={PORTAL_RADIUS} visible={false}>
           <group position-z={-10}>
             <animated.group scale={swirlySpring.scale}>
               <HomePortal
@@ -84,6 +87,8 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
               <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
               <meshStandardMaterial
                 colorWrite={false}
+                transparent
+                opacity={0}
               />
             </mesh>
           </group>
@@ -100,6 +105,8 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
               <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
               <meshStandardMaterial
                 colorWrite={false}
+                transparent
+                opacity={0}
               />
             </mesh>
           </group>

@@ -1,4 +1,4 @@
-import { useContext, useMemo, useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { useCursor, useTexture } from '@react-three/drei'
 import { Color, Mesh } from 'three'
 import { ModalContext } from '../Modal'

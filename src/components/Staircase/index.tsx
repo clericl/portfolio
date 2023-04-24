@@ -22,9 +22,9 @@ export const PLATFORM_TITLES = [
 
 function Staircase() {
   const [springs, api] = useSpring(() => ({
-    rotationY: 0,
-    positionY: 0,
-    config: config.molasses,
+    scale: 0.1,
+    rotationY: -Math.PI / 2,
+    positionY: staircaseHeight * 0.1,
   }))
 
   const location = useLocation()
@@ -39,18 +39,33 @@ function Staircase() {
   ), [])
 
   useEffect(() => {
+    api.start({
+      scale: 1,
+      rotationY: 0,
+      positionY: 0,
+    })
+  }, [api])
+
+  useEffect(() => {
     const platformIndex = PLATFORM_TITLES.findIndex((title) => title === location.pathname)
     
     if (typeof platformIndex === 'number') {
       api.start({
         positionY: platformHeightBase * platformIndex,
         rotationY: Math.PI * platformIndex,
+        config: config.molasses,
       })
     }
   }, [api, location.pathname])
 
   return (
-    <animated.group position-y={springs.positionY} rotation-y={springs.rotationY}>
+    <animated.group
+      position-y={springs.positionY}
+      rotation-y={springs.rotationY}
+      scale-x={springs.scale}
+      scale-y={springs.scale}
+      scale-z={springs.scale}
+    >
       <group position={[0, -staircaseHeight - 5, 0]}>
         <Stairs height={staircaseHeight} position={[0, 0, 0]} />
         {platformsRendered}

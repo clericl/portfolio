@@ -14,10 +14,10 @@ const staircaseHeight = SPACE_BETWEEN_STAIRS * NUMBER_OF_ROTATIONS * STAIRS_PER_
 
 export const PLATFORM_TITLES = [
   '/',
-  '/about',
-  '/skills',
-  '/work',
-  '/contact',
+  // '/about',
+  // '/skills',
+  // '/work',
+  // '/contact',
 ]
 
 function Staircase() {

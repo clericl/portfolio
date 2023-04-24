@@ -8,7 +8,7 @@ import { LoopOnce } from 'three'
 
 import CatPath from '../../assets/models/cat.glb'
 
-const TIME_SCALE = 3
+const TIME_SCALE = 1
 
 export default function Cat(props) {
   const { nodes, materials, animations } = useGLTF(CatPath)

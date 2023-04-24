@@ -63,12 +63,12 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
       <group ref={boardRef}>
         <SeasonsBoard open={pathname === '/about'} position-y={2.2} switchSeasons={switchSeasons} />
       </group>
-      {/* <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
+      <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
         <CherryBlossoms vanish={season !== Season.Spring} />
         <SummerLights vanish={season !== Season.Summer} />
         <AutumnLeaves vanish={season !== Season.Autumn} />
         <WinterSnowflakes vanish={season !== Season.Winter} />
-      </animated.group> */}
+      </animated.group>
       {pathname === '/about' && (
         <Cat
           position={[7.2, 0, 1.5]}

@@ -10,7 +10,7 @@ const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.ran
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
 function ParticleInstances({
-  count = 200,
+  count = 70,
   modelData,
   vanish,
 }: ParticleInstancesProps) {

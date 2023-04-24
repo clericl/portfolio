@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { Center, MeshTransmissionMaterial, useCursor, useTexture } from '@react-three/drei'
-import { Color, Group, Mesh } from 'three'
+import { Color, DoubleSide, Group, Mesh } from 'three'
 import { GOLD_COLOR, GOLD_EMISSIVE, ICON_CIRCLE_RADIUS } from '../../utils/constants'
 import { GroupProps, useFrame } from '@react-three/fiber'
 
@@ -155,6 +155,7 @@ function IconBubble({ icon, index, setActiveSummon }: IconBubbleProps) {
             map={tex}
             transparent
             alphaTest={0.1}
+            side={DoubleSide}
           />
         </mesh>
       </mesh>

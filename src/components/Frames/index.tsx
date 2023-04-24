@@ -6,7 +6,6 @@ import moethennessy from '../../assets/projects/moethennessy.mp4'
 import rosewrapped from '../../assets/projects/rosewrapped.mp4'
 import kennethcole from '../../assets/projects/kennethcole.mp4'
 import arbor from '../../assets/projects/arbor.mp4'
-import { useCursor } from "@react-three/drei";
 
 const IMAGES = [
   {
@@ -28,17 +27,10 @@ const IMAGES = [
 ]
 
 function Frames() {
-  const [hovered, set] = useState(false)
   const ref = useRef<Group>(null!)
 
-  useCursor(hovered)
-
   return (
-    <group
-      ref={ref}
-      onPointerOver={() => set(true)}
-      onPointerOut={() => set(false)}
-    >
+    <group ref={ref}>
       {IMAGES.map(({ name, image }, index) => (
         <Frame key={name} name={name} url={image} index={index} />
       ))}

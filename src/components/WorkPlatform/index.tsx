@@ -7,6 +7,7 @@ import Cat from "../Cat";
 import Ocean from "../Ocean";
 import Frames from "../Frames";
 import useNeonMaterial from "../../utils/useNeonMaterial";
+import Floor from "../Floor";
 
 function WorkPlatform({ position }: Partial<PlatformProps>) {
   const { pathname } = useLocation()
@@ -34,15 +35,13 @@ function WorkPlatform({ position }: Partial<PlatformProps>) {
       </Text3D>
       {pathname === '/work' && (
         <Cat
-          position-x={9}
+          position-x={8.5}
           scale={[2.1, 2.1, 2.1]}
-          rotation-y={-Math.PI / 8 * 2.75}
+          rotation-y={Math.PI / 8 * 4}
           castShadow
         />
       )}
-      <group>
-        <Ocean position-y={-0.2} />
-      </group>
+      <Floor />
     </group>
   )
 }

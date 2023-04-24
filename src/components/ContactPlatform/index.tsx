@@ -87,8 +87,6 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
               <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
               <meshStandardMaterial
                 colorWrite={false}
-                transparent
-                opacity={0}
               />
             </mesh>
           </group>
@@ -105,8 +103,6 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
               <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
               <meshStandardMaterial
                 colorWrite={false}
-                transparent
-                opacity={0}
               />
             </mesh>
           </group>

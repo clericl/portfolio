@@ -1,5 +1,5 @@
-import { useContext, useMemo } from 'react'
-import { useVideoTexture } from '@react-three/drei'
+import { useContext, useEffect, useMemo, useState } from 'react'
+import { useCursor, useTexture } from '@react-three/drei'
 import { Color } from 'three'
 import { ModalContext } from '../Modal'
 import { GOLDEN_RATIO } from '../../utils/constants'
@@ -10,9 +10,22 @@ function Frame({
   url,
   index,
 }: FrameProps) {
+  const [hovered, set] = useState(false)
   const { openModal } = useContext(ModalContext)
-  const texture = useVideoTexture(url)
+  const texture = useTexture(url)
   const neonMaterial = useNeonMaterial()
+
+  const videoTextureSrc = texture.source.data
+
+  useCursor(hovered)
+
+  useEffect(() => {
+    if (hovered) {
+      videoTextureSrc.play()
+    } else {
+      videoTextureSrc.pause()
+    }
+  }, [hovered, videoTextureSrc])
 
   const blueNeon = useMemo(() => {
     const mat = neonMaterial.clone()
@@ -27,12 +40,15 @@ function Frame({
       position-x={(index * 4) - 9}
       rotation-y={Math.PI / (index + 3)}
       onClick={() => openModal(name)}
+      onPointerOver={() => set(true)}
+      onPointerOut={() => set(false)}
     >
       <mesh
-        material={blueNeon}
+        // material={blueNeon}
         position={[0, (GOLDEN_RATIO / 2) + 0.05, 0]}
       >
         <boxGeometry args={[1.05, GOLDEN_RATIO + 0.05, 0.025]} />
+        <meshPhysicalMaterial color="#534ecf" />
         <mesh position-z={0.026}>
           <planeGeometry args={[1, GOLDEN_RATIO]} />
           <meshBasicMaterial map={texture} />

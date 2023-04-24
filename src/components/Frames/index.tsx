@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Group } from "three";
 import Frame from "../Frame";
 
-import moethennessy from '../../assets/projects/moethennessy.mp4'
-import rosewrapped from '../../assets/projects/rosewrapped.mp4'
-import kennethcole from '../../assets/projects/kennethcole.mp4'
-import arbor from '../../assets/projects/arbor.mp4'
+import moethennessy from '../../assets/projects/moethennessy.jpg'
+import rosewrapped from '../../assets/projects/rosewrapped.jpg'
+import kennethcole from '../../assets/projects/kennethcole.jpg'
+import arbor from '../../assets/projects/arbor.jpg'
 
 const IMAGES = [
   {

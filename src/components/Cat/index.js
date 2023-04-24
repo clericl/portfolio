@@ -8,7 +8,7 @@ import { LoopOnce } from 'three'
 
 import CatPath from '../../assets/models/cat.glb'
 
-const TIME_SCALE = 1
+const TIME_SCALE = 3
 
 export default function Cat(props) {
   const { nodes, materials, animations } = useGLTF(CatPath)
@@ -96,10 +96,10 @@ export default function Cat(props) {
       timeScale = TIME_SCALE / 1.5
     } else if (pathname === '/work') {
       if (!e) {
-        nextAction = actions['Arm_Cat|Lie_side_sleep_start']
+        nextAction = actions['Arm_Cat|Lie_side_start']
         timeScale = TIME_SCALE / 1.5        
       } else {
-        nextAction = actions['Arm_Cat|Lie_side_sleep']
+        nextAction = actions['Arm_Cat|Lie_side_loop_1']
       }
       nextAction.clampWhenFinished = true
     } else if (pathname === '/contact') {

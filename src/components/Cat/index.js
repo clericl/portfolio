@@ -13,8 +13,8 @@ const TIME_SCALE = 3
 export default function Cat(props) {
   const { nodes, materials, animations } = useGLTF(CatPath)
   const { ref, actions, mixer, names } = useAnimations(animations)
-  const idleCount = useRef(0)
   const { pathname } = useLocation()
+  const idleCount = useRef(0)
 
   const material = useMemo(() => {
     const mat = materials.material

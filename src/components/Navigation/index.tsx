@@ -8,6 +8,7 @@ function Navigation() {
       <nav>
         <NavigationLink to="/">Home</NavigationLink>
         <NavigationLink to="/about">About</NavigationLink>
+        <NavigationLink to="/skills">Skills</NavigationLink>
         <NavigationLink to="/work">Work</NavigationLink>
         <NavigationLink to="/contact">Contact</NavigationLink>
       </nav>

@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useSpring, animated, config } from '@react-spring/three'
 import { Center, MeshTransmissionMaterial, useCursor, useTexture } from '@react-three/drei'
 import { Color, DoubleSide, Group, Mesh } from 'three'
 import { GOLD_COLOR, GOLD_EMISSIVE, ICON_CIRCLE_RADIUS } from '../../utils/constants'
@@ -78,9 +79,12 @@ function IconBubble({ icon, index, setActiveSummon }: IconBubbleProps) {
   const [hovered, setHover] = useState(false)
   const groupRef = useRef<Group>(null!)
   const innerRef = useRef<Mesh>(null!)
-  const powerRef = useRef<number>(0)
   const tex = useTexture(icon.image)
   const rand = useRef<number>(Math.random() * 0.2 + 0.2)
+  const [springs, api] = useSpring(() => ({
+    color: [BASE_COLOR.r, BASE_COLOR.g, BASE_COLOR.b],
+    emissive: [BLACK.r, BLACK.g, BLACK.b],
+  }))
 
   useCursor(hovered)
 
@@ -98,30 +102,24 @@ function IconBubble({ icon, index, setActiveSummon }: IconBubbleProps) {
     setHover(false)
   }, [setActiveSummon])
 
-  useFrame(({ clock }, delta) => {
-    groupRef.current.position.y = Math.sin(clock.elapsedTime * rand.current) * rand.current
-
+  useEffect(() => {
     if (hovered) {
-      if (powerRef.current < 1) {
-        powerRef.current += delta
-        // @ts-ignore
-        innerRef.current.material.emissive.lerp(
-          GOLD_EMISSIVE,
-          0.06,
-        )
-        // @ts-ignore
-        innerRef.current.material.color.lerp(
-          GOLD_COLOR,
-          0.06,
-        )
-      }
+      api.start({
+        color: [GOLD_COLOR.r, GOLD_COLOR.g, GOLD_COLOR.b],
+        emissive: [GOLD_EMISSIVE.r, GOLD_EMISSIVE.g, GOLD_EMISSIVE.b],
+        config: config.molasses,
+      })
     } else {
-      powerRef.current = 0
-      // @ts-ignore
-      innerRef.current.material.emissive.copy(BLACK)
-      // @ts-ignore
-      innerRef.current.material.color.copy(BASE_COLOR)
+      api.start({
+        color: [BASE_COLOR.r, BASE_COLOR.g, BASE_COLOR.b],
+        emissive: [BLACK.r, BLACK.g, BLACK.b],
+        config: config.default,
+      })
     }
+  }, [api, hovered])
+
+  useFrame(({ clock }) => {
+    groupRef.current.position.y = Math.sin(clock.elapsedTime * rand.current) * rand.current
   })
 
   return (
@@ -132,7 +130,11 @@ function IconBubble({ icon, index, setActiveSummon }: IconBubbleProps) {
       onPointerOut={handleUnhover}
       ref={groupRef}
     >
-      <mesh ref={innerRef}>
+      <animated.mesh
+        ref={innerRef}
+        material-color={springs.color}
+        material-emissive={springs.emissive}
+      >
         <sphereGeometry args={[ICON_CIRCLE_RADIUS, 64]} />
         <MeshTransmissionMaterial
           distortionScale={0}
@@ -158,7 +160,7 @@ function IconBubble({ icon, index, setActiveSummon }: IconBubbleProps) {
             side={DoubleSide}
           />
         </mesh>
-      </mesh>
+      </animated.mesh>
     </group>
   )
 }

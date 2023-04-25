@@ -9,7 +9,7 @@ import useNeonMaterial from "../../utils/useNeonMaterial";
 
 function WorkPlatform({ position }: Partial<PlatformProps>) {
   const { pathname } = useLocation()
-  const blueNeon = useNeonMaterial('#534ecf', new Color(0.21, 0.21, 2))
+  const blueNeon = useNeonMaterial('#332f91', new Color(0.25, 0.25, 0.75))
 
   return (
     <group position={position} rotation-y={Math.PI}>

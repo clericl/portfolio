@@ -43,7 +43,7 @@ function SummonCircle({ getActiveSummon }: SummonCircleProps) {
       fadeApi.start({
         from: { opacity: 0 },
         opacity: 1,
-        delay: 2000,
+        delay: 1500,
         config: { duration: 2000 },
       })
       spinApi.stop()
@@ -52,7 +52,7 @@ function SummonCircle({ getActiveSummon }: SummonCircleProps) {
           await next({
             from: { rotationZ: 0 },
             rotationZ: 2 * Math.PI,
-            delay: 2000,
+            delay: 1500,
             config: {
               duration: 3000,
               easing: easings.easeInQuad,

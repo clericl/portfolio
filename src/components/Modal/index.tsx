@@ -66,7 +66,7 @@ const MODALS: Modals = {
           Arbor is an etymology-finding tool that traces the ancestors of a given word and then recursively finds related words that stem from each ancestor. This personal project was inspired by my background in linguistics, my interest in data visualization, and the invaluable community-gathered resources collected in spaces like Wiktionary.
         </p>
         <p className="modal-text">
-          Try it <a href="https://clericl.github.io/arbor" target="_blank" rel="noopener noreferrer">here</a>.
+          Try it <a href="https://arbor.ericliang.dev" target="_blank" rel="noopener noreferrer">here</a>.
         </p>
       </div>
     ]

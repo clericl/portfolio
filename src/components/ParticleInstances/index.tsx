@@ -10,7 +10,7 @@ const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.ran
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
 function ParticleInstances({
-  count = 70,
+  count = 100,
   modelData,
   vanish,
 }: ParticleInstancesProps) {
@@ -51,11 +51,19 @@ function ParticleInstances({
 
   useEffect(() => {
     if (vanish) {
-      api.start({ x: 0, y: 0, z: 0 })
+      api.start({
+        x: 0,
+        y: 0,
+        z: 0,
+        onRest() {
+          groupRef.current.visible = false
+        },
+      })
     } else {
+      groupRef.current.visible = true
       api.start({ x: 1, y: 1, z: 1 })
     }
-  })
+  }, [api, vanish])
 
   return (
     <animated.group
@@ -64,6 +72,7 @@ function ParticleInstances({
       scale-x={springs.x}
       scale-y={springs.y}
       scale-z={springs.z}
+      visible={false}
     >
       {renderedInstances}
     </animated.group>

@@ -10,7 +10,7 @@ import useNeonMaterial from "../../utils/useNeonMaterial"
 const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
-function SummerLights({ count = 200, vanish }: SummerLightsProps) {
+function SummerLights({ count = 100, vanish }: SummerLightsProps) {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
 
@@ -74,11 +74,19 @@ function SummerLights({ count = 200, vanish }: SummerLightsProps) {
 
   useEffect(() => {
     if (vanish) {
-      api.start({ x: 0, y: 0, z: 0 })
+      api.start({
+        x: 0,
+        y: 0,
+        z: 0,
+        onRest() {
+          groupRef.current.visible = false
+        },
+      })
     } else {
+      groupRef.current.visible = true
       api.start({ x: 1, y: 1, z: 1 })
     }
-  })
+  }, [api, vanish])
 
   return (
     <animated.group
@@ -87,6 +95,7 @@ function SummerLights({ count = 200, vanish }: SummerLightsProps) {
       scale-x={springs.x}
       scale-y={springs.y}
       scale-z={springs.z}
+      visible={false}
     >
       {/* 
       // @ts-ignore */}

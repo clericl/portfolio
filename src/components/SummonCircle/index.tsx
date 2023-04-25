@@ -7,6 +7,7 @@ import useNeonMaterial from '../../utils/useNeonMaterial'
 
 function SummonCircle({ getActiveSummon }: SummonCircleProps) {
   const [activeSummon, setActiveSummon] = useState('')
+  const activeSummonRef = useRef<string>()
   const squareRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
   const [fadeSprings, fadeApi] = useSpring(() => ({
@@ -30,7 +31,11 @@ function SummonCircle({ getActiveSummon }: SummonCircleProps) {
   const magicSquareLength = useMemo(() => Math.sqrt(Math.pow(SUMMON_CIRCLE_RADIUS, 2) / 2), [])
 
   useFrame(() => {
-    setActiveSummon(getActiveSummon())
+    const nextActiveSummon = getActiveSummon()
+    if (activeSummonRef.current !== nextActiveSummon) {
+      activeSummonRef.current = nextActiveSummon
+      setActiveSummon(nextActiveSummon)
+    }
   })
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
 import { useSpring, animated, easings } from "@react-spring/three"
@@ -55,10 +55,13 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
           }
         })
       } else {
-        portalsRef.current.visible = false
         swirlyApi.stop()
         swirlyApi.start({
           scale: 0,
+          onRest() {
+            portalsRef.current.visible = false    
+            catRef.current.visible = false
+          },
         })
 
         catRef.current.visible = false
@@ -71,10 +74,18 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
     }
   })
 
+  useEffect(() => {
+    swirlyApi.set({ scale: 0 })
+  }, [pathname, swirlyApi])
+
   return (
     <group position={position}>
       <group position-x={-2} position-y={7} rotation-y={Math.PI / 2}>
-        <group ref={portalsRef} position-y={PORTAL_RADIUS} visible={false}>
+        <group
+          ref={portalsRef}
+          position-y={PORTAL_RADIUS}
+          visible={false}
+        >
           <group position-z={-10}>
             <animated.group scale={swirlySpring.scale}>
               <HomePortal

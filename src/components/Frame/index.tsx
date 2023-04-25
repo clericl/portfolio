@@ -6,8 +6,11 @@ import { GOLDEN_RATIO } from '../../utils/constants'
 import useNeonMaterial from '../../utils/useNeonMaterial'
 import { useFrame } from '@react-three/fiber'
 
-const BASE_EMISSIVE = new Color(0.3, 0.3, 1)
-const TARGET_EMISSIVE = new Color(0.4, 0.4, 2)
+const BASE_EMISSIVE = new Color(0.21, 0.21, 2)
+const TARGET_EMISSIVE = new Color(0.21, 0.21, 2)
+
+const BASE_COLOR = new Color('#534ecf')
+const TARGET_COLOR = new Color('#c28be0')
 
 function Frame({
   name,
@@ -17,7 +20,7 @@ function Frame({
   const [hovered, set] = useState(false)
   const { openModal } = useContext(ModalContext)
   const texture = useTexture(url)
-  const neonMaterial = useNeonMaterial('#0d00ff', 'black')
+  const neonMaterial = useNeonMaterial('#534ecf', new Color(0.21, 0.21, 2))
   const ref = useRef<Mesh>(null!)
 
   useCursor(hovered)
@@ -25,8 +28,12 @@ function Frame({
   useFrame(() => {
     if (hovered) {
       // @ts-ignore
+      ref.current.material.color.lerp(TARGET_COLOR, 0.06)
+      // @ts-ignore
       ref.current.material.emissive.lerp(TARGET_EMISSIVE, 0.06)
     } else {
+      // @ts-ignore
+      ref.current.material.color.copy(BASE_COLOR)
       // @ts-ignore
       ref.current.material.emissive.copy(BASE_EMISSIVE)
     }

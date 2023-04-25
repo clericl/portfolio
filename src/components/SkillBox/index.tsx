@@ -3,15 +3,18 @@ import { useSpring } from "@react-spring/three"
 import { useTexture } from "@react-three/drei"
 import { AdditiveBlending, Color, DoubleSide, Mesh } from "three"
 import { MeshProps, ThreeEvent, useFrame } from "@react-three/fiber"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 
-const WIDTH = 2.25
 const GAP = 0.65
 const BASE_COLOR = '#9c9c9c'
 
 function SkillBox({ name, imagePath, index, onPointerEnter = () => {}, ...props }: SkillBoxProps) {
   const image = useTexture(imagePath)
+  const isDesktop = useMediaQuery('(min-width:768px)')
   const ref = useRef<Mesh>(null!)
   const [springs, api] = useSpring(() => ({ color: BASE_COLOR }))
+
+  const WIDTH = useMemo(() => isDesktop ? 2.5 : 4, [isDesktop])
   
   const multiplier = useMemo(() => Math.random(), [])
   const basePositionY = useMemo(() => ((Math.floor(index / 4)) * (WIDTH + GAP) + ((WIDTH + GAP) / 2 + GAP)), [index])

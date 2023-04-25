@@ -17,15 +17,17 @@
   .loader-title, .loader-subtitle {
     font-family: $typeface-primary;
     text-transform: uppercase;
-    line-height: 1;
   }
   
   .loader-title {
     font-size: 6rem;
+    margin-bottom: 1rem;
+    line-height: 0.8;
   }
 
   .loader-subtitle {
     font-size: 2rem;
+    line-height: 1;
   }
 
   .loading-text {

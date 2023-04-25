@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
+import { useLocation } from "react-router-dom"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 import { PlatformProps } from "../Platform"
 import { Group } from "three"
 import Cat from "../Cat"
@@ -77,6 +78,7 @@ const DEFAULT_MESSAGE = 'Hover over a box!'
 function SkillsPlatform({ position }: Partial<PlatformProps>) {
   const [messageText, setMessageText] = useState(DEFAULT_MESSAGE)
   const { pathname } = useLocation()
+  const isDesktop = useMediaQuery('(min-width:768px)')
   const catRef = useRef<Group>(null!)
 
   const setBoxText = useCallback((newText: string) => {
@@ -103,18 +105,20 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
 
   return (
     <group position={position}>
-      <group position-x={-5}>
+      <group position-x={isDesktop ? -5 : 0}>
         {boxRenders}
       </group>
-      <MessageBoard
-        position-y={2.5}
-        position-x={6}
-        width={8}
-        height={5}
-        open={pathname === '/skills'}
-      >
-        {messageText}
-      </MessageBoard>
+      {isDesktop && (
+        <MessageBoard
+          position-y={2.5}
+          position-x={6}
+          width={8}
+          height={5}
+          open={pathname === '/skills'}
+        >
+          {messageText}
+        </MessageBoard>
+      )}
       <group ref={catRef} position-y={1} rotation-x={-Math.PI / 8}>
         {pathname === '/skills' && (
           <group>

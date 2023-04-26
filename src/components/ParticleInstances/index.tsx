@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from "react"
 import { Color, ColorRepresentation, Group } from "three"
 import { Instances, useGLTF } from "@react-three/drei"
-import { PARTICLE_CLOUD_RADIUS } from "../../utils/constants"
+import { PARTICLE_CLOUD_COUNT, PARTICLE_CLOUD_RADIUS } from "../../utils/constants"
 import { useFrame } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
 import ParticleInstance from "../ParticleInstance"
@@ -10,7 +10,7 @@ const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.ran
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
 function ParticleInstances({
-  count = 100,
+  count = PARTICLE_CLOUD_COUNT,
   modelData,
   vanish,
 }: ParticleInstancesProps) {

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react"
 import { CylinderGeometry, Color, Group } from "three"
-import { PARTICLE_CLOUD_RADIUS } from "../../utils/constants"
+import { PARTICLE_CLOUD_COUNT, PARTICLE_CLOUD_RADIUS } from "../../utils/constants"
 import { Instances } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
@@ -10,7 +10,7 @@ import useNeonMaterial from "../../utils/useNeonMaterial"
 const randomVector = (r: number) => [r / 2 - Math.random() * r, r / 2 - Math.random() * r, r / 2 - Math.random() * r]
 const randomEuler = () => [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
 
-function SummerLights({ count = 100, vanish }: SummerLightsProps) {
+function SummerLights({ count = PARTICLE_CLOUD_COUNT, vanish }: SummerLightsProps) {
   const groupRef = useRef<Group>(null!)
   const neonMaterial = useNeonMaterial()
 

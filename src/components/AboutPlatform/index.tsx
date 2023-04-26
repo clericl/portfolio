@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
-import { useSpring, animated } from "@react-spring/three"
+import {
+  useSpring,
+  animated,
+} from "@react-spring/three"
 import { PlatformProps } from "../Platform"
 import { Group } from "three"
 import { Season } from "../../utils/constants"

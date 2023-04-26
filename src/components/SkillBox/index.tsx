@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef } from "react"
 import { useSpring } from "@react-spring/three"
 import { useTexture, Text } from "@react-three/drei"
-import { AdditiveBlending, Color, DoubleSide, Group } from "three"
+import { AdditiveBlending, Color, DoubleSide, Group, Mesh } from "three"
 import { GroupProps, ThreeEvent, useFrame } from "@react-three/fiber"
 import { useMediaQuery } from "../../utils/useMediaQuery"
 
@@ -21,6 +21,7 @@ function SkillBox({
   const image = useTexture(imagePath)
   const isDesktop = useMediaQuery('(min-width:768px)')
   const ref = useRef<Group>(null!)
+  const meshRef = useRef<Mesh>(null!)
   const textMat = useNeonMaterial(new Color(1, 1.25, 1.25), new Color(0.5, 0.5, 0.5))
   const [springs, api] = useSpring(() => ({ color: BASE_COLOR }))
 
@@ -28,7 +29,7 @@ function SkillBox({
   const GAP = useMemo(() => isDesktop ? 0.65 : 3.3, [isDesktop])
   
   const multiplier = useMemo(() => Math.random(), [])
-  const basePositionY = useMemo(() => ((Math.floor(index / 4)) * (WIDTH + GAP) + ((WIDTH + GAP) / 2 + GAP)), [index])
+  const basePositionY = useMemo(() => ((Math.floor(index / 4)) * (WIDTH + GAP) + ((WIDTH + GAP) / 2 + GAP)), [index, GAP, WIDTH])
 
   useFrame(({ clock }) => {
     ref.current.position.y = basePositionY + (Math.sin(clock.getElapsedTime() * multiplier) / 6)
@@ -39,9 +40,9 @@ function SkillBox({
       color: newColor,
       onChange: () => {
         // @ts-ignore
-        ref.current.material.color = new Color().setStyle(springs.color.get())
+        meshRef.current.material.color.setStyle(springs.color.get())
         // @ts-ignore
-        ref.current.material.needsUpdate = true
+        meshRef.current.material.needsUpdate = true
       },
     })
   }, [api, springs.color])
@@ -63,6 +64,7 @@ function SkillBox({
         receiveShadow
         onPointerEnter={handlePointerEnter}
         onPointerLeave={() => updateColor(BASE_COLOR)}
+        ref={meshRef}
       >
         <boxGeometry args={[WIDTH, WIDTH, WIDTH]} />
         <meshPhysicalMaterial

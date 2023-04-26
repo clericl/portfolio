@@ -72,19 +72,21 @@ function SkillBox({
           blending={AdditiveBlending}
         />
       </mesh>
-      <Text
-        anchorX="center"
-        anchorY="top"
-        color="#0d196b"
-        font={fontFile}
-        textAlign="center"
-        maxWidth={5}
-        material={textMat}
-        fontSize={0.75}
-        position-y={-1.3}
-      >
-        {title}
-      </Text>
+      {isDesktop && (
+        <Text
+          anchorX="center"
+          anchorY="top"
+          color="#0d196b"
+          font={fontFile}
+          textAlign="center"
+          maxWidth={5}
+          material={textMat}
+          fontSize={0.75}
+          position-y={-1.3}
+        >
+          {title}
+        </Text>
+      )}
     </group>
   )
 }

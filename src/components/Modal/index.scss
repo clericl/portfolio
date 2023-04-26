@@ -21,6 +21,12 @@
     background-color: rgba(68, 68, 68, 0.8);
     position: relative;
     padding: 3rem;
+
+    @include media($break-sm) {
+      flex-direction: column;
+      padding: 0;
+      max-width: 90%;
+    }
   }
 
   .modal-details {
@@ -44,7 +50,9 @@
     }
 
     @include media($break-sm) {
-      
+      position: absolute;
+      width: 70%;
+      opacity: 0.3;
     }
   }
 
@@ -66,6 +74,8 @@
     @include flex(column, $align: left);
 
     flex: 1;
+    z-index: 2;
+    position: relative;
   }
 
   .modal-text {

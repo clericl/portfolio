@@ -35,13 +35,14 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
   useFrame(() => {
     if (stateCheck.current !== null) {
       if (activeSummon.current) {
-        portalsRef.current.visible = true
         swirlyApi.start({
           scale: 1,
           delay: 4000,
+          onStart() {
+            portalsRef.current.visible = true
+          },
         })
 
-        catRef.current.visible = true
         catApi.start({
           from: { positionZ: -20 },
           positionZ: 26,
@@ -50,9 +51,12 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
             duration: 5000,
             easing: easings.linear,
           },
+          onStart() {
+            catRef.current.visible = true
+          },
           onRest() {
             setActiveSummon('')
-          }
+          },
         })
       } else {
         swirlyApi.stop()

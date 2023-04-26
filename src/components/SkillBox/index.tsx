@@ -28,7 +28,7 @@ function SkillBox({
   const GAP = useMemo(() => isDesktop ? 0.65 : 3.3, [isDesktop])
   
   const multiplier = useMemo(() => Math.random(), [])
-  const basePositionY = useMemo(() => ((Math.floor(index / 4)) * (WIDTH + GAP) + ((WIDTH + GAP) / 2 + GAP)), [index])
+  const basePositionY = useMemo(() => ((Math.floor(index / 4)) * (WIDTH + GAP) + ((WIDTH + GAP) / 2 + GAP)), [index, GAP, WIDTH])
 
   useFrame(({ clock }) => {
     ref.current.position.y = basePositionY + (Math.sin(clock.getElapsedTime() * multiplier) / 6)

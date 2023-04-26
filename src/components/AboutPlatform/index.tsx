@@ -1,17 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { useFrame } from "@react-three/fiber"
-import { useSpring, animated } from "@react-spring/three"
+import {
+  useSpring,
+  // animated
+} from "@react-spring/three"
 import { PlatformProps } from "../Platform"
 import { Group } from "three"
 import { Season } from "../../utils/constants"
-import AutumnLeaves from "../AutumnLeaves"
+// import AutumnLeaves from "../AutumnLeaves"
 import Cat from "../Cat"
-import CherryBlossoms from "../CherryBlossoms"
+// import CherryBlossoms from "../CherryBlossoms"
 import Floor from "../Floor"
 import SeasonsBoard from "../SeasonsBoard"
-import SummerLights from "../SummerLights"
-import WinterSnowflakes from "../WinterSnowflakes"
+// import SummerLights from "../SummerLights"
+// import WinterSnowflakes from "../WinterSnowflakes"
 
 function AboutPlatform({ position }: Partial<PlatformProps>) {
   const [season, setSeason] = useState(Season.Spring)
@@ -19,7 +22,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
   const yPositionRef = useRef<number>(0)
   const { pathname } = useLocation()
 
-  const [springs, api] = useSpring(() => ({ x: 1, y: 1, z: 1 }))
+  const [, api] = useSpring(() => ({ x: 1, y: 1, z: 1 }))
 
   const switchSeasons = useCallback((newSeason: Season | undefined) => {
     let nextSeason = -1
@@ -63,12 +66,12 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
       <group ref={boardRef}>
         <SeasonsBoard open={pathname === '/about'} position-y={2.2} switchSeasons={switchSeasons} />
       </group>
-      <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
+      {/* <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
         <CherryBlossoms vanish={season !== Season.Spring} />
         <SummerLights vanish={season !== Season.Summer} />
         <AutumnLeaves vanish={season !== Season.Autumn} />
         <WinterSnowflakes vanish={season !== Season.Winter} />
-      </animated.group>
+      </animated.group> */}
       {pathname === '/about' && (
         <Cat
           position={[7.2, 0, 1.5]}

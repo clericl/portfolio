@@ -98,7 +98,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
                 getType={getActiveSummon}
               />
             </animated.group>
-            <mesh position-z={-6} rotation-x={Math.PI / 2}>
+            <mesh position-z={-5.9} rotation-x={Math.PI / 2}>
               <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
               <meshStandardMaterial
                 colorWrite={false}

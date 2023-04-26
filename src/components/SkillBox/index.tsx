@@ -1,20 +1,31 @@
 import { useCallback, useMemo, useRef } from "react"
 import { useSpring } from "@react-spring/three"
-import { useTexture } from "@react-three/drei"
-import { AdditiveBlending, Color, DoubleSide, Mesh } from "three"
-import { MeshProps, ThreeEvent, useFrame } from "@react-three/fiber"
+import { useTexture, Text } from "@react-three/drei"
+import { AdditiveBlending, Color, DoubleSide, Group } from "three"
+import { GroupProps, ThreeEvent, useFrame } from "@react-three/fiber"
 import { useMediaQuery } from "../../utils/useMediaQuery"
 
-const GAP = 0.65
+import fontFile from '../../assets/fonts/SourceCodePro-Regular.ttf'
+import useNeonMaterial from "../../utils/useNeonMaterial"
+
 const BASE_COLOR = '#9c9c9c'
 
-function SkillBox({ name, imagePath, index, onPointerEnter = () => {}, ...props }: SkillBoxProps) {
+function SkillBox({
+  name,
+  imagePath,
+  index,
+  title,
+  onPointerEnter = () => {},
+  ...props
+}: SkillBoxProps) {
   const image = useTexture(imagePath)
   const isDesktop = useMediaQuery('(min-width:768px)')
-  const ref = useRef<Mesh>(null!)
+  const ref = useRef<Group>(null!)
+  const textMat = useNeonMaterial(new Color(1, 1.25, 1.25), new Color(0.5, 0.5, 0.5))
   const [springs, api] = useSpring(() => ({ color: BASE_COLOR }))
 
-  const WIDTH = useMemo(() => isDesktop ? 2.5 : 4, [isDesktop])
+  const WIDTH = useMemo(() => isDesktop ? 2.5 : 2, [isDesktop])
+  const GAP = useMemo(() => isDesktop ? 0.65 : 3.3, [isDesktop])
   
   const multiplier = useMemo(() => Math.random(), [])
   const basePositionY = useMemo(() => ((Math.floor(index / 4)) * (WIDTH + GAP) + ((WIDTH + GAP) / 2 + GAP)), [index])
@@ -41,31 +52,48 @@ function SkillBox({ name, imagePath, index, onPointerEnter = () => {}, ...props 
   }, [onPointerEnter, updateColor])
 
   return (
-    <mesh
-      ref={ref}
-      castShadow
-      receiveShadow
-      onPointerEnter={handlePointerEnter}
-      onPointerLeave={() => updateColor(BASE_COLOR)}
+    <group
       position-x={((index % 4) - 1.5) * (WIDTH + GAP)}
       position-y={((Math.floor(index / 4)) * (WIDTH + GAP) + ((WIDTH + GAP) / 2 + (GAP / 2)))}
+      ref={ref}
       {...props}
     >
-      <boxGeometry args={[WIDTH, WIDTH, WIDTH]} />
-      <meshPhysicalMaterial
-        color={BASE_COLOR}
-        map={image}
-        side={DoubleSide}
-        blending={AdditiveBlending}
-      />
-    </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={() => updateColor(BASE_COLOR)}
+      >
+        <boxGeometry args={[WIDTH, WIDTH, WIDTH]} />
+        <meshPhysicalMaterial
+          color={BASE_COLOR}
+          map={image}
+          side={DoubleSide}
+          blending={AdditiveBlending}
+        />
+      </mesh>
+      <Text
+        anchorX="center"
+        anchorY="top"
+        color="#0d196b"
+        font={fontFile}
+        textAlign="center"
+        maxWidth={5}
+        material={textMat}
+        fontSize={0.75}
+        position-y={-1.3}
+      >
+        {title}
+      </Text>
+    </group>
   )
 }
 
-interface SkillBoxProps extends MeshProps {
+interface SkillBoxProps extends GroupProps {
   name: string
   imagePath: string
   index: number
+  title: string
   activate?: boolean
 }
 

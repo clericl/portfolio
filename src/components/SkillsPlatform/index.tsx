@@ -91,6 +91,7 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
       name={name}
       imagePath={imagePath}
       index={index}
+      title={title}
       onPointerEnter={() => setBoxText(title)}
     />
   )), [setBoxText])
@@ -105,7 +106,7 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
 
   return (
     <group position={position}>
-      <group position-x={isDesktop ? -5 : 0}>
+      <group position-x={isDesktop ? -5 : 0} position-y={isDesktop ? 0 : -3}>
         {boxRenders}
       </group>
       {isDesktop && (

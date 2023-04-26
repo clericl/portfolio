@@ -42,6 +42,10 @@
     video {
       width: 100%;
     }
+
+    @include media($break-sm) {
+      
+    }
   }
 
   .modal-title {
@@ -52,6 +56,10 @@
     margin: 0;
     line-height: 1;
     width: 100%;
+
+    @include media($break-sm) {
+      font-size: 2rem;
+    }
   }
 
   .body {
@@ -66,6 +74,10 @@
 
     a {
       color: aqua;
+    }
+
+    @include media($break-sm) {
+      font-size: 1rem;
     }
   }
 

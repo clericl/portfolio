@@ -72,7 +72,7 @@ function SkillBox({
           blending={AdditiveBlending}
         />
       </mesh>
-      {isDesktop && (
+      {!isDesktop && (
         <Text
           anchorX="center"
           anchorY="top"

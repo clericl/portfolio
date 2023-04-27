@@ -6,6 +6,7 @@ import {
   STAIR_HEIGHT,
   SPACE_BETWEEN_STAIRS,
 } from "../../utils/constants"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 
 function Stair({ hasSphere, rotationY, positionY }: StairProps) {
@@ -28,6 +29,8 @@ function Stair({ hasSphere, rotationY, positionY }: StairProps) {
 function Stairs({
   position = [0, 0, 0],
 }: StairsProps) {
+  const isDesktop = useMediaQuery('(min-width:768px)')
+
   const rendered = useMemo(() => {
     const stairs = []
     const count = STAIRS_PER_ROTATION * NUMBER_OF_ROTATIONS
@@ -39,7 +42,7 @@ function Stairs({
       stairs.push(
         <Stair
           key={i}
-          hasSphere={(i % (STAIRS_PER_ROTATION / 2)) > (STAIRS_PER_ROTATION / 4)}
+          hasSphere={isDesktop ? (i % (STAIRS_PER_ROTATION / 2)) > (STAIRS_PER_ROTATION / 4) : true}
           positionY={positionY}
           rotationY={rotationY}
         />
@@ -47,7 +50,7 @@ function Stairs({
     }
 
     return stairs
-  }, [])
+  }, [isDesktop])
 
   return (
     <group position={position}>

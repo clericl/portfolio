@@ -8,51 +8,83 @@ import { PlatformProps } from "../Platform"
 import Floor from "../Floor"
 import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
   const boxRef = useRef<Mesh>(null!)
   const iridescentMaterial = useIridescentMaterial('#a0c6db')
+  const isDesktop = useMediaQuery('(min-width:768px)')
   const { pathname } = useLocation()
   
   useFrame((_, delta) => {
-    boxRef.current.rotation.x += delta * 3
-    boxRef.current.rotation.y += delta * 3
-    boxRef.current.rotation.z += delta * 3
+    if (boxRef.current) {
+      boxRef.current.rotation.x += delta * 3
+      boxRef.current.rotation.y += delta * 3
+      boxRef.current.rotation.z += delta * 3
+    }
   })
   
   return (
     <group position={position} position-x={0}>
-      <Center disableY disableZ>
-        <Text3D
-          font="/hubballi.json"
-          position={[0, 7, -1]}
-          scale={[1, 1, 2]}
-          size={4}
-          material={iridescentMaterial}
-        >
-          ERIC  LIANG
-        </Text3D>
+      <Center
+        disableY
+        disableZ
+      >
+        {isDesktop ? (
+          <Text3D
+            font="/hubballi.json"
+            position={[0, 7, -1]}
+            scale={[1, 1, 2]}
+            size={4}
+            material={iridescentMaterial}
+          >
+            ERIC  LIANG
+          </Text3D>
+        ) : (
+          <>
+            <Text3D
+              font="/hubballi.json"
+              position={[3.9, 18, 0]}
+              scale={[1, 1, 2]}
+              size={8}
+              material={iridescentMaterial}
+            >
+              ERIC
+            </Text3D>
+            <Text3D
+              font="/hubballi.json"
+              position={[0, 10, 0]}
+              scale={[1, 1, 2]}
+              size={8}
+              material={iridescentMaterial}
+            >
+              LIANG
+            </Text3D>
+          </>
+        )}
       </Center>
-      <Box
-        args={[0.5, 0.5, 0.5]}
-        position={[-1.8, 8.5, -1]}
-        ref={boxRef}
-        material={iridescentMaterial}
-      />
+      {isDesktop && (
+        <Box
+          args={[0.5, 0.5, 0.5]}
+          position={[-1.8, 8.5, -1]}
+          ref={boxRef}
+          material={iridescentMaterial}
+        />
+      )}
       <Center disableY disableZ>
         <Text3D
           // @ts-ignore
           font="/hubballi.json"
-          position={[0, 4.5, -1]}
+          position={[0, isDesktop ? 4.5 : 5, isDesktop ? -1 : 0]}
           scale={[1, 1, 2]}
-          size={1.8}
+          size={isDesktop ? 1.8 : 3}
           letterSpacing={-0.1}
           material={iridescentMaterial}
         >
-          web developer
+          WEB DEVELOPER
         </Text3D>
       </Center>
-      {pathname === '/' && (
+      {pathname === '/' && isDesktop && (
         <Cat
           position={[7.6, 0.1, 2.5]}
           scale={[2.1, 2.1, 2.1]}

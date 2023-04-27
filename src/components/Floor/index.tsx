@@ -13,7 +13,9 @@ function Floor({ type = FloorType.Secondary }: FloorProps) {
   const barRef = useRef<Mesh>(null!)
 
   useFrame(({ clock }) => {
-    barRef.current.rotation.x = -Math.sin(clock.getElapsedTime())
+    if (barRef.current) {
+      barRef.current.rotation.x = -Math.sin(clock.getElapsedTime())
+    }
   })
 
   return (
@@ -41,9 +43,9 @@ function Floor({ type = FloorType.Secondary }: FloorProps) {
           castShadow
           material={iridescentMaterial}
           ref={barRef}
-          position-y={1.5}
+          position-y={2}
         >
-          <boxGeometry args={[22.5, 0.25, 0.25]} />
+          <boxGeometry args={[20, 0.25, 0.25]} />
         </mesh>
       )}
       {isDesktop && (

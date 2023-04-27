@@ -44,18 +44,18 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           <>
             <Text3D
               font="/hubballi.json"
-              position={[3.9, 18, 0]}
+              position={[3.5, 18, 0]}
               scale={[1, 1, 2]}
-              size={8}
+              size={7}
               material={iridescentMaterial}
             >
               ERIC
             </Text3D>
             <Text3D
               font="/hubballi.json"
-              position={[0, 10, 0]}
+              position={[0, 11, 0]}
               scale={[1, 1, 2]}
-              size={8}
+              size={7}
               material={iridescentMaterial}
             >
               LIANG
@@ -75,9 +75,13 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
         <Text3D
           // @ts-ignore
           font="/hubballi.json"
-          position={[0, isDesktop ? 4.5 : 5, isDesktop ? -1 : 0]}
+          position={[
+            0,
+            isDesktop ? 4.5 : 5.5,
+            isDesktop ? -1 : 0
+          ]}
           scale={[1, 1, 2]}
-          size={isDesktop ? 1.8 : 3}
+          size={isDesktop ? 1.8 : 2.5}
           letterSpacing={-0.1}
           material={iridescentMaterial}
         >

@@ -8,10 +8,12 @@ import { PlatformProps } from "../Platform"
 import Floor from "../Floor"
 import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
   const boxRef = useRef<Mesh>(null!)
   const iridescentMaterial = useIridescentMaterial('#a0c6db')
+  const isDesktop = useMediaQuery('(min-width:768px)')
   const { pathname } = useLocation()
   
   useFrame((_, delta) => {
@@ -52,7 +54,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           web developer
         </Text3D>
       </Center>
-      {pathname === '/' && (
+      {pathname === '/' && isDesktop && (
         <Cat
           position={[7.6, 0.1, 2.5]}
           scale={[2.1, 2.1, 2.1]}

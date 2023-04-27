@@ -6,10 +6,12 @@ import Cat from "../Cat";
 import Frames from "../Frames";
 import Floor from "../Floor";
 import useNeonMaterial from "../../utils/useNeonMaterial";
+import { useMediaQuery } from "../../utils/useMediaQuery";
 
 function WorkPlatform({ position }: Partial<PlatformProps>) {
   const { pathname } = useLocation()
   const blueNeon = useNeonMaterial('#332f91', new Color(0.25, 0.25, 0.75))
+  const isDesktop = useMediaQuery('(min-width:768px)')
 
   return (
     <group position={position} rotation-y={Math.PI}>
@@ -23,7 +25,7 @@ function WorkPlatform({ position }: Partial<PlatformProps>) {
       >
         SELECTED WORK
       </Text3D>
-      {pathname === '/work' && (
+      {pathname === '/work' && isDesktop && (
         <Cat
           position-x={8.5}
           scale={[2.1, 2.1, 2.1]}

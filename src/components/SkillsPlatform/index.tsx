@@ -121,7 +121,7 @@ function SkillsPlatform({ position }: Partial<PlatformProps>) {
         </MessageBoard>
       )}
       <group ref={catRef} position-y={1} rotation-x={-Math.PI / 8}>
-        {pathname === '/skills' && (
+        {pathname === '/skills' && isDesktop && (
           <group>
             <mesh position={[20, 1, 0]} onPointerEnter={() => setBoxText('Cat')}>
               <boxGeometry args={[4, 4, 8]} />

@@ -1,12 +1,21 @@
 import { MeshTransmissionMaterial, MeshReflectorMaterial } from "@react-three/drei"
 import { FloorType, STAIR_HEIGHT } from "../../utils/constants"
 import NeonFrame from "../NeonFrame"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 
 function Floor({ type = FloorType.Secondary }: FloorProps) {
+  const isDesktop = useMediaQuery('(min-width:768px)')
+  
   return (
     <group>
       <mesh rotation-x={-Math.PI / 2} receiveShadow castShadow>
-        <boxGeometry args={[15 * (type === FloorType.Primary ? 2 : 1.5), 5 * (type === FloorType.Primary ? 2 : 1.5), STAIR_HEIGHT]} />
+        <boxGeometry
+          args={[
+            15 * (type === FloorType.Primary ? 2 : 1.5),
+            isDesktop ? STAIR_HEIGHT : (5 * (type === FloorType.Primary ? 2 : 1.5)),
+            STAIR_HEIGHT
+          ]}
+        />
         <MeshTransmissionMaterial
           anisotropy={1}
           color="#62749e"

@@ -14,10 +14,10 @@ const staircaseHeight = SPACE_BETWEEN_STAIRS * NUMBER_OF_ROTATIONS * STAIRS_PER_
 
 export const PLATFORM_TITLES = [
   '/',
-  '/about',
-  '/skills',
-  '/work',
-  '/contact',
+  // '/about',
+  // '/skills',
+  // '/work',
+  // '/contact',
 ]
 
 function Staircase() {
@@ -28,15 +28,15 @@ function Staircase() {
   }))
 
   const location = useLocation()
-  // const platformsRendered = useMemo(() => (
-  //   PLATFORM_TITLES.map((platformTitle, index) => (
-  //     <Platform
-  //       key={platformTitle}
-  //       title={platformTitle}
-  //       position={[4 * (index % 2 === 0 ? -1 : 1), staircaseHeight - (platformHeightBase * index), 0]}
-  //     />
-  //   ))
-  // ), [])
+  const platformsRendered = useMemo(() => (
+    PLATFORM_TITLES.map((platformTitle, index) => (
+      <Platform
+        key={platformTitle}
+        title={platformTitle}
+        position={[4 * (index % 2 === 0 ? -1 : 1), staircaseHeight - (platformHeightBase * index), 0]}
+      />
+    ))
+  ), [])
 
   useEffect(() => {
     api.start({
@@ -68,7 +68,7 @@ function Staircase() {
     >
       <group position={[0, -staircaseHeight - 5, 0]}>
         <Stairs height={staircaseHeight} position={[0, 0, 0]} />
-        {/* {platformsRendered} */}
+        {platformsRendered}
       </group>
     </animated.group>
   )

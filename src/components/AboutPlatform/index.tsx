@@ -15,12 +15,15 @@ import Floor from "../Floor"
 import SeasonsBoard from "../SeasonsBoard"
 import SummerLights from "../SummerLights"
 import WinterSnowflakes from "../WinterSnowflakes"
+import isIosSafari from "../../utils/isIosSafari"
 
 function AboutPlatform({ position }: Partial<PlatformProps>) {
   const [season, setSeason] = useState(Season.Spring)
   const boardRef = useRef<Group>(null!)
   const yPositionRef = useRef<number>(0)
   const { pathname } = useLocation()
+
+  const iosSafari = isIosSafari()
 
   const [springs, api] = useSpring(() => ({ x: 1, y: 1, z: 1 }))
 
@@ -66,12 +69,14 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
       <group ref={boardRef}>
         <SeasonsBoard open={pathname === '/about'} position-y={2.2} switchSeasons={switchSeasons} />
       </group>
-      <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
-        <CherryBlossoms vanish={season !== Season.Spring} />
-        <SummerLights vanish={season !== Season.Summer} />
-        <AutumnLeaves vanish={season !== Season.Autumn} />
-        <WinterSnowflakes vanish={season !== Season.Winter} />
-      </animated.group>
+      {!iosSafari && (
+        <animated.group scale-x={springs.x} scale-y={springs.y} scale-z={springs.z}>
+          <CherryBlossoms vanish={season !== Season.Spring} />
+          <SummerLights vanish={season !== Season.Summer} />
+          <AutumnLeaves vanish={season !== Season.Autumn} />
+          <WinterSnowflakes vanish={season !== Season.Winter} />
+        </animated.group>
+      )}
       {pathname === '/about' && (
         <Cat
           position={[7.2, 0, 1.5]}

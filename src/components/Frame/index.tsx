@@ -60,7 +60,7 @@ function Frame({
         material-emissive={springs.emissive}
       >
         <boxGeometry args={[1.05, GOLDEN_RATIO + 0.05, 0.025]} />
-        <mesh position-z={0.026}>
+        <mesh position-z={0.029}>
           <planeGeometry args={[1, GOLDEN_RATIO]} />
           <meshBasicMaterial map={texture} />
         </mesh>

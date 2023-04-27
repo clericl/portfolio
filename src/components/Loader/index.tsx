@@ -21,7 +21,7 @@ function Loader() {
           </div>
         </div>
         <div className="simple">
-          <a href="/EricLiangResume.pdf" download="EricLiangResume.pdf">
+          <a href="/EricLiangResume.pdf">
             View printable version
           </a>
         </div>

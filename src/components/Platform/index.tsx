@@ -1,13 +1,13 @@
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 import { Vector3 } from "@react-three/fiber"
 import AboutPlatform from "../AboutPlatform"
+import ContactPlatform from "../ContactPlatform"
 import HomePlatform from "../HomePlatform"
 import Floor from "../Floor"
+import MobileBubble from "../MobileBubble"
 import SkillsPlatform from "../SkillsPlatform"
 import WorkPlatform from "../WorkPlatform"
-import ContactPlatform from "../ContactPlatform"
-import { useMediaQuery } from "../../utils/useMediaQuery"
-import MobileBubble from "../MobileBubble"
 
 function Platform({ title, ...props }: PlatformProps) {
   const isDesktop = useMediaQuery('(min-width:768px)')
@@ -49,10 +49,6 @@ function Platform({ title, ...props }: PlatformProps) {
         return MobileBubble
     }
   }, [title])
-
-  const openPage = useCallback(() => {
-    console.log('clicked')
-  }, [])
 
   return (
     isDesktop ? (

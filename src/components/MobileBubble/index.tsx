@@ -1,9 +1,8 @@
-import { MouseEventHandler, useCallback, useEffect, useMemo, useRef } from 'react'
-import { useSpring, animated, config } from '@react-spring/three'
-import { Center, MeshTransmissionMaterial, Text3D, useCursor, useTexture } from '@react-three/drei'
-import { Color, DoubleSide, Group, Mesh } from 'three'
-import { GOLD_COLOR, GOLD_EMISSIVE, ICON_CIRCLE_RADIUS } from '../../utils/constants'
-import { GroupProps, ThreeEvent, useFrame } from '@react-three/fiber'
+import { useCallback, useContext, useRef } from 'react'
+import { Center, MeshTransmissionMaterial, Text3D } from '@react-three/drei'
+import { Group, Mesh } from 'three'
+import { GroupProps, useFrame } from '@react-three/fiber'
+import { ModalContext } from '../Modal'
 
 const DATA: BubbleData = {
   about: {
@@ -21,13 +20,14 @@ const DATA: BubbleData = {
 }
 
 function MobileBubble({ bubbleId = '', ...props }: MobileBubbleProps) {
+  const { openModal } = useContext(ModalContext)
   const groupRef = useRef<Group>(null!)
   const innerRef = useRef<Mesh>(null!)
   const rand = useRef<number>(Math.random() + 0.5)
 
-  // const handleClick = useCallback(() => {
-  //   openPage()
-  // }, [openPage])
+  const handleClick = useCallback(() => {
+    openModal(bubbleId)
+  }, [bubbleId, openModal])
 
   useFrame(({ clock }) => {
     innerRef.current.position.y = Math.sin(clock.elapsedTime * rand.current)
@@ -35,7 +35,7 @@ function MobileBubble({ bubbleId = '', ...props }: MobileBubbleProps) {
 
   return (
     <group
-      // onClick={openPage}
+      onClick={handleClick}
       ref={groupRef}
       {...props}
     >
@@ -72,7 +72,6 @@ function MobileBubble({ bubbleId = '', ...props }: MobileBubbleProps) {
 
 interface MobileBubbleProps extends GroupProps {
   bubbleId?: string
-  // openPage: ThreeEvent<MouseEventHandler>
 }
 
 type BubbleData = {

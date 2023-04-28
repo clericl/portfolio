@@ -23,6 +23,7 @@ import linkedin from '../../assets/contact/linkedin.png'
 import resume from '../../assets/contact/resume.png'
 
 import './index.scss'
+import { ICONS } from "../ContactIcons";
 
 type Modals = {
   [key: string]: {
@@ -188,8 +189,7 @@ function Modal() {
           I'm currently open to work! I'm especially interested in building immersive web experiences to highlight cutting-edge, impactful, and democratized technologies.
         </p>
           <div className="block">
-
-            <div className="modal-link-over-banner half" onClick={() => openModal('moethennessy')}>
+            <div className="modal-link-over-banner half" onClick={() => ICONS[0].invoke()}>
               <img
                 className="modal-banner"
                 src={email}
@@ -199,7 +199,7 @@ function Modal() {
                 Email
               </p>
             </div>
-            <div className="modal-link-over-banner half" onClick={() => openModal('kennethcole')}>
+            <div className="modal-link-over-banner half" onClick={() => ICONS[1].invoke()}>
               <img
                 className="modal-banner"
                 src={github}
@@ -209,7 +209,7 @@ function Modal() {
                 GitHub
               </p>
             </div>
-            <div className="modal-link-over-banner half" onClick={() => openModal('rosewrapped')}>
+            <div className="modal-link-over-banner half" onClick={() => ICONS[2].invoke()}>
               <img
                 className="modal-banner"
                 src={linkedin}
@@ -219,7 +219,7 @@ function Modal() {
                 LinkedIn
               </p>
             </div>
-            <div className="modal-link-over-banner half" onClick={() => openModal('arbor')}>
+            <div className="modal-link-over-banner half" onClick={() => ICONS[3].invoke()}>
               <img
                 className="modal-banner"
                 src={resume}

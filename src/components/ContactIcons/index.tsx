@@ -10,7 +10,7 @@ import github from '../../assets/contact/github.png'
 import linkedin from '../../assets/contact/linkedin.png'
 import resume from '../../assets/contact/resume.png'
 
-const ICONS: IconProps[] = [
+export const ICONS: IconProps[] = [
   {
     name: 'email',
     image: email,

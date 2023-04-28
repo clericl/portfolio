@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react"
 import { useSpring, animated, config } from "@react-spring/three"
 import { useLocation } from "react-router-dom"
+import { useMediaQuery } from "../../utils/useMediaQuery"
 import {
   NUMBER_OF_ROTATIONS,
   STAIRS_PER_ROTATION,
@@ -14,17 +15,17 @@ const staircaseHeight = SPACE_BETWEEN_STAIRS * NUMBER_OF_ROTATIONS * STAIRS_PER_
 
 export const PLATFORM_TITLES = [
   '/',
-  // '/about',
-  // '/skills',
-  // '/work',
-  // '/contact',
+  '/about',
+  '/skills',
+  '/work',
+  '/contact',
 ]
 
 function Staircase() {
+  const isDesktop = useMediaQuery('(min-width:768px)')
   const [springs, api] = useSpring(() => ({
-    scale: 0.1,
-    rotationY: -Math.PI / 2,
-    positionY: staircaseHeight * 0.1,
+    rotationY: 0,
+    positionY: 0,
   }))
 
   const location = useLocation()
@@ -34,17 +35,10 @@ function Staircase() {
         key={platformTitle}
         title={platformTitle}
         position={[4 * (index % 2 === 0 ? -1 : 1), staircaseHeight - (platformHeightBase * index), 0]}
+        rotation-y={isDesktop ? 0 : (Math.PI * index)}
       />
     ))
-  ), [])
-
-  useEffect(() => {
-    api.start({
-      scale: 1,
-      rotationY: 0,
-      positionY: 0,
-    })
-  }, [api])
+  ), [isDesktop])
 
   useEffect(() => {
     const platformIndex = PLATFORM_TITLES.findIndex((title) => title === location.pathname)
@@ -56,15 +50,12 @@ function Staircase() {
         config: config.molasses,
       })
     }
-  }, [api, location.pathname])
+  }, [api, isDesktop, location.pathname])
 
   return (
     <animated.group
       position-y={springs.positionY}
       rotation-y={springs.rotationY}
-      scale-x={springs.scale}
-      scale-y={springs.scale}
-      scale-z={springs.scale}
     >
       <group position={[0, -staircaseHeight - 5, 0]}>
         <Stairs height={staircaseHeight} position={[0, 0, 0]} />

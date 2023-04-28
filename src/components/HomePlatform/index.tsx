@@ -45,7 +45,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
             <Text3D
               font="/hubballi.json"
               position={[3.5, 18, 0]}
-              scale={[1, 1, 2]}
+              scale={[1, 1, 4]}
               size={7}
               material={iridescentMaterial}
             >
@@ -54,7 +54,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
             <Text3D
               font="/hubballi.json"
               position={[0, 11, 0]}
-              scale={[1, 1, 2]}
+              scale={[1, 1, 4]}
               size={7}
               material={iridescentMaterial}
             >
@@ -80,7 +80,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
             isDesktop ? 4.5 : 5.5,
             isDesktop ? -1 : 0
           ]}
-          scale={[1, 1, 2]}
+          scale={[1, 1, isDesktop ? 2 : 4]}
           size={isDesktop ? 1.8 : 2.5}
           letterSpacing={-0.1}
           material={iridescentMaterial}

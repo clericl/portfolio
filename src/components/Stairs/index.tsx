@@ -42,7 +42,7 @@ function Stairs({
       stairs.push(
         <Stair
           key={i}
-          hasSphere={isDesktop ? (i % (STAIRS_PER_ROTATION / 2)) > (STAIRS_PER_ROTATION / 4) : true}
+          hasSphere={isDesktop ? (i % (STAIRS_PER_ROTATION / 2)) > (STAIRS_PER_ROTATION / 4) : false}
           positionY={positionY}
           rotationY={rotationY}
         />

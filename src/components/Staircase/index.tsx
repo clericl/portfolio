@@ -7,10 +7,8 @@ import {
   STAIRS_PER_ROTATION,
   SPACE_BETWEEN_STAIRS,
 } from "../../utils/constants"
-import Floor from "../Floor"
 import Platform from "../Platform"
 import Stairs from "../Stairs"
-import Cat from "../Cat"
 
 const platformHeightBase = (SPACE_BETWEEN_STAIRS * STAIRS_PER_ROTATION) / NUMBER_OF_ROTATIONS
 const staircaseHeight = SPACE_BETWEEN_STAIRS * NUMBER_OF_ROTATIONS * STAIRS_PER_ROTATION
@@ -66,18 +64,6 @@ function Staircase() {
       <group position={[0, -staircaseHeight - 5, 0]}>
         <Stairs height={staircaseHeight} position={[0, 0, 0]} />
         {platformsRendered}
-        {!isDesktop && (
-          <group position-y={-20}>
-            <Cat
-              position={[5, 0, -0.4]}
-              scale={[6, 6, 6]}
-              rotation-y={-Math.PI / 8 * 2.75}
-              pathname="/about"
-              castShadow
-            />
-            <Floor />
-          </group>
-        )}
       </group>
     </animated.group>
   )

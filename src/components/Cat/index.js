@@ -16,9 +16,6 @@ export default function Cat(props) {
   const { pathname } = useLocation()
   const idleCount = useRef(0)
 
-  const pathnameOverride = props.pathname || pathname
-  console.log(pathnameOverride)
-
   const material = useMemo(() => {
     const mat = materials.material
     mat.setValues(props.stencil || {})
@@ -32,7 +29,7 @@ export default function Cat(props) {
     let timeScale = TIME_SCALE
     const dieRoll = Math.floor(Math.random() * idleCount.current)
 
-    if (pathnameOverride === '/') {
+    if (pathname === '/') {
       switch (dieRoll) {
         case 1:
         default: {
@@ -67,7 +64,7 @@ export default function Cat(props) {
         }
       }
       nextAction.clampWhenFinished = false
-    } else if (pathnameOverride === '/about') {
+    } else if (pathname === '/about') {
       if (!e) {
         nextAction = actions['Arm_Cat|Lie_belly_start']
         timeScale = TIME_SCALE / 1.5        
@@ -94,10 +91,10 @@ export default function Cat(props) {
         }
       }
       nextAction.clampWhenFinished = true
-    } else if (pathnameOverride === '/skills') {
+    } else if (pathname === '/skills') {
       nextAction = actions['Arm_Cat|Swim_Idle']
       timeScale = TIME_SCALE / 1.5
-    } else if (pathnameOverride === '/work') {
+    } else if (pathname === '/work') {
       if (!e) {
         nextAction = actions['Arm_Cat|Lie_side_start']
         timeScale = TIME_SCALE / 1.5        
@@ -105,7 +102,7 @@ export default function Cat(props) {
         nextAction = actions['Arm_Cat|Lie_side_loop_1']
       }
       nextAction.clampWhenFinished = true
-    } else if (pathnameOverride === '/contact') {
+    } else if (pathname === '/contact') {
       nextAction = actions['Arm_Cat|JumpAir_up']
     } else {
       nextAction = actions['Arm_Cat|Idle_1']
@@ -115,7 +112,7 @@ export default function Cat(props) {
       .setEffectiveTimeScale(timeScale)
       .setLoop(LoopOnce, 1)
       .play()
-  }, [actions, pathnameOverride])
+  }, [actions, pathname])
 
   useEffect(() => {
     mixer.addEventListener('finished', handleNextClip)

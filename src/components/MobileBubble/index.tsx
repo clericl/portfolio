@@ -46,8 +46,8 @@ function MobileBubble({ bubbleId = '', ...props }: MobileBubbleProps) {
           temporalDistortion={0}
           resolution={1024}
           thickness={0.1}
-          anisotropy={6}
-          chromaticAberration={0.9}
+          anisotropy={8}
+          chromaticAberration={8}
           transparent
           opacity={0.2}
           roughness={0.5}

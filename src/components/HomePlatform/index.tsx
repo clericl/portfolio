@@ -9,7 +9,6 @@ import Floor from "../Floor"
 import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 import { useMediaQuery } from "../../utils/useMediaQuery"
-import Divider from "../Divider"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
   const boxRef = useRef<Mesh>(null!)
@@ -45,7 +44,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           <>
             <Text3D
               font="/hubballi.json"
-              position={[3.5, 12, 0]}
+              position={[3.5, 18, 0]}
               scale={[1, 1, 4]}
               size={7}
               material={iridescentMaterial}
@@ -54,7 +53,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
             </Text3D>
             <Text3D
               font="/hubballi.json"
-              position={[0, 5, 0]}
+              position={[0, 11, 0]}
               scale={[1, 1, 4]}
               size={7}
               material={iridescentMaterial}
@@ -78,7 +77,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           font="/hubballi.json"
           position={[
             0,
-            isDesktop ? 4.5 : 1,
+            isDesktop ? 4.5 : 5.5,
             isDesktop ? -1 : 0
           ]}
           scale={[1, 1, isDesktop ? 2 : 4]}
@@ -97,11 +96,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           castShadow
         />
       )}
-      {isDesktop ? (
-        <Floor type={FloorType.Primary} />
-      ) : (
-        <Divider position-y={-5} />
-      )}
+      <Floor type={FloorType.Primary} />
     </group>
   )
 }

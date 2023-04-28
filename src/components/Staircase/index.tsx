@@ -7,6 +7,7 @@ import {
   STAIRS_PER_ROTATION,
   SPACE_BETWEEN_STAIRS,
 } from "../../utils/constants"
+import Floor from "../Floor"
 import Platform from "../Platform"
 import Stairs from "../Stairs"
 
@@ -34,7 +35,11 @@ function Staircase() {
       <Platform
         key={platformTitle}
         title={platformTitle}
-        position={[4 * (index % 2 === 0 ? -1 : 1), staircaseHeight - (platformHeightBase * index), 0]}
+        position={[
+          4 * (index % 2 === 0 ? -1 : 1),
+          staircaseHeight - (platformHeightBase * index) + (isDesktop ? 0 : 6),
+          0
+        ]}
         rotation-y={isDesktop ? 0 : (Math.PI * index)}
       />
     ))
@@ -60,6 +65,11 @@ function Staircase() {
       <group position={[0, -staircaseHeight - 5, 0]}>
         <Stairs height={staircaseHeight} position={[0, 0, 0]} />
         {platformsRendered}
+        {/* {!isDesktop && (
+          <group position-y={-12}>
+            <Floor />
+          </group>
+        )} */}
       </group>
     </animated.group>
   )
